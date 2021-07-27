@@ -1,7 +1,7 @@
 {
-	"name": "Progressive Web App Template",
-	"short_name": "PWA Template",
-	"description": "A template for progressive web apps",
+	"name": "Parallel Reservoirs",
+	"short_name": "ParaRes",
+	"description": "Reservoirs in parallel",
 	"icons": [
 		{
 			"src": "/images/icon-192.png",
