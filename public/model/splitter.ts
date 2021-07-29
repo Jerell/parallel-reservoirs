@@ -122,7 +122,6 @@ export default class Splitter {
 				break
 			}
 		}
-		console.log('failure')
 		return mid
 	}
 }
