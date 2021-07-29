@@ -79,9 +79,20 @@ const generateNetwork = () => {
 	const parse = (root) => {
 		while (root.source) root = root.source
 
-		const record = (n) => {
-			console.log(n)
-			const componentType = n.constructor.name
+		const record = (n: PipeSeg | Splitter) => {
+			const componentValue = n.value
+			let label = ''
+			switch (componentValue) {
+				case 0:
+					label = 'PipeSeg'
+					break
+				case 1:
+					label = 'Splitter'
+					break
+				default:
+					console.log(componentValue)
+					label = 'unknown'
+			}
 			const { x, y } = n.properties.start
 
 			const elemAtXY = (xpos = x, ypos = y) =>
@@ -92,12 +103,10 @@ const generateNetwork = () => {
 			const XYelem = elemAtXY()
 
 			if (!XYelem) {
-				const newNode = createNode(x, y, componentType)
+				const newNode = createNode(x, y, label)
 				if (n.source) {
 					const { x: sx, y: sy } = n.source.properties.start
-					console.log(sx, sy, '!', x, y)
 					const sourceElem = elemAtXY(sx, sy)
-					console.log(sourceElem.data.id, '!!', newNode.data.id)
 					createEdge(sourceElem.data.id, newNode.data.id)
 				}
 			}

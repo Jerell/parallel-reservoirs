@@ -24,6 +24,7 @@ export default class PipeSeg {
 	}
 	_source: PipeSeg | Splitter | null
 	destination: PipeSeg | Splitter | null
+	value: number
 
 	constructor(props: IPipeSeg) {
 		this.diameters = props.diameters
@@ -39,6 +40,7 @@ export default class PipeSeg {
 		}
 		this._source = null
 		this.destination = null
+		this.value = 0
 	}
 
 	get source() {

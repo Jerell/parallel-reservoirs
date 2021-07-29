@@ -16,6 +16,7 @@ export default class Splitter {
 			pressure: number
 		}
 	}
+	value: number
 
 	constructor(props: ISplitter) {
 		this.source = props.source
@@ -37,6 +38,7 @@ export default class Splitter {
 		props.destinations.forEach((d) => this.addDestination(d))
 
 		this.source.setDestination(this)
+		this.value = 1
 	}
 
 	addDestination(dest: PipeSeg) {
