@@ -1,7 +1,7 @@
 import Page from '@/components/page'
 import dynamic from 'next/dynamic'
 
-const Cyto = dynamic(() => import('@/components/cyto'), { ssr: false })
+const Cyto = dynamic(() => import('@/components/vis/cyto/cyto'), { ssr: false })
 
 const P2 = () => (
 	<Page>
