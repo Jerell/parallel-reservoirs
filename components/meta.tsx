@@ -21,6 +21,10 @@ const Meta = () => (
 		<link rel='apple-touch-icon' href='/images/icon-maskable-512.png' />
 		<link rel='icon' type='image/png' href='/images/favicon.png' />
 		<link rel='manifest' href='/manifest.json' />
+		<link
+			rel='stylesheet'
+			href='https://fonts.googleapis.com/icon?family=Material+Icons'
+		/>
 	</Head>
 )
 
