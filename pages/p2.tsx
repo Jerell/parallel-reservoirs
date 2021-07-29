@@ -1,14 +1,21 @@
 import Page from '@/components/page'
+import dynamic from 'next/dynamic'
+
+const Cyto = dynamic(() => import('@/components/cyto'), { ssr: false })
 
 const P2 = () => (
 	<Page>
 		<section className='mt-20'>
-			<h2 className='text-xl font-semibold'>P2</h2>
-
+			<h2 className='text-xl font-semibold'>
+				Cytoscape is a fully featured graph library for JS
+			</h2>
 			<p className='mt-2 text-gray-600 dark:text-gray-400'>
-				This web app template had secondary pages. I imagine we'll have
-				something to put here eventually.
+				I'm using it to create the visualisation below instead of writing my own
+				from scratch.
 			</p>
+		</section>
+		<section>
+			<Cyto />
 		</section>
 	</Page>
 )
