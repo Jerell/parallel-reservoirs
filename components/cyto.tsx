@@ -1,6 +1,11 @@
 import CytoscapeComponent from 'react-cytoscapejs'
 import PipeSeg from '@/public/model/pipeSeg'
 import Splitter from '@/public/model/splitter'
+import { useRef, useEffect } from 'react'
+
+const cytoscape = require('cytoscape')
+const nodeHtmlLabel = require('cytoscape-node-html-label')
+nodeHtmlLabel(cytoscape) // register extension
 
 const testNetwork = () => {
 	const sourcePipe = new PipeSeg({
@@ -32,8 +37,9 @@ const generateNetwork = () => {
 	const createNode = (x, y) => {
 		const id = nextID()
 		const n = {
-			data: { id: `${id}`, label: `Node ${id}` },
+			data: { id: `${id}`, label: `Node ${id}`, icon: '&#xE876;' },
 			position: { x, y },
+			classes: 'nodeIcon',
 		}
 		elements.push(n)
 		return n
@@ -70,24 +76,45 @@ const generateNetwork = () => {
 	return elements
 }
 
-// const elements = [
-// 	{ data: { id: 'one', label: 'Node 1' }, position: { x: 0, y: 0 } },
-// 	{ data: { id: 'two', label: 'Node 2' }, position: { x: 100, y: 0 } },
-// 	{ data: { id: 'three', label: 'Node 3' }, position: { x: 100, y: 0 } },
-// 	{ data: { source: 'one', target: 'two', label: 'Edge from Node1 to Node2' } },
-// 	{
-// 		data: { source: 'two', target: 'three', label: 'Edge from Node2 to Node3' },
-// 	},
-// ]
-
 const layout = { name: 'breadthfirst' }
 
 const Cyto = (props) => {
+	const cyRef = useRef<typeof CytoscapeComponent>(null)
+
+	useEffect(() => {
+		const cy = cyRef.current
+
+		// Initialise the HTML Label
+		cy.nodeHtmlLabel([
+			{
+				query: '.nodeIcon',
+				halign: 'center',
+				valign: 'center',
+				halignBox: 'center',
+				valignBox: 'center',
+				tpl: (data) => {
+					return `<span class="material-icons">${data.icon}</span>`
+				},
+			},
+		])
+
+		cy.add({
+			group: 'nodes',
+			data: { weight: 75, icon: 'yuh' },
+			position: { x: 200, y: 200 },
+			classes: 'nodeIcon',
+		})
+	})
+
 	return (
 		<CytoscapeComponent
 			elements={generateNetwork()}
-			style={{ width: '720px', height: '600px' }}
+			style={{
+				width: '720px',
+				height: '600px',
+			}}
 			// layout={layout}
+			cy={(cy) => (cyRef.current = cy)}
 		/>
 	)
 }
