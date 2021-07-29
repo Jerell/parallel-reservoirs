@@ -2,6 +2,7 @@ import CytoscapeComponent from 'react-cytoscapejs'
 import PipeSeg from '@/public/model/pipeSeg'
 import Splitter from '@/public/model/splitter'
 import { useRef, useEffect } from 'react'
+import cytoStyles from './cyto.module.css'
 
 const cytoscape = require('cytoscape')
 const nodeHtmlLabel = require('cytoscape-node-html-label')
@@ -37,7 +38,7 @@ const generateNetwork = () => {
 	const createNode = (x, y) => {
 		const id = nextID()
 		const n = {
-			data: { id: `${id}`, label: `Node ${id}`, icon: '&#xE876;' },
+			data: { id: `${id}`, label: `Node ${id}`, icon: 'star_rate' },
 			position: { x, y },
 			classes: 'nodeIcon',
 		}
@@ -76,8 +77,6 @@ const generateNetwork = () => {
 	return elements
 }
 
-const layout = { name: 'breadthfirst' }
-
 const Cyto = (props) => {
 	const cyRef = useRef<typeof CytoscapeComponent>(null)
 
@@ -92,18 +91,23 @@ const Cyto = (props) => {
 				valign: 'center',
 				halignBox: 'center',
 				valignBox: 'center',
+				cssClass: 'label-icon',
 				tpl: (data) => {
-					return `<span class="material-icons">${data.icon}</span>`
+					return `<span class="material-icons ${cytoStyles[data.icon]}">${
+						data.icon
+					}</span>`
 				},
 			},
 		])
 
-		cy.add({
-			group: 'nodes',
-			data: { weight: 75, icon: 'yuh' },
-			position: { x: 200, y: 200 },
-			classes: 'nodeIcon',
-		})
+		console.log(cy.style())
+
+		// cy.add({
+		// 	group: 'nodes',
+		// 	data: { weight: 75, icon: 'huh' },
+		// 	position: { x: 200, y: 200 },
+		// 	classes: 'nodeIcon',
+		// })
 	})
 
 	return (
@@ -115,6 +119,25 @@ const Cyto = (props) => {
 			}}
 			// layout={layout}
 			cy={(cy) => (cyRef.current = cy)}
+			stylesheet={[
+				{
+					selector: 'node',
+					style: {
+						width: 30,
+						height: 30,
+						backgroundColor: '#f78d02',
+						label: `data(label)`,
+						textColor: 'red',
+					},
+				},
+				{
+					selector: 'edge',
+					style: {
+						width: 3,
+						curveStyle: 'taxi',
+					},
+				},
+			]}
 		/>
 	)
 }
