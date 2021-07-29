@@ -177,7 +177,7 @@ describe('guessFlowRate', () => {
 			destinations: [branch1, branch2],
 		})
 
-		s.guessFlowRate(0, 10)
+		s.guessFlowrate(0, 10)
 
 		expect(branch1.properties.flowrate).toBe(10)
 	})
@@ -202,7 +202,7 @@ describe('guessFlowRate', () => {
 			destinations: [branch1, branch2],
 		})
 
-		s.guessFlowRate(1, 10)
+		s.guessFlowrate(1, 10)
 
 		expect(branch2.properties.flowrate).toBe(10)
 	})
@@ -227,7 +227,7 @@ describe('guessFlowRate', () => {
 			destinations: [branch1, branch2],
 		})
 
-		s.guessFlowRate(1, 10)
+		s.guessFlowrate(1, 10)
 
 		expect(branch2p2.properties.flowrate).toBe(10)
 	})
@@ -252,7 +252,7 @@ describe('guessFlowRate', () => {
 			destinations: [branch1, branch2],
 		})
 
-		const branchEndPressure = s.guessFlowRate(1, 100)
+		const branchEndPressure = s.guessFlowrate(1, 100)
 
 		expect(branchEndPressure).toBe(299864.60702306876)
 	})
@@ -277,8 +277,40 @@ describe('guessFlowRate', () => {
 			destinations: [branch1, branch2],
 		})
 
-		const branchEndPressure = s.guessFlowRate(1, 100)
+		const branchEndPressure = s.guessFlowrate(1, 100)
 
 		expect(branchEndPressure).toBe(branch2.endPressure())
+	})
+})
+
+describe('searchBranchFlowrate', () => {
+	it('should return a value that produces the correct end pressure', () => {
+		const sourcePipe = new PipeSeg({
+			diameters: [0.9144],
+			start: { x: 0, y: 0, pressure: 300000, temperature: 350 },
+			flowrate: 100,
+		})
+		const branch1 = new PipeSeg({ diameters: [0.9144], start: { x: 1, y: 1 } })
+
+		const branch2 = new PipeSeg({ diameters: [0.9144], start: { x: 1, y: 1 } })
+		const branch2p2 = new PipeSeg({
+			diameters: [0.9144],
+			start: { x: 121, y: 161 },
+		})
+		branch2.setDestination(branch2p2)
+
+		const s = new Splitter({
+			source: sourcePipe,
+			destinations: [branch1, branch2],
+		})
+
+		const endPressureLimit = 299806.95169775153 // the pressure can only drop so much with the flowrate being capped
+
+		const targetPressure = endPressureLimit + 10
+
+		const value = s.searchBranchFlowrate(1, targetPressure)
+		const endPressure = s.guessFlowrate(1, value)
+
+		expect(endPressure).toBeCloseTo(targetPressure)
 	})
 })

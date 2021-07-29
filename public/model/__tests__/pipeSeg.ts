@@ -215,3 +215,23 @@ describe('height', () => {
 		expect(p.height).toEqual(8)
 	})
 })
+
+describe('endPressure', () => {
+	it('should return zero when the flowrate is too high', () => {
+		const p = new PipeSeg({
+			diameters: [0.9144],
+			start: { pressure: 100000, temperature: 300 },
+			flowrate: 200,
+		})
+		const q = new PipeSeg({
+			diameters: [0.9144],
+			start: {
+				x: 200,
+			},
+		})
+
+		p.setDestination(q)
+
+		expect(p.endPressure()).toBe(0)
+	})
+})

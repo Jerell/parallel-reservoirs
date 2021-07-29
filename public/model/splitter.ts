@@ -69,7 +69,7 @@ export default class Splitter {
 		)
 	}
 
-	guessFlowRate(branch: number, flowrate: number) {
+	guessFlowrate(branch: number, flowrate: number) {
 		this.setDestFlowrate(branch, flowrate)
 
 		let endBranchPressure: number = 0
@@ -87,5 +87,42 @@ export default class Splitter {
 		retrieveEndPressure(this.destinations[branch])
 
 		return endBranchPressure
+	}
+
+	searchBranchFlowrate(branch, targetPressure) {
+		let low = 0
+		let high = this.properties.flowrate
+		let mid = 0
+
+		const limit = this.guessFlowrate(branch, high)
+		if (limit > targetPressure) {
+			throw new Error(
+				`Target pressure (${targetPressure}) too low: end pressure limit is ${limit}`
+			)
+		}
+
+		const stepSize = 0.001
+		let guesses = 0
+		const maxGuesses = 20
+
+		while (low <= high) {
+			if (guesses++ > maxGuesses) {
+				console.log(`max guesses (${maxGuesses}) reached`)
+				break
+			}
+
+			mid = (low + high) / 2
+
+			const guess = this.guessFlowrate(branch, mid)
+			if (guess < targetPressure) {
+				high = mid - stepSize
+			} else if (guess > targetPressure) {
+				low = mid + stepSize
+			} else {
+				break
+			}
+		}
+		console.log('failure')
+		return mid
 	}
 }

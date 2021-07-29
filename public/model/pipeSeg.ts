@@ -124,6 +124,11 @@ export default class PipeSeg {
 		const Re = (ρ * u * D) / μ
 		const f = Re < 2000 ? 64 / Re : 0.094 / (D * 1000) ** (1 / 3)
 
+		const domainLimitingTerm = Math.sqrt((A ** 2 * D * P1) / (f * L * v))
+		if (domainLimitingTerm <= w) {
+			return 0
+		}
+
 		return (
 			(A * Math.sqrt(D)) ** -1 *
 			Math.sqrt(P1) *
