@@ -12,7 +12,7 @@ const Meta = () => (
 		/>
 		<meta name='apple-mobile-web-app-title' content='Parallel Reservoirs' />
 		<meta name='application-name' content='Parallel Reservoirs' />
-		<meta name='description' content='Bring your own ingredients' />
+		<meta name='description' content='Simulating flow to multiple reservoirs' />
 		<meta name='theme-color' content='#1d2020' />
 		<meta
 			name='viewport'
