@@ -2,8 +2,8 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 const links = [
-	{ label: 'P2', href: '/p2' },
-	{ label: 'P3', href: '/p3' },
+	{ label: 'Vis', href: '/vis' },
+	// { label: 'P3', href: '/p3' },
 ]
 
 const Appbar = () => {
