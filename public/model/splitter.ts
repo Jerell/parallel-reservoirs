@@ -14,6 +14,7 @@ export default class Splitter {
 			x: number
 			y: number
 			pressure: number
+			temperature: number
 		}
 	}
 	value: number
@@ -32,7 +33,12 @@ export default class Splitter {
 
 		this.properties = {
 			flowrate: props.source.properties.flowrate,
-			start: { x, y, pressure: props.source.endPressure(lengthFromSource) },
+			start: {
+				x,
+				y,
+				pressure: props.source.endPressure(lengthFromSource),
+				temperature: props.source.properties.start.temperature,
+			},
 		}
 
 		props.destinations.forEach((d) => this.addDestination(d))
@@ -63,6 +69,8 @@ export default class Splitter {
 			throw new Error(`No destination at index ${i}`)
 		}
 		this.destinations[i].properties.flowrate = fr
+		this.destinations[i].properties.start.temperature =
+			this.properties.start.temperature
 	}
 
 	setDestPressure() {

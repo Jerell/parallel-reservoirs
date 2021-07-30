@@ -143,6 +143,8 @@ export default class PipeSeg {
 		const p = this.endPressure()
 		this.destination.properties.start.pressure = p
 		this.destination.properties.flowrate = this.properties.flowrate
+		this.destination.properties.start.temperature =
+			this.properties.start.temperature
 		return p
 	}
 }
