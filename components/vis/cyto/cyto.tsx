@@ -7,12 +7,17 @@ const cytoscape = require('cytoscape')
 const nodeHtmlLabel = require('cytoscape-node-html-label')
 nodeHtmlLabel(cytoscape) // register extension
 
-const Cyto = (props) => {
+const net = generateNetwork()
+
+const Cyto = ({
+	visualElems = net.visualElements,
+	elems = net.elements,
+	cb = (e) => console.log(e, elems[e.target._private.data.id]),
+}) => {
 	const cyRef = useRef<typeof CytoscapeComponent>(null)
 
 	useEffect(() => {
 		const cy = cyRef.current
-
 		// Initialise the HTML Label
 		cy.nodeHtmlLabel([
 			{
@@ -29,11 +34,13 @@ const Cyto = (props) => {
 				},
 			},
 		])
+
+		cy.on('tap', 'node, edge', cb)
 	})
 
 	return (
 		<CytoscapeComponent
-			elements={generateNetwork()}
+			elements={visualElems}
 			style={{
 				width: '720px',
 				height: '600px',

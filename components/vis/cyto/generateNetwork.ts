@@ -3,7 +3,7 @@ import Splitter from '@/public/model/splitter'
 import testNet from './testNet'
 import { preOrderTraverse } from '@/public/utils/traversal'
 
-export const generateNetwork = () => {
+export const generateNetwork = (net = testNet()) => {
 	const elements = [] as any
 	const visualElements = [] as any
 	const nextID = () => elements.length
@@ -30,8 +30,6 @@ export const generateNetwork = () => {
 		visualElements.push(e)
 		return e
 	}
-
-	const net = testNet()
 
 	const parse = (root) => {
 		while (root.source) root = root.source
@@ -77,5 +75,5 @@ export const generateNetwork = () => {
 
 	parse(net)
 
-	return visualElements
+	return { visualElements, elements }
 }

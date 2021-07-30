@@ -1,5 +1,6 @@
 import Page from '@/components/page'
 import dynamic from 'next/dynamic'
+import Meter from '@/components/control/meter'
 
 const Cyto = dynamic(() => import('@/components/vis/cyto/cyto'), { ssr: false })
 
@@ -13,6 +14,9 @@ const P2 = () => (
 				I'm using it to create the visualisation below instead of writing my own
 				from scratch.
 			</p>
+		</section>
+		<section>
+			<Meter />
 		</section>
 		<section>
 			<Cyto />
