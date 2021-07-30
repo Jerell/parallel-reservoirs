@@ -69,8 +69,6 @@ export const generateNetwork = (net = testNet()) => {
 		}
 
 		preOrderTraverse(root, record)
-		console.log(elements)
-		console.log(visualElements)
 	}
 
 	parse(net)
