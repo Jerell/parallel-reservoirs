@@ -157,7 +157,7 @@ describe('setDestPressure', () => {
 })
 
 describe('guessFlowRate', () => {
-	it('should set the flowrate for the pipe segments in the branch (0)', () => {
+	it('should set the flowrate for the pipe segments in the branch', () => {
 		const sourcePipe = new PipeSeg({
 			diameters: [0.9144],
 			start: { x: 1, y: 1, pressure: 300000, temperature: 350 },
@@ -177,12 +177,12 @@ describe('guessFlowRate', () => {
 			destinations: [branch1, branch2],
 		})
 
-		s.guessFlowrate(0, 10)
+		s.applyFlowrate(0, 10)
 
 		expect(branch1.properties.flowrate).toBe(10)
 	})
 
-	it('should set the flowrate for the pipe segments in the branch (1)', () => {
+	it('should apply the flowrate to the branch with the specified index', () => {
 		const sourcePipe = new PipeSeg({
 			diameters: [0.9144],
 			start: { x: 1, y: 1, pressure: 300000, temperature: 350 },
@@ -202,12 +202,12 @@ describe('guessFlowRate', () => {
 			destinations: [branch1, branch2],
 		})
 
-		s.guessFlowrate(1, 10)
+		s.applyFlowrate(1, 10)
 
 		expect(branch2.properties.flowrate).toBe(10)
 	})
 
-	it('should set the flowrate for the pipe segments in the branch (2)', () => {
+	it('should set the flowrate for a pipe segment further down the branch', () => {
 		const sourcePipe = new PipeSeg({
 			diameters: [0.9144],
 			start: { x: 1, y: 1, pressure: 300000, temperature: 350 },
@@ -227,7 +227,7 @@ describe('guessFlowRate', () => {
 			destinations: [branch1, branch2],
 		})
 
-		s.guessFlowrate(1, 10)
+		s.applyFlowrate(1, 10)
 
 		expect(branch2p2.properties.flowrate).toBe(10)
 	})
@@ -252,7 +252,7 @@ describe('guessFlowRate', () => {
 			destinations: [branch1, branch2],
 		})
 
-		const branchEndPressure = s.guessFlowrate(1, 100)
+		const branchEndPressure = s.applyFlowrate(1, 100)
 
 		expect(branchEndPressure).toBe(299864.60702306876)
 	})
@@ -277,7 +277,7 @@ describe('guessFlowRate', () => {
 			destinations: [branch1, branch2],
 		})
 
-		const branchEndPressure = s.guessFlowrate(1, 100)
+		const branchEndPressure = s.applyFlowrate(1, 100)
 
 		expect(branchEndPressure).toBe(branch2.endPressure())
 	})
@@ -309,7 +309,7 @@ describe('searchBranchFlowrate', () => {
 		const targetPressure = endPressureLimit + 10
 
 		const value = s.searchBranchFlowrate(1, targetPressure)
-		const endPressure = s.guessFlowrate(1, value)
+		const endPressure = s.applyFlowrate(1, value)
 
 		expect(endPressure).toBeCloseTo(targetPressure)
 	})

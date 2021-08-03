@@ -79,19 +79,18 @@ export default class Splitter {
 		)
 	}
 
-	guessFlowrate(branch: number, flowrate: number) {
+	applyFlowrate(branch: number, flowrate: number) {
 		this.setDestFlowrate(branch, flowrate)
 
 		let endBranchPressure: number = 0
-		const setEndP = (n: number) => (endBranchPressure = n)
 
 		const retrieveEndPressure = (pipeSeg: PipeSeg) => {
 			if (pipeSeg.destination && pipeSeg.destination instanceof PipeSeg) {
+				endBranchPressure = pipeSeg.setDestPressure()
 				retrieveEndPressure(pipeSeg.destination)
 			} else {
 				return
 			}
-			setEndP(pipeSeg.setDestPressure())
 		}
 
 		retrieveEndPressure(this.destinations[branch])
@@ -99,12 +98,12 @@ export default class Splitter {
 		return endBranchPressure
 	}
 
-	searchBranchFlowrate(branch, targetPressure) {
+	searchBranchFlowrate(branch: number, targetPressure: number) {
 		let low = 0
 		let high = this.properties.flowrate
 		let mid = 0
 
-		const limit = this.guessFlowrate(branch, high)
+		const limit = this.applyFlowrate(branch, high)
 		if (limit > targetPressure) {
 			throw new Error(
 				`Target pressure (${targetPressure}) too low: end pressure limit is ${limit}`
@@ -113,7 +112,7 @@ export default class Splitter {
 
 		const stepSize = 0.001
 		let guesses = 0
-		const maxGuesses = 20
+		const maxGuesses = 25
 
 		while (low <= high) {
 			if (guesses++ > maxGuesses) {
@@ -123,7 +122,7 @@ export default class Splitter {
 
 			mid = (low + high) / 2
 
-			const guess = this.guessFlowrate(branch, mid)
+			const guess = this.applyFlowrate(branch, mid)
 			if (guess < targetPressure) {
 				high = mid - stepSize
 			} else if (guess > targetPressure) {
@@ -132,6 +131,7 @@ export default class Splitter {
 				break
 			}
 		}
+		console.log(guesses, { low, high, mid })
 		return mid
 	}
 }
