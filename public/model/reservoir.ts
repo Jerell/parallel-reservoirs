@@ -1,26 +1,19 @@
-interface IReservoir {
-	volume: number
-}
+import IElement, { IPhysicalElement, PressureSolution } from './element'
+import Fluid from './fluid'
 
-export default class Reservoir {
-	inflow: number
-	amount: number
-	volume: number
-	temperature: number
+export default class Reservoir implements IElement {
+	type: string = 'Reservoir'
+	name: string
+	physical: IPhysicalElement
+	pressure: number
 
-	constructor(props: IReservoir) {
-		this.inflow = 0
-		this.amount = 0
-		this.volume = props.volume
-		this.temperature = 10
+	constructor(physical: IPhysicalElement, name: string, pressure: number) {
+		this.name = name
+		this.physical = physical
+		this.pressure = pressure
 	}
 
-	getPressure() {
-		const n = this.amount * 1
-		const R = 8.31446261815324
-		const T = this.temperature
-		const V = this.volume
-
-		return (n * R * T) / V
+	process(fluid: Fluid): PressureSolution {
+		throw new Error('Not implemented')
 	}
 }

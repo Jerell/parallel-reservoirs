@@ -6,19 +6,21 @@ interface IMeterProps {
 }
 
 const Meter = ({ elem = null }: IMeterProps) => {
+	const propertyTypes = ['fluid', 'physical']
+
 	const elemProps = () => {
 		if (!elem) return <p>Select an element</p>
 		return (
 			<ul>
-				{Object.keys(elem.properties).map((prop, i) => {
-					if (typeof elem.properties[prop] === 'object') {
+				{Object.keys(elem.fluid).map((prop, i) => {
+					if (typeof elem.fluid[prop] === 'object') {
 						return (
 							<li key={i}>
 								<ul>
-									{Object.keys(elem.properties[prop]).map((innerProp, j) => {
+									{Object.keys(elem.fluid[prop]).map((innerProp, j) => {
 										return (
 											<li key={j}>
-												{innerProp}: {elem.properties[prop][innerProp]}
+												{innerProp}: {elem.fluid[prop][innerProp]}
 											</li>
 										)
 									})}
@@ -28,7 +30,7 @@ const Meter = ({ elem = null }: IMeterProps) => {
 					}
 					return (
 						<li key={i}>
-							{prop}: {elem.properties[prop]}
+							{prop}: {elem.fluid[prop]}
 						</li>
 					)
 				})}

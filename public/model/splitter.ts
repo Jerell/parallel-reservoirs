@@ -1,120 +1,67 @@
 import PipeSeg from './pipeSeg'
+import Fluid from './fluid'
+import IElement, { IPhysicalElement, PressureSolution } from './element'
 
-interface ISplitter {
+export default class Splitter implements IElement {
 	source: PipeSeg
-	destinations: PipeSeg[]
-}
+	destinations: IElement[] = []
+	fluid?: Fluid
+	physical: IPhysicalElement
+	type: string = 'Splitter'
+	name: string
 
-export default class Splitter {
-	source: PipeSeg
-	destinations: PipeSeg[]
-	properties: {
-		flowrate: number
-		start: {
-			x: number
-			y: number
-			pressure: number
-			temperature: number
-		}
-	}
-	value: number
-
-	constructor(props: ISplitter) {
-		this.source = props.source
-		this.destinations = []
-
-		const x = props.destinations[0].properties.start.x
-		const y = props.destinations[0].properties.start.y
-
-		const lengthFromSource = Math.sqrt(
-			(x - props.source.properties.start.x) ** 2 +
-				(y - props.source.properties.start.y) ** 2
-		)
-
-		this.properties = {
-			flowrate: props.source.properties.flowrate,
-			start: {
-				x,
-				y,
-				pressure: props.source.endPressure(lengthFromSource),
-				temperature: props.source.properties.start.temperature,
-			},
-		}
-
-		props.destinations.forEach((d) => this.addDestination(d))
+	constructor(source: PipeSeg, physical: IPhysicalElement, name: string) {
+		this.source = source
+		this.physical = physical
+		this.name = name
 
 		this.source.setDestination(this)
-		this.value = 1
 	}
 
-	addDestination(dest: PipeSeg) {
-		if (this.destinations.length) {
-			if (
-				dest.properties.start.x !== this.destinations[0].properties.start.x ||
-				dest.properties.start.y !== this.destinations[0].properties.start.y
-			) {
-				throw new Error('New destination starts from different coordinates')
-			}
-		}
+	addDestination(dest: IElement) {
+		if (dest.physical.elevation !== this.physical.elevation)
+			throw new Error('Destination elevation does not match splitter elevation')
 		this.destinations.push(dest)
 		dest.source = this
-		this.setDestPressure()
 	}
 
-	setDestFlowrate(i: number, fr: number) {
-		if (i > this.destinations.length) {
-			throw new Error(`No destination at index ${i}`)
-		}
-		if (i < 0) {
-			throw new Error(`No destination at index ${i}`)
-		}
-		this.destinations[i].properties.flowrate = fr
-		this.destinations[i].properties.start.temperature =
-			this.properties.start.temperature
+	setDestinations(destinations: IElement[]) {
+		destinations.forEach((d) => this.addDestination(d))
 	}
 
-	setDestPressure() {
-		this.destinations.forEach(
-			(d) => (d.properties.start.pressure = this.properties.start.pressure)
-		)
-	}
-
-	applyFlowrate(branch: number, flowrate: number) {
-		this.setDestFlowrate(branch, flowrate)
-
-		let endBranchPressure: number = 0
-
-		const retrieveEndPressure = (pipeSeg: PipeSeg) => {
-			if (pipeSeg.destination && pipeSeg.destination instanceof PipeSeg) {
-				endBranchPressure = pipeSeg.setDestPressure()
-				retrieveEndPressure(pipeSeg.destination)
-			} else {
-				return
-			}
-		}
-
-		retrieveEndPressure(this.destinations[branch])
-
-		return endBranchPressure
-	}
-
-	searchBranchFlowrate(branch: number, targetPressure: number) {
-		let low = 0
-		let high = this.properties.flowrate
-		let mid = 0
-
-		const limit = this.applyFlowrate(branch, high)
-		if (limit > targetPressure) {
+	applyFlowrate(branch: number, flowrate: number): PressureSolution {
+		if (!this.fluid) {
 			throw new Error(
-				`Target pressure (${targetPressure}) too low: end pressure limit is ${limit}`
+				'Splitter has no fluid - unable to calculate end pressure'
 			)
 		}
+
+		const newFluid = new Fluid(
+			this.fluid.pressure,
+			this.fluid?.temperature,
+			flowrate
+		)
+
+		return this.destinations[branch].process(newFluid)
+	}
+
+	searchBranchFlowrate(branch: number, fluid: Fluid) {
+		if (!fluid)
+			throw new Error(
+				'Splitter has no fluid - unable to calculate end pressure'
+			)
+		let low = 0
+		let high = fluid.flowrate
+		let mid = 0
 
 		const stepSize = 0.001
 		let guesses = 0
 		const maxGuesses = 25
 
-		while (low <= high) {
+		let pressureSolution = PressureSolution.Low
+
+		// while (low <= high) {
+		while (pressureSolution !== PressureSolution.Ok) {
 			if (guesses++ > maxGuesses) {
 				console.log(`max guesses (${maxGuesses}) reached`)
 				break
@@ -122,16 +69,39 @@ export default class Splitter {
 
 			mid = (low + high) / 2
 
-			const guess = this.applyFlowrate(branch, mid)
-			if (guess < targetPressure) {
+			pressureSolution = this.applyFlowrate(branch, mid)
+			if (pressureSolution === PressureSolution.Low) {
 				high = mid - stepSize
-			} else if (guess > targetPressure) {
+			} else if (pressureSolution === PressureSolution.High) {
 				low = mid + stepSize
-			} else {
-				break
 			}
 		}
-		console.log(guesses, { low, high, mid })
-		return mid
+
+		return { flowrate: mid, pressureSolution }
+	}
+
+	process(fluid: Fluid): PressureSolution {
+		this.fluid = fluid
+		// throw new Error('Not implemented')
+
+		const newFluid = new Fluid(
+			this.fluid.pressure,
+			this.fluid.temperature,
+			this.fluid.flowrate
+		)
+
+		for (let i = 0; i < this.destinations.length - 1; i++) {
+			const { flowrate, pressureSolution } = this.searchBranchFlowrate(
+				i,
+				newFluid
+			)
+			if (pressureSolution !== PressureSolution.Ok) {
+				return pressureSolution
+			}
+			newFluid.flowrate -= flowrate
+		}
+
+		return this.searchBranchFlowrate(this.destinations.length - 1, newFluid)
+			.pressureSolution
 	}
 }
