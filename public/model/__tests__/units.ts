@@ -1,4 +1,9 @@
-import { Temperature, TemperatureUnits } from '../units'
+import {
+	Temperature,
+	TemperatureUnits,
+	Pressure,
+	PressureUnits,
+} from '../units'
 
 describe('temperature', () => {
 	it('should create a temperature from kelvin', () => {
@@ -17,5 +22,10 @@ describe('temperature', () => {
 })
 
 describe('pressure', () => {
-	it('should', () => {})
+	it('should create a pressure from Pascal', () => {
+		const pressure = new Pressure(10, PressureUnits.Pascal)
+
+		expect(pressure.pascal).toBe(10)
+		expect(pressure.bara).toBe(1e6)
+	})
 })
