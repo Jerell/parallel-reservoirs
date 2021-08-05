@@ -7,7 +7,7 @@ export default class Reservoir implements IElement {
 	physical: IPhysicalElement
 	pressure: number
 
-	constructor(physical: IPhysicalElement, name: string, pressure: number) {
+	constructor(name: string, physical: IPhysicalElement, pressure: number) {
 		this.name = name
 		this.physical = physical
 		this.pressure = pressure

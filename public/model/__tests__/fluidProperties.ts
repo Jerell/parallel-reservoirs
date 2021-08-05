@@ -5,8 +5,9 @@ import {
 	Temperature,
 	TemperatureUnits,
 } from '../units'
+import { FakePhaseEnvelopeFileReader } from './fakePhaseFileReader'
 
-describe('fluid properties', () => {
+describe('fluid phase', () => {
 	const phaseData = new PhaseData([
 		[9.84899329, 6857338.64, 4811526.12],
 		[10.0671141, 6871319.86, 4838929.93],
@@ -31,15 +32,19 @@ describe('fluid properties', () => {
 	]
 
 	testCases.forEach((test) => {
-		it('should calculate phase', () => {
-			const fluidProperties = new FluidProperties(phaseData)
-
-			const phase = fluidProperties.phase(
-				new Pressure(test.pressure, PressureUnits.Bara),
-				new Temperature(test.temperature, TemperatureUnits.Celsius)
+		it('should calculate phase', async () => {
+			const fluidProperties = new FluidProperties(
+				new FakePhaseEnvelopeFileReader(phaseData)
 			)
 
-			expect(phase).toBe(test.phase)
+			return await fluidProperties
+				.phase(
+					new Pressure(test.pressure, PressureUnits.Bara),
+					new Temperature(test.temperature, TemperatureUnits.Celsius)
+				)
+				.then((phase) => {
+					expect(phase).toBe(test.phase)
+				})
 		})
 	})
 })

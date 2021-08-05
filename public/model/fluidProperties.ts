@@ -1,23 +1,26 @@
+import IPhaseEnvelopeFileReader from './phaseEnvelopeFileReader'
 import { Pressure, Temperature } from './units'
-const csv = require('csv-parser')
-const fs = require('fs')
 
 export default class FluidProperties {
-	data: PhaseData
+	data: Promise<PhaseData>
 
-	constructor(phaseData: PhaseData) {
-		this.data = phaseData
+	constructor(phaseData: IPhaseEnvelopeFileReader) {
+		this.data = phaseData.readPhaseEnvelope()
 	}
 
-	phase(pressure: Pressure, temperature: Temperature) {
-		const rightIdx = this.data.data.findIndex(
+	async phase(pressure: Pressure, temperature: Temperature) {
+		const data = await this.data
+		if (!data.data.length) {
+			throw new Error('No data')
+		}
+		const rightIdx = data.data.findIndex(
 			(point) => point[0] > temperature.celsius
 		)
 		if (rightIdx === 0) {
 			throw new Error('Out of range')
 		}
 		const leftIdx = rightIdx - 1
-		const [left, right] = [this.data.data[leftIdx], this.data.data[rightIdx]]
+		const [left, right] = [data.data[leftIdx], data.data[rightIdx]]
 
 		const xInterval = right[0] - left[0]
 		const distFromLeft = temperature.celsius - left[0]
@@ -50,7 +53,7 @@ export default class FluidProperties {
 	}
 }
 
-type PhaseDatum = [temp: number, bubble: number, dew: number]
+export type PhaseDatum = [temp: number, bubble: number, dew: number]
 
 export class PhaseData {
 	// Assume Celsius and Pascal for this constructor

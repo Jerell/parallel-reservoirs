@@ -38,7 +38,7 @@ export class Pressure {
 				this._pascal = p
 				break
 			case PressureUnits.Bara:
-				this._pascal = p * 1e-5
+				this._pascal = p * 1e5
 				break
 			default:
 				throw new Error('Unit not supported')
@@ -50,7 +50,7 @@ export class Pressure {
 	}
 
 	get bara() {
-		return this._pascal * 1e5
+		return this._pascal * 1e-5
 	}
 }
 
