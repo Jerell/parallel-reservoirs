@@ -3,7 +3,7 @@ import {
 	TemperatureUnits,
 	Pressure,
 	PressureUnits,
-} from '../units'
+} from 'physical-quantities'
 
 describe('temperature', () => {
 	it('should create a temperature from kelvin', () => {

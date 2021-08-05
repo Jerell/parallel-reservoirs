@@ -5,7 +5,7 @@ import {
 	PressureUnits,
 	Temperature,
 	TemperatureUnits,
-} from '../../units'
+} from 'physical-quantities'
 
 describe('FluidProperties reads and processes an input file', () => {
 	const filereader = new PhaseEnvelopeFileReader(

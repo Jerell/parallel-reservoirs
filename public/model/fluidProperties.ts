@@ -1,5 +1,5 @@
 import IPhaseEnvelopeFileReader from './phaseEnvelopeFileReader'
-import { Pressure, Temperature } from './units'
+import { Pressure, Temperature } from 'physical-quantities'
 
 export default class FluidProperties {
 	data: Promise<PhaseData>
