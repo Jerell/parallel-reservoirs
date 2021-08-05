@@ -1,5 +1,5 @@
 export class Temperature {
-	_kelvin: number
+	private _kelvin: number
 
 	constructor(t: number, unit: TemperatureUnits) {
 		switch (unit) {
@@ -30,7 +30,7 @@ export enum TemperatureUnits {
 }
 
 export class Pressure {
-	_pascal: number
+	private _pascal: number
 
 	constructor(p: number, unit: PressureUnits) {
 		switch (unit) {
