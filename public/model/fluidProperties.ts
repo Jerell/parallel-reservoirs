@@ -3,6 +3,35 @@ import { Pressure, Temperature } from 'physical-quantities'
 import IFluidPropertiesFileReader from './fluidDataFileReader'
 import boundarySearch from '../utils/boundarySearch'
 
+type xyNumberPoints = { x0y0: number; x0y1: number; x1y0: number; x1y1: number }
+type ptWeights = {
+	TM: {
+		lowPT: {
+			up: number
+			down: number
+		}
+		highPT: {
+			up: number
+			down: number
+		}
+	}
+	PT: {
+		up: number
+		down: number
+	}
+}
+
+function ptWeightedAverage(points: xyNumberPoints, weights: ptWeights) {
+	const x0avg =
+		weights.TM.lowPT.down * points.x0y0 + weights.TM.lowPT.up * points.x0y1
+	const x1avg =
+		weights.TM.highPT.down * points.x1y0 + weights.TM.highPT.up * points.x1y1
+
+	const avg = weights.PT.down * x0avg + weights.PT.up * x1avg
+
+	return avg
+	return
+}
 export default class FluidProperties {
 	phaseData: Promise<PhaseData>
 	fluidData: Promise<FluidData>
@@ -60,18 +89,8 @@ export default class FluidProperties {
 		return Phase.Gas
 	}
 
-	async viscosity(pressure: Pressure, temperature: Temperature) {
-		const phase = await this.phase(pressure, temperature)
+	async searchNearbyPoints(pressure: Pressure, temperature: Temperature) {
 		const fluidData = await this.fluidData
-
-		if (phase === 2) {
-			throw new Error('Fluid is two-phase')
-		}
-
-		let viscIdx
-
-		if (phase === Phase.Gas) viscIdx = 3
-		if (phase === Phase.Liquid) viscIdx = 4
 
 		const pressureSearchResult = boundarySearch(
 			fluidData.uniquePressures,
@@ -96,12 +115,33 @@ export default class FluidProperties {
 			lowPT: boundarySearch(temps.lowPressure, temperature.celsius),
 		}
 
-		const pointsAroundSearchValues = {
+		const points = {
 			x0y0: rows.lowPressure[tempSearchResult.lowPT.idx.low],
 			x0y1: rows.lowPressure[tempSearchResult.lowPT.idx.high],
 			x1y0: rows.highPressure[tempSearchResult.lowPT.idx.low],
 			x1y1: rows.highPressure[tempSearchResult.lowPT.idx.high],
 		}
+
+		return {
+			points,
+			searchResults: { temp: tempSearchResult, pressure: pressureSearchResult },
+		}
+	}
+
+	async viscosity(pressure: Pressure, temperature: Temperature) {
+		const phase = await this.phase(pressure, temperature)
+
+		if (phase === 2) {
+			throw new Error('Fluid is two-phase')
+		}
+
+		let viscIdx
+
+		if (phase === Phase.Gas) viscIdx = 3
+		if (phase === Phase.Liquid) viscIdx = 4
+
+		const { points: pointsAroundSearchValues, searchResults } =
+			await this.searchNearbyPoints(pressure, temperature)
 
 		const selectViscosity = (point: FluidDatum) => point[viscIdx]
 
@@ -110,34 +150,27 @@ export default class FluidProperties {
 				acc[key] = selectViscosity(pointsAroundSearchValues[key])
 				return acc
 			},
-			{} as { x0y0: number; x0y1: number; x1y0: number; x1y1: number }
+			{} as xyNumberPoints
 		)
 
-		const weights = {
+		const weights: ptWeights = {
 			TM: {
 				lowPT: {
-					up: tempSearchResult.lowPT.weights.high || 0.5,
-					down: tempSearchResult.lowPT.weights.low || 0.5,
+					up: searchResults.temp.lowPT.weights.high || 0.5,
+					down: searchResults.temp.lowPT.weights.low || 0.5,
 				},
 				highPT: {
-					up: tempSearchResult.highPT.weights.high || 0.5,
-					down: tempSearchResult.highPT.weights.low || 0.5,
+					up: searchResults.temp.highPT.weights.high || 0.5,
+					down: searchResults.temp.highPT.weights.low || 0.5,
 				},
 			},
 			PT: {
-				up: pressureSearchResult.weights.high || 0.5,
-				down: pressureSearchResult.weights.low || 0.5,
+				up: searchResults.pressure.weights.high || 0.5,
+				down: searchResults.pressure.weights.low || 0.5,
 			},
 		}
 
-		const x0avg =
-			weights.TM.lowPT.down * viscosities.x0y0 +
-			weights.TM.lowPT.up * viscosities.x0y1
-		const x1avg =
-			weights.TM.highPT.down * viscosities.x1y0 +
-			weights.TM.highPT.up * viscosities.x1y1
-
-		const avg = weights.PT.down * x0avg + weights.PT.up * x1avg
+		const avg = ptWeightedAverage(viscosities, weights)
 
 		return avg
 	}
