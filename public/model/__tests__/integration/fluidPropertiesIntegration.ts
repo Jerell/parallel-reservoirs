@@ -38,4 +38,17 @@ describe('FluidProperties reads and processes a input files', () => {
 				expect(visc).toBe(interpolatedVisc)
 			})
 	})
+
+	it('should read data from an input file and return the enthalpy', async () => {
+		const interpolatedEnth = -29102.786966438824
+
+		return await fluidProperties
+			.enthalpy(
+				new Pressure(2e6, PressureUnits.Pascal),
+				new Temperature(15, TemperatureUnits.Celsius)
+			)
+			.then((enth) => {
+				expect(enth).toBe(interpolatedEnth)
+			})
+	})
 })

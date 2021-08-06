@@ -122,9 +122,26 @@ export default class FluidProperties {
 			x1y1: rows.highPressure[tempSearchResult.lowPT.idx.high],
 		}
 
+		const weights: ptWeights = {
+			TM: {
+				lowPT: {
+					up: tempSearchResult.lowPT.weights.high || 0.5,
+					down: tempSearchResult.lowPT.weights.low || 0.5,
+				},
+				highPT: {
+					up: tempSearchResult.highPT.weights.high || 0.5,
+					down: tempSearchResult.highPT.weights.low || 0.5,
+				},
+			},
+			PT: {
+				up: pressureSearchResult.weights.high || 0.5,
+				down: pressureSearchResult.weights.low || 0.5,
+			},
+		}
+
 		return {
 			points,
-			searchResults: { temp: tempSearchResult, pressure: pressureSearchResult },
+			weights,
 		}
 	}
 
@@ -140,7 +157,7 @@ export default class FluidProperties {
 		if (phase === Phase.Gas) viscIdx = 3
 		if (phase === Phase.Liquid) viscIdx = 4
 
-		const { points: pointsAroundSearchValues, searchResults } =
+		const { points: pointsAroundSearchValues, weights } =
 			await this.searchNearbyPoints(pressure, temperature)
 
 		const selectViscosity = (point: FluidDatum) => point[viscIdx]
@@ -153,22 +170,24 @@ export default class FluidProperties {
 			{} as xyNumberPoints
 		)
 
-		const weights: ptWeights = {
-			TM: {
-				lowPT: {
-					up: searchResults.temp.lowPT.weights.high || 0.5,
-					down: searchResults.temp.lowPT.weights.low || 0.5,
-				},
-				highPT: {
-					up: searchResults.temp.highPT.weights.high || 0.5,
-					down: searchResults.temp.highPT.weights.low || 0.5,
-				},
+		const avg = ptWeightedAverage(viscosities, weights)
+
+		return avg
+	}
+
+	async enthalpy(pressure: Pressure, temperature: Temperature) {
+		const { points: pointsAroundSearchValues, weights } =
+			await this.searchNearbyPoints(pressure, temperature)
+
+		const selectViscosity = (point: FluidDatum) => point[2]
+
+		const viscosities = Object.keys(pointsAroundSearchValues).reduce(
+			(acc, key) => {
+				acc[key] = selectViscosity(pointsAroundSearchValues[key])
+				return acc
 			},
-			PT: {
-				up: searchResults.pressure.weights.high || 0.5,
-				down: searchResults.pressure.weights.low || 0.5,
-			},
-		}
+			{} as xyNumberPoints
+		)
 
 		const avg = ptWeightedAverage(viscosities, weights)
 
