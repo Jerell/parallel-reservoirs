@@ -39,6 +39,19 @@ describe('FluidProperties reads and processes a input files', () => {
 			})
 	})
 
+	it('should read data from an input file and return the density for the appropriate phase', async () => {
+		const interpolatedDensity = 0.0183582902310686
+
+		return await fluidProperties
+			.density(
+				new Pressure(1000, PressureUnits.Pascal),
+				new Temperature(10, TemperatureUnits.Celsius)
+			)
+			.then((dens) => {
+				expect(dens).toBe(interpolatedDensity)
+			})
+	})
+
 	it('should read data from an input file and return the enthalpy', async () => {
 		const interpolatedEnth = -29102.786966438824
 

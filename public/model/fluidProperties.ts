@@ -3,6 +3,12 @@ import { Pressure, Temperature } from 'physical-quantities'
 import IFluidPropertiesFileReader from './fluidDataFileReader'
 import boundarySearch from '../utils/boundarySearch'
 
+type xyDatumPoints = {
+	x0y0: FluidDatum
+	x0y1: FluidDatum
+	x1y0: FluidDatum
+	x1y1: FluidDatum
+}
 type xyNumberPoints = { x0y0: number; x0y1: number; x1y0: number; x1y1: number }
 type ptWeights = {
 	TM: {
@@ -21,6 +27,13 @@ type ptWeights = {
 	}
 }
 
+function mapSearchPointsToValues(searchPoints: xyDatumPoints, colIdx: number) {
+	return Object.keys(searchPoints).reduce((acc, key) => {
+		acc[key] = searchPoints[key][colIdx]
+		return acc
+	}, {} as xyNumberPoints)
+}
+
 function ptWeightedAverage(points: xyNumberPoints, weights: ptWeights) {
 	const x0avg =
 		weights.TM.lowPT.down * points.x0y0 + weights.TM.lowPT.up * points.x0y1
@@ -30,7 +43,17 @@ function ptWeightedAverage(points: xyNumberPoints, weights: ptWeights) {
 	const avg = weights.PT.down * x0avg + weights.PT.up * x1avg
 
 	return avg
-	return
+}
+
+function selectValuesAndAverage(
+	searchPoints: xyDatumPoints,
+	colIdx: number,
+	weights: ptWeights
+) {
+	return ptWeightedAverage(
+		mapSearchPointsToValues(searchPoints, colIdx),
+		weights
+	)
 }
 export default class FluidProperties {
 	phaseData: Promise<PhaseData>
@@ -145,6 +168,23 @@ export default class FluidProperties {
 		}
 	}
 
+	async density(pressure: Pressure, temperature: Temperature) {
+		const phase = await this.phase(pressure, temperature)
+		if (phase === 2) {
+			throw new Error('Fluid is two-phase')
+		}
+		let colIdx
+		if (phase === Phase.Gas) colIdx = 5
+		if (phase === Phase.Liquid) colIdx = 6
+
+		const { points, weights } = await this.searchNearbyPoints(
+			pressure,
+			temperature
+		)
+
+		return selectValuesAndAverage(points, colIdx, weights)
+	}
+
 	async viscosity(pressure: Pressure, temperature: Temperature) {
 		const phase = await this.phase(pressure, temperature)
 
@@ -152,46 +192,27 @@ export default class FluidProperties {
 			throw new Error('Fluid is two-phase')
 		}
 
-		let viscIdx
+		let colIdx
 
-		if (phase === Phase.Gas) viscIdx = 3
-		if (phase === Phase.Liquid) viscIdx = 4
+		if (phase === Phase.Gas) colIdx = 3
+		if (phase === Phase.Liquid) colIdx = 4
 
-		const { points: pointsAroundSearchValues, weights } =
-			await this.searchNearbyPoints(pressure, temperature)
-
-		const selectViscosity = (point: FluidDatum) => point[viscIdx]
-
-		const viscosities = Object.keys(pointsAroundSearchValues).reduce(
-			(acc, key) => {
-				acc[key] = selectViscosity(pointsAroundSearchValues[key])
-				return acc
-			},
-			{} as xyNumberPoints
+		const { points, weights } = await this.searchNearbyPoints(
+			pressure,
+			temperature
 		)
 
-		const avg = ptWeightedAverage(viscosities, weights)
-
-		return avg
+		return selectValuesAndAverage(points, colIdx, weights)
 	}
 
 	async enthalpy(pressure: Pressure, temperature: Temperature) {
-		const { points: pointsAroundSearchValues, weights } =
-			await this.searchNearbyPoints(pressure, temperature)
-
-		const selectViscosity = (point: FluidDatum) => point[2]
-
-		const viscosities = Object.keys(pointsAroundSearchValues).reduce(
-			(acc, key) => {
-				acc[key] = selectViscosity(pointsAroundSearchValues[key])
-				return acc
-			},
-			{} as xyNumberPoints
+		const colIdx = 2
+		const { points, weights } = await this.searchNearbyPoints(
+			pressure,
+			temperature
 		)
 
-		const avg = ptWeightedAverage(viscosities, weights)
-
-		return avg
+		return selectValuesAndAverage(points, colIdx, weights)
 	}
 }
 
@@ -200,7 +221,9 @@ export type FluidDatum = [
 	TM: number,
 	HG: number,
 	VISG: number,
-	VISHL: number
+	VISHL: number,
+	ROG: number,
+	ROHL: number
 ]
 
 export class FluidData {
