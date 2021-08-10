@@ -1,26 +1,62 @@
+import { Pressure, Temperature } from 'physical-quantities/lib'
+import { FluidDataFileReader } from './fluidDataFileReader'
+import FluidProperties from './fluidProperties'
+import { PhaseEnvelopeFileReader } from './phaseEnvelopeFileReader'
+
 export default class Fluid {
 	pressure: number
 	temperature: number
 	flowrate: number
+	viscosity: number
+	density: number
+	enthalpy: number
 
-	constructor(pressure: number, temperature: number, flowrate: number) {
+	constructor(
+		pressure: number,
+		temperature: number,
+		flowrate: number,
+		density: number,
+		viscosity: number,
+		enthalpy: number
+	) {
 		this.pressure = pressure
 		this.temperature = temperature
 		this.flowrate = flowrate
-	}
-
-	viscosity(): number {
-		const μ0 = 0.000018 // Ref viscosity
-		const T0 = 373 // Ref temperature
-		const C = 240 // Southerland constant
-		const T = this.temperature
-		return μ0 * ((T0 + C) / (T + C)) * (T / T0) ** (3 / 2)
-	}
-
-	density(): number {
-		// ρ=(Pμ)/(RT)
-		const μ = 0.044
-		const R = 8.31462
-		return Number((this.pressure * μ) / (R * this.temperature))
+		this.density = density
+		this.viscosity = viscosity
+		this.enthalpy = enthalpy
 	}
 }
+
+const createNewFluidConstructor = (
+	phaseFilePath: string = `${__dirname}/phaseEnvelope.csv`,
+	fluidFilePath: string = `${__dirname}/co2lookup.csv`
+) => {
+	const phaseData = new PhaseEnvelopeFileReader(phaseFilePath)
+	const fluidData = new FluidDataFileReader(fluidFilePath)
+
+	const properties = new FluidProperties(phaseData, fluidData)
+
+	return async (
+		pressure: Pressure,
+		temperature: Temperature,
+		flowrate: number
+	) => {
+		const [density, viscosity, enthalpy] = [
+			await properties.density(pressure, temperature),
+			await properties.viscosity(pressure, temperature),
+			await properties.enthalpy(pressure, temperature),
+		]
+
+		return new Fluid(
+			pressure.pascal,
+			temperature.kelvin,
+			flowrate,
+			density,
+			viscosity,
+			enthalpy
+		)
+	}
+}
+
+export const defaultFluidConstructor = createNewFluidConstructor()

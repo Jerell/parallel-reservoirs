@@ -51,7 +51,7 @@ describe('Search', () => {
 		},
 	]
 
-	test.each(testCases)('return ', ({ list, item, expected }) => {
+	test.each(testCases)('return expected', ({ list, item, expected }) => {
 		expect(binarySearch(list, item)).toEqual(expected)
 	})
 })

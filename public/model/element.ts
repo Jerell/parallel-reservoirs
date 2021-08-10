@@ -6,7 +6,7 @@ export default interface IElement {
 	type: string
 	source?: IElement
 	// Returns pressure delta between end and passed
-	process(fluid: Fluid): PressureSolution
+	process(fluid: Fluid): Promise<PressureSolution>
 }
 
 export interface IPhysicalElement {

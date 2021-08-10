@@ -1,19 +1,22 @@
 import PipeSeg from './pipeSeg'
-import Fluid from './fluid'
+import Fluid, { defaultFluidConstructor } from './fluid'
 import IElement, { IPhysicalElement, PressureSolution } from './element'
+import Transport from './transport'
+import {
+	Pressure,
+	PressureUnits,
+	Temperature,
+	TemperatureUnits,
+} from 'physical-quantities'
 
-export default class Splitter implements IElement {
+export default class Splitter extends Transport {
 	source: PipeSeg
 	destinations: IElement[] = []
 	fluid?: Fluid
-	physical: IPhysicalElement
-	type: string = 'Splitter'
-	name: string
 
 	constructor(source: PipeSeg, physical: IPhysicalElement, name: string) {
+		super(name, physical, 'Splitter')
 		this.source = source
-		this.physical = physical
-		this.name = name
 
 		this.source.setDestination(this)
 	}
@@ -29,23 +32,26 @@ export default class Splitter implements IElement {
 		destinations.forEach((d) => this.addDestination(d))
 	}
 
-	applyFlowrate(branch: number, flowrate: number): PressureSolution {
+	async applyFlowrate(
+		branch: number,
+		flowrate: number
+	): Promise<PressureSolution> {
 		if (!this.fluid) {
 			throw new Error(
 				'Splitter has no fluid - unable to calculate end pressure'
 			)
 		}
 
-		const newFluid = new Fluid(
-			this.fluid.pressure,
-			this.fluid?.temperature,
+		const newFluid = await defaultFluidConstructor(
+			new Pressure(this.fluid.pressure, PressureUnits.Pascal),
+			new Temperature(this.fluid.temperature, TemperatureUnits.Kelvin),
 			flowrate
 		)
 
 		return this.destinations[branch].process(newFluid)
 	}
 
-	searchBranchFlowrate(branch: number, fluid: Fluid) {
+	async searchBranchFlowrate(branch: number, fluid: Fluid) {
 		if (!fluid)
 			throw new Error(
 				'Splitter has no fluid - unable to calculate end pressure'
@@ -69,7 +75,7 @@ export default class Splitter implements IElement {
 
 			mid = (low + high) / 2
 
-			pressureSolution = this.applyFlowrate(branch, mid)
+			pressureSolution = await this.applyFlowrate(branch, mid)
 			if (pressureSolution === PressureSolution.Low) {
 				high = mid - stepSize
 			} else if (pressureSolution === PressureSolution.High) {
@@ -80,18 +86,17 @@ export default class Splitter implements IElement {
 		return { flowrate: mid, pressureSolution }
 	}
 
-	process(fluid: Fluid): PressureSolution {
+	async process(fluid: Fluid): Promise<PressureSolution> {
 		this.fluid = fluid
-		// throw new Error('Not implemented')
 
-		const newFluid = new Fluid(
-			this.fluid.pressure,
-			this.fluid.temperature,
+		const newFluid = await defaultFluidConstructor(
+			new Pressure(this.fluid.pressure, PressureUnits.Pascal),
+			new Temperature(this.fluid.temperature, TemperatureUnits.Kelvin),
 			this.fluid.flowrate
 		)
 
 		for (let i = 0; i < this.destinations.length - 1; i++) {
-			const { flowrate, pressureSolution } = this.searchBranchFlowrate(
+			const { flowrate, pressureSolution } = await this.searchBranchFlowrate(
 				i,
 				newFluid
 			)
@@ -101,7 +106,10 @@ export default class Splitter implements IElement {
 			newFluid.flowrate -= flowrate
 		}
 
-		return this.searchBranchFlowrate(this.destinations.length - 1, newFluid)
-			.pressureSolution
+		const lastSearch = await this.searchBranchFlowrate(
+			this.destinations.length - 1,
+			newFluid
+		)
+		return lastSearch.pressureSolution
 	}
 }

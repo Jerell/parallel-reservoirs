@@ -1,6 +1,12 @@
 import Transport from './transport'
-import Fluid from './fluid'
+import Fluid, { defaultFluidConstructor } from './fluid'
 import IElement, { IPhysicalElement, PressureSolution } from './element'
+import {
+	Pressure,
+	PressureUnits,
+	Temperature,
+	TemperatureUnits,
+} from 'physical-quantities'
 
 interface IPipeDefinition extends IPhysicalElement {
 	length: number
@@ -70,14 +76,14 @@ export default class PipeSeg extends Transport {
 		const w = this.fluid.flowrate
 		const D = Math.sqrt(this.effectiveArea / Math.PI) * 2
 		const A = this.effectiveArea
-		const ρ = this.fluid.density()
+		const ρ = this.fluid.density
 		const v = 1 / ρ
 		const L = this.physical.length
 		const P1 = this.fluid.pressure
 
 		// Friction factor
 		const u = w / (A * ρ)
-		const μ = this.fluid.viscosity()
+		const μ = this.fluid.viscosity
 		const Re = (ρ * u * D) / μ
 		const f = Re < 2000 ? 64 / Re : 0.094 / (D * 1000) ** (1 / 3)
 
@@ -93,16 +99,20 @@ export default class PipeSeg extends Transport {
 		)
 	}
 
-	process(fluid: Fluid): PressureSolution {
+	async process(fluid: Fluid): Promise<PressureSolution> {
 		this.fluid = fluid
 
 		// TODO: remove this after adding reservoirs to tests
 		if (!this.destination) return PressureSolution.Ok
 
 		const p = this.endPressure()
-		console.log(p, this.name)
-		const endFluid = new Fluid(p, fluid.temperature, fluid.flowrate)
 
-		return this.destination.process(endFluid)
+		const endFluid = await defaultFluidConstructor(
+			new Pressure(p, PressureUnits.Pascal),
+			new Temperature(fluid.temperature, TemperatureUnits.Kelvin),
+			fluid.flowrate
+		)
+
+		return await this.destination.process(endFluid)
 	}
 }
