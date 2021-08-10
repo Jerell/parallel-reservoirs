@@ -3,7 +3,7 @@ import IElement, { IPhysicalElement, PressureSolution } from './element'
 
 interface ITransport extends IElement {
 	name: string
-	process(fluid: Fluid): PressureSolution
+	process(fluid: Fluid): Promise<PressureSolution>
 }
 
 export default abstract class Transport implements ITransport {
