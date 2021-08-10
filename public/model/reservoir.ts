@@ -6,6 +6,7 @@ export default class Reservoir implements IElement {
 	name: string
 	physical: IPhysicalElement
 	pressure: number
+	fluid?: Fluid
 
 	constructor(name: string, physical: IPhysicalElement, pressure: number) {
 		this.name = name
@@ -13,7 +14,8 @@ export default class Reservoir implements IElement {
 		this.pressure = pressure
 	}
 
-	process(fluid: Fluid): PressureSolution {
+	process(fluid: Fluid): Promise<PressureSolution> {
+		this.fluid = fluid
 		throw new Error('Not implemented')
 	}
 }
