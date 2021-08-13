@@ -76,7 +76,8 @@ export default class FluidProperties {
 		const rightIdx = data.data.findIndex(
 			(point) => point[0] > temperature.celsius
 		)
-		if (rightIdx === 0) {
+		if (rightIdx <= 0) {
+			console.log(temperature.celsius)
 			throw new Error('Out of range')
 		}
 		const leftIdx = rightIdx - 1

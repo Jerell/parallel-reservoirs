@@ -7,7 +7,7 @@ import {
 	TemperatureUnits,
 } from 'physical-quantities'
 
-describe('effectiveArea', () =>
+describe('effectiveArea', () => {
 	it('should calculate the effectiveArea', () => {
 		const pipeseg = new PipeSeg({
 			length: 1,
@@ -17,9 +17,10 @@ describe('effectiveArea', () =>
 		})
 
 		expect(pipeseg.effectiveArea).toBeCloseTo(468.097305385)
-	}))
+	})
+})
 
-describe('removeLine', () =>
+describe('removeLine', () => {
 	it('should change the returned value of effectiveArea', () => {
 		const pipeseg = new PipeSeg({
 			length: 1,
@@ -32,7 +33,8 @@ describe('removeLine', () =>
 		const newArea = pipeseg.effectiveArea
 
 		expect(newArea).toBeCloseTo(314.159265359)
-	}))
+	})
+})
 
 describe('addLine', () => {
 	it('should change the returned value of effectiveArea', () => {
@@ -77,7 +79,7 @@ describe('destinations', () => {
 			pressure: 100000,
 			temperature: 300,
 			flowrate: 150,
-			p2: 60430.923108175855,
+			p2: 60431.222283366034,
 		},
 		{
 			pressure: 300000,
@@ -95,7 +97,7 @@ describe('destinations', () => {
 				new Temperature(temperature, TemperatureUnits.Kelvin),
 				flowrate
 			)
-			return await pipeseg1.process(fluid).then(() => {
+			await pipeseg1.process(fluid).then(() => {
 				expect(pipeseg2.fluid.pressure).toBe(p2)
 			})
 		}
@@ -114,7 +116,7 @@ describe('destinations', () => {
 		},
 	]
 
-	test.each(pressureTestCases)(
+	test.each(flowrateTestCases)(
 		'should update flowrate of destination',
 		async ({ pressure, temperature, flowrate }) => {
 			const fluid = await defaultFluidConstructor(
@@ -122,7 +124,7 @@ describe('destinations', () => {
 				new Temperature(temperature, TemperatureUnits.Kelvin),
 				flowrate
 			)
-			return await pipeseg1.process(fluid).then(() => {
+			await pipeseg1.process(fluid).then(() => {
 				expect(pipeseg2.fluid.flowrate).toBe(flowrate)
 			})
 		}
@@ -163,7 +165,7 @@ describe('endPressure', () => {
 			elevation: 1,
 			name: 'pipe',
 		})
-		return await pipeseg.process(fluid).then(() => {
+		await pipeseg.process(fluid).then(() => {
 			expect(pipeseg.endPressure()).toBe(0)
 		})
 	})
