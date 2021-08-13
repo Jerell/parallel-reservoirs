@@ -33,7 +33,7 @@ const Page = ({
 				fullWidth ? 'h-screen' : 'max-w-screen-md'
 			}`}
 		>
-			<div className={`${fullWidth ? 'h-full py-4' : 'p-6'}`}>{children}</div>
+			<div className={`${fullWidth ? 'h-full pt-4' : 'p-6'}`}>{children}</div>
 		</main>
 
 		<BottomNav />
