@@ -5,9 +5,16 @@ import BottomNav from '@/components/bottom-nav'
 interface Props {
 	title?: string
 	children: React.ReactNode
+	fullWidth?: boolean
+	noPadding?: boolean
 }
 
-const Page = ({ title, children }: Props) => (
+const Page = ({
+	title,
+	children,
+	fullWidth = false,
+	noPadding = false,
+}: Props) => (
 	<>
 		{title ? (
 			<Head>
@@ -22,9 +29,11 @@ const Page = ({ title, children }: Props) => (
 			 * Padding top = `appbar` height
 			 * Padding bottom = `bottom-nav` height
 			 */
-			className='mx-auto pt-20 pb-16 max-w-screen-md'
+			className={`mx-auto ${noPadding ? 'pt-16' : 'pt-20 pb-16'} ${
+				fullWidth ? 'h-screen' : 'max-w-screen-md'
+			}`}
 		>
-			<div className='p-6'>{children}</div>
+			<div className={`${fullWidth ? 'h-full py-4' : 'p-6'}`}>{children}</div>
 		</main>
 
 		<BottomNav />
