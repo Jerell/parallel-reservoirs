@@ -51,7 +51,6 @@ const DashboardGrid = () => {
 
 	const area2 = (
 		<GridSpace cols={2}>
-			{heading('map')}
 			<Cyto />
 		</GridSpace>
 	)

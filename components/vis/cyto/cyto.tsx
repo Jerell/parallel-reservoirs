@@ -143,7 +143,7 @@ const Cyto = ({ cb = (e) => console.log(e) }) => {
 			]}
 			style={{
 				width: '800px',
-				height: '500px',
+				height: '400px',
 			}}
 			layout={{ name: 'breadthfirst' }}
 			cy={(cy) => (cyRef.current = cy)}
