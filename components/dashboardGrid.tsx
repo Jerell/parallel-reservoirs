@@ -1,5 +1,9 @@
 import NumberInput from './numberInput'
 import Button from './button'
+import dynamic from 'next/dynamic'
+import Link from 'next/link'
+
+const Cyto = dynamic(() => import('@/components/vis/cyto/cyto'), { ssr: false })
 
 const columns = 3
 
@@ -31,10 +35,26 @@ const DashboardGrid = () => {
 			<div className='mt-2'>
 				<Button />
 			</div>
+			<div className='mt-10'>
+				<p>
+					The map in the next panel is made with{' '}
+					<Link href='https://js.cytoscape.org/'>
+						<span className='font-bold hover:underline cursor-pointer text-blue-800 hover:text-indigo-500'>
+							Cytoscape
+						</span>
+					</Link>
+					.
+				</p>
+			</div>
 		</GridSpace>
 	)
 
-	const area2 = <GridSpace cols={2}>{heading('map')}</GridSpace>
+	const area2 = (
+		<GridSpace cols={2}>
+			{heading('map')}
+			<Cyto />
+		</GridSpace>
+	)
 
 	const row = ({ name, pressure = 0, temperature = 0, flowrate = 0 }, i) => {
 		const cell = (content) => (
