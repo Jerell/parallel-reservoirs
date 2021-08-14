@@ -8,7 +8,7 @@ const GridSpace = ({ children, cols = 1, fullWidth = false }) => {
 
 	return (
 		<section
-			className={`bg-green-50 m-2 p-2 rounded-sm ${
+			className={`border-blue-500 border-t border-l m-2 p-2 rounded-md ${
 				fullWidth ? `col-span-full` : `col-span-${cols}`
 			}`}
 		>
@@ -113,7 +113,7 @@ const DashboardGrid = () => {
 	const area3 = <GridSpace fullWidth>{table}</GridSpace>
 
 	return (
-		<div className='grid grid-cols-1 lg:grid-cols-3 grid-rows-2 h-full p-2 bg-blue-100'>
+		<div className='grid grid-cols-1 lg:grid-cols-3 grid-rows-2 h-full p-2 '>
 			{area1}
 			{area2}
 			{area3}
