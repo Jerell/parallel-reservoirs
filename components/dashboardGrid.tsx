@@ -57,7 +57,7 @@ const DashboardGrid = () => {
 
 	const row = ({ name, pressure = 0, temperature = 0, flowrate = 0 }, i) => {
 		const cell = (content) => (
-			<td className={`px-4 py-2 border-l border-green-300`}>{content}</td>
+			<td className={`px-4 py-1 border-l border-green-300`}>{content}</td>
 		)
 		return (
 			<tr className={`hover:bg-green-200`} key={i}>
