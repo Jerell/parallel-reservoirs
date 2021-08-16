@@ -10,6 +10,9 @@ const UnitSelect = ({ type }) => {
 		case 'length':
 			options = ['m', 'km', 'mm']
 			break
+		case 'flowrate':
+			options = ['kg/s', 'MTPA']
+			break
 		default:
 			options = ['unit1', 'unit2']
 	}

@@ -30,7 +30,7 @@ const DashboardGrid = () => {
 		<GridSpace>
 			{heading('input')}
 			<div>
-				<NumberInput label='flowrate' unit='kg/s' />
+				<NumberInput label='flowrate' unitListType='flowrate' />
 			</div>
 			<div className='mt-2'>
 				<Button />
