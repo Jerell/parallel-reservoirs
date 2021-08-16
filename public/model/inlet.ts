@@ -1,7 +1,13 @@
 import Fluid from './fluid'
 import IElement, { PressureSolution } from './element'
 import Transport from './transport'
-import defaultFluidConstructor from './fluid'
+import { defaultFluidConstructor } from './fluid'
+import {
+	Pressure,
+	PressureUnits,
+	Temperature,
+	TemperatureUnits,
+} from 'physical-quantities'
 
 export default class Inlet extends Transport {
 	fluid: Fluid | null
@@ -14,7 +20,15 @@ export default class Inlet extends Transport {
 		this.destination = null
 	}
 
-	async setInletProperties(pressure, flowrate) {}
+	async applyInletProperties(pressure, temperature, flowrate) {
+		const newFluid = await defaultFluidConstructor(
+			new Pressure(pressure, PressureUnits.Pascal),
+			new Temperature(temperature, TemperatureUnits.Kelvin),
+			flowrate
+		)
+
+		return this.process(newFluid)
+	}
 
 	setDestination(dest: IElement) {
 		this.destination = dest
