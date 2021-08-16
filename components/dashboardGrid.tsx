@@ -35,7 +35,7 @@ const DashboardGrid = () => {
 			<div className='mt-2'>
 				<Button />
 			</div>
-			<div className='mt-10'>
+			{/* <div className='mt-10'>
 				<p>
 					The map in the next panel is made with{' '}
 					<Link href='https://js.cytoscape.org/'>
@@ -45,7 +45,7 @@ const DashboardGrid = () => {
 					</Link>
 					.
 				</p>
-			</div>
+			</div> */}
 		</GridSpace>
 	)
 
