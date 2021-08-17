@@ -66,7 +66,6 @@ export default class Splitter extends Transport {
 
 		let pressureSolution = PressureSolution.Low
 
-		// while (low <= high) {
 		while (pressureSolution !== PressureSolution.Ok) {
 			if (guesses++ > maxGuesses) {
 				console.log(`max guesses (${maxGuesses}) reached`)
