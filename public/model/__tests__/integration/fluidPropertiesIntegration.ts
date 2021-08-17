@@ -27,7 +27,7 @@ describe('FluidProperties reads and processes a input files', () => {
 	})
 
 	it('should read data from an input file and return the viscosity for the appropriate phase', async () => {
-		const interpolatedVisc = 0.000014553907692081282
+		const interpolatedVisc = 0.000014553935999921351
 
 		return await fluidProperties
 			.viscosity(
@@ -40,7 +40,7 @@ describe('FluidProperties reads and processes a input files', () => {
 	})
 
 	it('should read data from an input file and return the density for the appropriate phase', async () => {
-		const interpolatedDensity = 0.0183582902310686
+		const interpolatedDensity = 0.018358316960103916
 
 		return await fluidProperties
 			.density(
@@ -53,7 +53,7 @@ describe('FluidProperties reads and processes a input files', () => {
 	})
 
 	it('should read data from an input file and return the enthalpy', async () => {
-		const interpolatedEnth = -29102.786966438824
+		const interpolatedEnth = -29102.79580725744
 
 		return await fluidProperties
 			.enthalpy(

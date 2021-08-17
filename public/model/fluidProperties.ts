@@ -77,7 +77,13 @@ export default class FluidProperties {
 			(point) => point[0] > temperature.celsius
 		)
 		if (rightIdx <= 0) {
-			console.log(temperature.celsius)
+			const dewPressures = data.data.map((point) => point[1])
+			const maxDewPressure = Math.max(...dewPressures)
+			if (maxDewPressure > pressure.pascal) {
+				return Phase.Gas
+			}
+
+			console.log(temperature.celsius, pressure.pascal)
 			throw new Error('Out of range')
 		}
 		const leftIdx = rightIdx - 1

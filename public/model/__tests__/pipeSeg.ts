@@ -85,7 +85,7 @@ describe('destinations', () => {
 			pressure: 300000,
 			temperature: 350,
 			flowrate: 100,
-			p2: 294535.73943407804,
+			p2: 294483.1079323197,
 		},
 	]
 
