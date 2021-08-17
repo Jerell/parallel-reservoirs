@@ -51,8 +51,6 @@ export default class Inlet extends Transport {
 
 		let pressureSolution = PressureSolution.Low
 
-		this.applyInletProperties(1, 2, 3)
-
 		if (!this.fluid) {
 			throw new Error(`Inlet has no fluid`)
 		}
