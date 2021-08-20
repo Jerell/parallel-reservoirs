@@ -1,13 +1,13 @@
 import Fluid from './fluid'
-import Transport from './transport'
 import { defaultFluidConstructor } from './fluid'
-import IElement, { IPhysicalElement, PressureSolution } from './element'
+import { IPhysicalElement, PressureSolution } from './element'
 import {
 	Pressure,
 	PressureUnits,
 	Temperature,
 	TemperatureUnits,
 } from 'physical-quantities'
+import Analogue from './analogue'
 
 export enum RealWell {
 	Hamilton,
@@ -105,43 +105,32 @@ wellFunctions[RealWell.Lennox] = {
 	],
 }
 
-export default class Well extends Transport {
-	fluid: Fluid | null
-	destination: IElement | null
-	realWell: RealWell
-
+export default class Well extends Analogue {
 	constructor(name: string, physical: IPhysicalElement, realWell: RealWell) {
-		super(name, physical, 'Well')
-
-		this.fluid = null
-		this.destination = null
-		this.realWell = realWell
+		super(name, physical, 'Well', wellFunctions[realWell])
 	}
 
-	endPressure() {
+	get x() {
 		if (!this.fluid) {
-			throw new Error('Well has no fluid - unable to calculate end pressure')
+			throw new Error(`${this.type} has no fluid`)
 		}
-		const wellFunction = wellFunctions[this.realWell]
-		const x = this.fluid.flowrate
-		const y = this.fluid.pressure
+		return this.fluid.flowrate
+	}
 
-		const subIntoPowers = wellFunction.powers.map(
-			(powers) => x ** powers[0] * y ** powers[1]
-		)
-		const multipliedByCoefs = subIntoPowers.map(
-			(xy, i) => xy * wellFunction.coefficients[i]
-		)
-		return (
-			wellFunction.intercept +
-			multipliedByCoefs.reduce((acc, a) => (acc += a), 0)
-		)
+	get y() {
+		if (!this.fluid) {
+			throw new Error(`${this.type} has no fluid`)
+		}
+		// Well function uses bara
+		return new Pressure(this.fluid.pressure, PressureUnits.Pascal).bara
 	}
 
 	async process(fluid: Fluid): Promise<PressureSolution> {
 		if (!this.destination) return PressureSolution.Ok
 
-		const p = this.endPressure()
+		this.fluid = fluid
+
+		const p = this.endPressure() // bara
 
 		const endFluid = await defaultFluidConstructor(
 			new Pressure(p, PressureUnits.Bara),
