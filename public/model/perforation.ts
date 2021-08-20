@@ -10,10 +10,10 @@ import {
 import Analogue from './analogue'
 import { RealReservoir } from './reservoir'
 
-const wellFunctions = {}
+const perforationFunctions = {}
 
-wellFunctions[RealReservoir.Hamilton] = {
-	intercept: -1661.6940108244444,
+perforationFunctions[RealReservoir.Hamilton] = {
+	intercept: -0.723155611559477,
 	powers: [
 		[1, 0],
 		[0, 1],
@@ -31,14 +31,14 @@ wellFunctions[RealReservoir.Hamilton] = {
 		[0, 4],
 	],
 	coefficients: [
-		-3.6376802e1, 1.55541152e2, -5.84074627e-1, 2.68681344, -5.31570166,
-		1.24632888e-2, -2.11899545e-3, -4.64762077e-2, 7.64993843e-2, 9.83285397e-4,
-		-2.49055361e-3, 2.17305312e-3, -5.59752093e-4, -2.75795248e-4,
+		-7.45839244e-2, 8.00571236e-1, 1.0322175e-2, -1.25228384e-2, 1.22712427e-2,
+		-2.27136569e-4, 9.60433607e-5, 1.48900866e-4, -1.79135752e-4, 1.70799719e-7,
+		2.11473864e-6, -2.05817226e-6, -1.19052163e-7, 7.62239511e-7,
 	],
 }
 
-wellFunctions[RealReservoir.HamiltonNorth] = {
-	intercept: 191.75089661332476,
+perforationFunctions[RealReservoir.HamiltonNorth] = {
+	intercept: -1.4034521453141124,
 	powers: [
 		[1, 0],
 		[0, 1],
@@ -56,14 +56,14 @@ wellFunctions[RealReservoir.HamiltonNorth] = {
 		[0, 4],
 	],
 	coefficients: [
-		-3.45593409e1, 2.15564527, 2.23465384e-1, 2.24356698, -6.77920973e-1,
-		-1.67253619e-1, 2.90239067e-1, -2.2603936e-1, 5.46753646e-2, 4.82575227e-3,
-		-8.07577188e-3, 4.18655804e-3, -3.5338429e-5, -2.86732877e-4,
+		-2.97089238e-1, 1.03991433, 2.16958803e-2, -1.91488122e-3, -2.63657614e-4,
+		-4.00000553e-4, -2.3425952e-4, 1.4304453e-4, -1.41347907e-5, 1.67823295e-6,
+		2.12423698e-6, 7.26210847e-7, -9.550614e-7, 1.27674948e-7,
 	],
 }
 
-wellFunctions[RealReservoir.Lennox] = {
-	intercept: -48517.795025533436,
+perforationFunctions[RealReservoir.Lennox] = {
+	intercept: -0.5326763044220115,
 	powers: [
 		[1, 0],
 		[0, 1],
@@ -79,34 +79,21 @@ wellFunctions[RealReservoir.Lennox] = {
 		[2, 2],
 		[1, 3],
 		[0, 4],
-		[5, 0],
-		[4, 1],
-		[3, 2],
-		[2, 3],
-		[1, 4],
-		[0, 5],
-		[6, 0],
-		[5, 1],
-		[4, 2],
-		[3, 3],
 	],
 	coefficients: [
-		2.9121663, 1.06009869, 4.9296878e1, 3.64633611e1, 2.11714556e1,
-		1.60551838e1, -2.23927047e1, -1.5772629e1, 2.07253437e1, 2.13116395,
-		-8.53717457, 1.13332052e1, -5.15446972, 1.72504763e-1, 7.58769945e-2,
-		-4.31655329e-1, 9.55705412e-1, -1.0089887, 4.91591861e-1, -8.11675059e-2,
-		1.05421816e-3, -7.24384856e-3, 2.06858504e-2, -3.12830672e-2, 2.62002199e-2,
-		-1.13630761e-2, 1.94141832e-3,
+		-5.20839196e-2, 1.02365102, 1.62250266e-3, 1.94289091e-4, -6.32437645e-4,
+		-1.73358992e-5, -4.41477875e-6, -1.72118067e-6, 7.74807823e-6,
+		2.59089315e-8, 1.01987079e-7, -6.13300111e-8, 3.41781956e-8, -3.36623543e-8,
 	],
 }
 
-export default class Well extends Analogue {
+export default class Perforation extends Analogue {
 	constructor(
 		name: string,
 		physical: IPhysicalElement,
-		realWell: RealReservoir
+		realReservoir: RealReservoir
 	) {
-		super(name, physical, 'Well', wellFunctions[realWell])
+		super(name, physical, 'Well', perforationFunctions[realReservoir])
 	}
 
 	get x() {
@@ -120,7 +107,7 @@ export default class Well extends Analogue {
 		if (!this.fluid) {
 			throw new Error(`${this.type} has no fluid`)
 		}
-		// Well function uses bara
+		// Perforation function uses bara
 		return new Pressure(this.fluid.pressure, PressureUnits.Pascal).bara
 	}
 

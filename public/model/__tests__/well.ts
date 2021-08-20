@@ -1,4 +1,4 @@
-import Well, { RealWell } from '../well'
+import Well from '../well'
 import Reservoir from '../reservoir'
 import { defaultFluidConstructor } from '../fluid'
 import {
@@ -7,6 +7,7 @@ import {
 	Temperature,
 	TemperatureUnits,
 } from 'physical-quantities'
+import { RealReservoir } from '../reservoir'
 
 describe('endPressure', () => {
 	it('should', async () => {
@@ -16,7 +17,7 @@ describe('endPressure', () => {
 			30
 		)
 
-		const well = new Well('HM1', { elevation: 0 }, RealWell.Hamilton)
+		const well = new Well('HM1', { elevation: 0 }, RealReservoir.Hamilton)
 		const reservoir = new Reservoir('Hamilton', { elevation: 0 }, 10)
 		well.setDestination(reservoir)
 		well.process(fluid)

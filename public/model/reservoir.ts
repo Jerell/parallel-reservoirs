@@ -1,6 +1,12 @@
 import IElement, { IPhysicalElement, PressureSolution } from './element'
 import Fluid from './fluid'
 
+export enum RealReservoir {
+	Hamilton,
+	HamiltonNorth,
+	Lennox,
+}
+
 export default class Reservoir implements IElement {
 	type: string = 'Reservoir'
 	name: string
