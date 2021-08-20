@@ -85,17 +85,22 @@ export default class PipeSeg extends Transport {
 		const u = w / (A * ρ)
 		const μ = this.fluid.viscosity
 		const Re = (ρ * u * D) / μ
-		const f = Re < 2000 ? 64 / Re : 0.094 / (D * 1000) ** (1 / 3)
+		const ε = 4.5e-5
+		const f = 0.25 / (Math.log10(ε / (3.7 * D) + 5.74 / (Re ^ 0.7)) ^ 2)
 
 		const domainLimitingTerm = Math.sqrt((A ** 2 * D * P1) / (f * L * v))
 		if (domainLimitingTerm <= w) {
 			return 0
 		}
 
+		const g = 9.807
+		const elevationLoss = g * this.height * ρ
+
 		return (
 			(A * Math.sqrt(D)) ** -1 *
-			Math.sqrt(P1) *
-			Math.sqrt(A ** 2 * D * P1 - f * L * v * w ** 2)
+				Math.sqrt(P1) *
+				Math.sqrt(A ** 2 * D * P1 - f * L * v * w ** 2) -
+			elevationLoss
 		)
 	}
 
