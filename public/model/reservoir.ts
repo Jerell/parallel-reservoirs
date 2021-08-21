@@ -1,5 +1,6 @@
 import IElement, { IPhysicalElement, PressureSolution } from './element'
 import Fluid from './fluid'
+import Perforation from './perforation'
 
 export enum RealReservoir {
 	Hamilton,
@@ -13,6 +14,7 @@ export default class Reservoir implements IElement {
 	physical: IPhysicalElement
 	pressure: number
 	fluid?: Fluid
+	source?: Perforation
 
 	constructor(name: string, physical: IPhysicalElement, pressure: number) {
 		this.name = name

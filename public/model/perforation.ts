@@ -8,7 +8,8 @@ import {
 	TemperatureUnits,
 } from 'physical-quantities'
 import Analogue from './analogue'
-import { RealReservoir } from './reservoir'
+import Reservoir, { RealReservoir } from './reservoir'
+import Well from './well'
 
 const perforationFunctions = {}
 
@@ -88,12 +89,16 @@ perforationFunctions[RealReservoir.Lennox] = {
 }
 
 export default class Perforation extends Analogue {
+	source?: Well
+	destination: Reservoir | null
+
 	constructor(
 		name: string,
 		physical: IPhysicalElement,
 		realReservoir: RealReservoir
 	) {
 		super(name, physical, 'Well', perforationFunctions[realReservoir])
+		this.destination = null
 	}
 
 	get x() {
@@ -109,6 +114,11 @@ export default class Perforation extends Analogue {
 		}
 		// Perforation function uses bara
 		return new Pressure(this.fluid.pressure, PressureUnits.Pascal).bara
+	}
+
+	setDestination(dest: Reservoir) {
+		this.destination = dest
+		dest.source = this
 	}
 
 	async process(fluid: Fluid): Promise<PressureSolution> {
