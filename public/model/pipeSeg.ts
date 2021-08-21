@@ -8,7 +8,7 @@ import {
 	TemperatureUnits,
 } from 'physical-quantities'
 
-interface IPipeDefinition extends IPhysicalElement {
+export interface IPipeDefinition extends IPhysicalElement {
 	length: number
 	diameters: number[]
 	elevation: number
