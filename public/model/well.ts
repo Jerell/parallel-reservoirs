@@ -9,6 +9,8 @@ import {
 } from 'physical-quantities'
 import Analogue from './analogue'
 import { RealReservoir } from './reservoir'
+import PipeSeg from './pipeSeg'
+import IElement from './element'
 
 const wellFunctions = {}
 
@@ -101,12 +103,16 @@ wellFunctions[RealReservoir.Lennox] = {
 }
 
 export default class Well extends Analogue {
+	source?: PipeSeg
+	destination: IElement | null
+
 	constructor(
 		name: string,
 		physical: IPhysicalElement,
 		realWell: RealReservoir
 	) {
 		super(name, physical, 'Well', wellFunctions[realWell])
+		this.destination = null
 	}
 
 	get x() {
@@ -122,6 +128,11 @@ export default class Well extends Analogue {
 		}
 		// Well function uses bara
 		return new Pressure(this.fluid.pressure, PressureUnits.Pascal).bara
+	}
+
+	setDestination(dest: IElement) {
+		this.destination = dest
+		dest.source = this
 	}
 
 	async process(fluid: Fluid): Promise<PressureSolution> {
