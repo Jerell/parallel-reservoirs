@@ -124,7 +124,6 @@ export default class SnapshotBuilder {
 							pipeDef.length = lengths[i % lengths.length]
 						}
 						this.chainAdd('pipeseg')(pipeDef)
-						const eles = this.elements
 					}
 					return this
 				}
