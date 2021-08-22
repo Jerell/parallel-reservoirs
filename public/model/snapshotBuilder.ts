@@ -13,6 +13,39 @@ import {
 	TemperatureUnits,
 } from 'physical-quantities'
 
+export type AddInlet = (
+	name: string,
+	physical: IPhysicalElement
+) => SnapshotBuilder
+
+export type AddSplitter = (
+	name: string,
+	physical: IPhysicalElement,
+	source: PipeSeg
+) => SnapshotBuilder
+
+export type AddWell = (
+	name: string,
+	physical: IPhysicalElement,
+	source: PipeSeg,
+	realReservoirName: string
+) => SnapshotBuilder
+
+export type AddReservoir = (
+	name: string,
+	physical: IPhysicalElement,
+	pressure: number
+) => SnapshotBuilder
+
+export type AddPipeSeg = (pipeDef: IPipeDefinition) => SnapshotBuilder
+
+export type AddPipeSeries = (
+	n: number,
+	pipeDef: IPipeDefinition,
+	elevations?: number[],
+	lengths?: number[]
+) => SnapshotBuilder
+
 export default class SnapshotBuilder {
 	elements: IElement[] = []
 	splitters: Splitter[] = []
@@ -115,7 +148,7 @@ export default class SnapshotBuilder {
 					elevations: number[] = [],
 					lengths: number[] = []
 				) => {
-					this.add('pipeseg', source)(pipeDef)
+					;(this.add('pipeseg', source) as AddPipeSeg)(pipeDef)
 					for (let i = 0; i < n - 1; i++) {
 						if (elevations.length) {
 							pipeDef.elevation = elevations[i % elevations.length]
@@ -123,7 +156,7 @@ export default class SnapshotBuilder {
 						if (lengths.length) {
 							pipeDef.length = lengths[i % lengths.length]
 						}
-						this.chainAdd('pipeseg')(pipeDef)
+						;(this.chainAdd('pipeseg') as AddPipeSeg)(pipeDef)
 					}
 					return this
 				}
@@ -158,7 +191,7 @@ export default class SnapshotBuilder {
 		)
 	}
 
-	selectSplitter(id?: number | string) {
+	selectSplitter(id?: number | string): this {
 		if (typeof id === 'string') {
 			this.selectedSplitter = this.splitters.find(
 				(s) => s.name.toLowerCase() === id.toLowerCase()
