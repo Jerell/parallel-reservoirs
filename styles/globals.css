@@ -10,3 +10,18 @@ body {
 	-webkit-tap-highlight-color: transparent;
 	-webkit-touch-callout: none;
 }
+
+.map_svg__path {
+	stroke-dasharray: 49 1;
+	animation: dash 5s linear infinite;
+}
+
+.map_svg__reverse-anim {
+	animation-direction: reverse;
+}
+
+@keyframes dash {
+	from {
+		stroke-dashoffset: 100;
+	}
+}

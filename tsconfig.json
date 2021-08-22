@@ -20,5 +20,11 @@
 		}
 	},
 	"exclude": ["node_modules", "**/__tests__/*"],
-	"include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", "./jest.setup.ts"]
+	"include": [
+		"next-env.d.ts",
+		"**/*.ts",
+		"**/*.tsx",
+		"./jest.setup.ts",
+		"custom.d.ts"
+	]
 }
