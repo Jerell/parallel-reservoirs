@@ -1,8 +1,6 @@
 import Page from '@/components/page'
 import DashboardGrid from '@/components/dashboard/grid/dashboardGrid'
 import GridSpace from '@/components/dashboard/grid/gridspace'
-import NumberInput from '@/components/numberInput'
-import Button from '@/components/button'
 import HyNetTable from '@/components/dashboard/hynetTable'
 import Map from '@/components/dashboard/map'
 
