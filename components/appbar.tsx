@@ -2,7 +2,7 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 const links = [
-	{ label: 'Vis', href: '/vis' },
+	{ label: 'Demo', href: '/demo' },
 	// { label: 'P3', href: '/p3' },
 ]
 
@@ -15,7 +15,7 @@ const Appbar = () => {
 				<div className='mx-auto px-6 max-w-screen-md h-20 flex items-center justify-between'>
 					<Link href='/'>
 						<a>
-							<h1 className='font-medium'>Parallel Reservoirs</h1>
+							<h1 className='font-medium'>HyNet</h1>
 						</a>
 					</Link>
 

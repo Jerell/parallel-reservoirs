@@ -10,19 +10,10 @@ const Vis = () => (
 	<Page fullWidth noPadding>
 		<DashboardGrid>
 			<GridSpace>
-				<h3 className='text-lg font-semibold mb-4'>input</h3>
-				<div>
-					<NumberInput label='flowrate' unitListType='flowrate' />
-				</div>
-				<div className='mt-2'>
-					<Button />
-				</div>
+				<HyNetTable />
 			</GridSpace>
 			<GridSpace cols={2}>
 				<Map />
-			</GridSpace>
-			<GridSpace fullWidth>
-				<HyNetTable />
 			</GridSpace>
 		</DashboardGrid>
 	</Page>
