@@ -20,8 +20,7 @@ export type AddInlet = (
 
 export type AddSplitter = (
 	name: string,
-	physical: IPhysicalElement,
-	source: PipeSeg
+	physical: IPhysicalElement
 ) => SnapshotBuilder
 
 export type AddWell = (
@@ -77,8 +76,11 @@ export default class SnapshotBuilder {
 					return this
 				}
 			case 'splitter':
-				return (name: string, physical: IPhysicalElement, source: PipeSeg) => {
-					const elem = new Splitter(name, physical, source)
+				return (name: string, physical: IPhysicalElement) => {
+					if (!(this.previousElem instanceof PipeSeg)) {
+						throw new Error(`Splitter creation must come after pipeseg`)
+					}
+					const elem = new Splitter(name, physical, this.previousElem)
 
 					set(elem)
 					return this

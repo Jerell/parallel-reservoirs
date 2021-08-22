@@ -145,14 +145,7 @@ describe('add', () => {
 			length: 200,
 			diameters: [1, 2, 3, 4],
 		})
-
-		const pipeseg = builder.previousElem as PipeSeg
-
-		;(builder.add('splitter') as AddSplitter)(
-			'split1',
-			{ elevation: 0 },
-			pipeseg
-		)
+		;(builder.add('splitter') as AddSplitter)('split1', { elevation: 0 })
 
 		expect(builder.elements[2]).toBeInstanceOf(Splitter)
 	})
@@ -222,16 +215,14 @@ describe('navigation - selectSplitter', () => {
 					length: 200,
 					diameters: [1, 2, 3, 4],
 				}).chainAdd('splitter') as AddSplitter
-			)('split1', { elevation: 0 }, builder.previousElem as PipeSeg).chainAdd(
-				'pipeseg'
-			) as AddPipeSeg
+			)('split1', { elevation: 0 }).chainAdd('pipeseg') as AddPipeSeg
 		)({
 			name: 's1-s2',
 			elevation: 0,
 			length: 200,
 			diameters: [1, 2, 3, 4],
 		}).chainAdd('splitter') as AddSplitter
-	)('split2', { elevation: 0 }, builder.previousElem as PipeSeg)
+	)('split2', { elevation: 0 })
 
 	test('setup', () => {
 		expect(builder.previousElem).toBeInstanceOf(Splitter)
