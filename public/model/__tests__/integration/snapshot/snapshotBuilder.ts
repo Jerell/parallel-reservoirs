@@ -245,14 +245,14 @@ describe('navigation - selectSplitter', () => {
 	})
 
 	test('branch', () => {
-		;(builder.selectSplitter(0).branch('pipeseg') as AddPipeSeg)({
+		;(builder.selectSplitter(0).branch() as AddPipeSeg)({
 			name: 'froms1',
 			elevation: 0,
 			length: 200,
 			diameters: [1, 2, 3, 4],
 		})
 		expect(builder.previousElem.source.name).toBe('split1')
-		;(builder.selectSplitter('split2').branch('pipeseg') as AddPipeSeg)({
+		;(builder.selectSplitter('split2').branch() as AddPipeSeg)({
 			name: 'froms2',
 			elevation: 0,
 			length: 200,

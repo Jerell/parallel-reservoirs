@@ -34,9 +34,33 @@ export default class Parser {
 		}
 		const builder = new SnapshotBuilder()
 
-		for (const component of this.data.instructions) {
-			for (let [type, parameters] of Object.entries(component)) {
+		for (const instruction of this.data.instructions) {
+			for (let [type, parameters] of Object.entries(instruction)) {
 				type = type.toLowerCase()
+
+				if (type in ['selectsplitter', 'branch', 'setfluid']) {
+					switch (type) {
+						case 'selectsplitter':
+							const { id } = parameters as { id: number | string }
+							builder.selectSplitter(id)
+							break
+						case 'branch':
+							const adder = builder.branch()
+							const pipeDef = parameters as IPipeDefinition
+							;(adder as AddPipeSeg)(pipeDef)
+							break
+						case 'setfluid':
+							const { pressure, temperature, flowrate } = parameters as {
+								pressure: number
+								temperature: number
+								flowrate: number
+							}
+							builder.setFluid(pressure, temperature, flowrate)
+							break
+					}
+					continue
+				}
+
 				const adder = builder.chainAdd(type)
 
 				switch (type) {

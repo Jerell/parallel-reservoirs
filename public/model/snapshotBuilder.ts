@@ -193,7 +193,7 @@ export default class SnapshotBuilder {
 		)
 	}
 
-	selectSplitter(id?: number | string): this {
+	selectSplitter(id: number | string): this {
 		if (typeof id === 'string') {
 			this.selectedSplitter = this.splitters.find(
 				(s) => s.name.toLowerCase() === id.toLowerCase()
@@ -210,10 +210,10 @@ export default class SnapshotBuilder {
 		return this
 	}
 
-	branch(type: string) {
+	branch() {
 		if (!this.selectedSplitter) {
 			throw new Error(`No splitter selected to branch from`)
 		}
-		return this.chainAdd(type, this.selectedSplitter)
+		return this.chainAdd('pipeseg', this.selectedSplitter)
 	}
 }
