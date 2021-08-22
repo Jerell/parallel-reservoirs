@@ -2,6 +2,17 @@
 @tailwind components;
 @tailwind utilities;
 
+@font-face {
+	font-family: Raleway;
+	src: url('../public/fonts/Raleway-VariableFont_wght.ttf') format('truetype'),
+		url('../public/fonts/Raleway-Italic-VariableFont_wght.ttf')
+			format('truetype');
+	font-stretch: 25% 150%;
+	font-style: oblique 0 1;
+	font-weight: 100 900;
+	font-display: swap;
+}
+
 body {
 	@apply p-safe min-h-screen text-gray-900 bg-gray-50 dark:text-gray-50 dark:bg-gray-900 antialiased;
 
