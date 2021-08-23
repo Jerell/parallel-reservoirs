@@ -27,10 +27,7 @@ describe('readFile', () => {
 
 	it('should read a .genkey file', () => {
 		const parser = new Parser()
-		const data = parser.readFile(
-			`${__dirname}/inputFiles/001-DTTC2.genkey`,
-			true
-		)
+		const data = parser.readFile(`${__dirname}/inputFiles/001-DTTC2.genkey`)
 
 		const expected = {
 			instructions: [
