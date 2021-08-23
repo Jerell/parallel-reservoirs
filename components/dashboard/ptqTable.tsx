@@ -58,7 +58,7 @@ const row = ({ name, pressure = 0, temperature = 0, flowrate = 0 }, i) => {
 	)
 }
 
-const HyNetTable = () => (
+const PTQTable = () => (
 	<table className='table-auto'>
 		<thead className='border-b border-green-300 italic'>
 			<tr>{headings.map(h)}</tr>
@@ -67,4 +67,4 @@ const HyNetTable = () => (
 	</table>
 )
 
-export default HyNetTable
+export default PTQTable

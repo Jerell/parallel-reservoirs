@@ -1,14 +1,14 @@
 import Page from '@/components/page'
 import DashboardGrid from '@/components/dashboard/grid/dashboardGrid'
 import GridSpace from '@/components/dashboard/grid/gridspace'
-import HyNetTable from '@/components/dashboard/hynetTable'
+import PTQTable from '@/components/dashboard/ptqTable'
 import Map from '@/components/dashboard/map'
 
 const Vis = () => (
 	<Page fullWidth noPadding>
 		<DashboardGrid>
 			<GridSpace>
-				<HyNetTable />
+				<PTQTable />
 			</GridSpace>
 			<GridSpace cols={2}>
 				<Map />

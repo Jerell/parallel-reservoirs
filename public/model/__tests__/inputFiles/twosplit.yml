@@ -1,4 +1,4 @@
---- # HyNet model
+--- # two splitter model
 instructions:
   - inlet:
      name: 'start'

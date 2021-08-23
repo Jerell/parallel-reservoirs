@@ -1,7 +1,0 @@
---- # HyNet model
-
-Inlet:
-  physical:
-    - elevation: 0
-  obo:
-    - bobo: 2

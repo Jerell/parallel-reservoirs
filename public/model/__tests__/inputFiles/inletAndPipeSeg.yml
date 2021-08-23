@@ -1,4 +1,4 @@
---- # HyNet model
+--- # simple model
 instructions:
   - inlet:
      name: 'start'
