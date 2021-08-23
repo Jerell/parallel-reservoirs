@@ -27,9 +27,298 @@ describe('readFile', () => {
 
 	it('should read a .genkey file', () => {
 		const parser = new Parser()
-		const data = parser.readFile(`${__dirname}/inputFiles/001-DTTC2.genkey`)
+		const data = parser.readFile(
+			`${__dirname}/inputFiles/001-DTTC2.genkey`,
+			true
+		)
 
-		expect(data).toBe(0)
+		const expected = {
+			instructions: [
+				{ inlet: { name: '01_ST_CoQ', elevation: 14.51 } },
+				{
+					pipeseg: {
+						name: 'PIPE-001',
+						length: 470,
+						elevation: 14.51,
+						diameters: [0.8759],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-002',
+						length: 860,
+						elevation: 25.25,
+						diameters: [0.8759],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-003',
+						length: 1120,
+						elevation: 13.04,
+						diameters: [0.8759],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-004',
+						length: 1560,
+						elevation: 7.99,
+						diameters: [0.8759],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-005',
+						length: 1310,
+						elevation: 6.51,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-006',
+						length: 870,
+						elevation: 2.51,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-007',
+						length: 1190,
+						elevation: 13.67,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-008',
+						length: 740,
+						elevation: 25.04,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-009',
+						length: 970,
+						elevation: 11.99,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-010',
+						length: 1040,
+						elevation: 22.73,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-011',
+						length: 560,
+						elevation: 10.93,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-012',
+						length: 1740,
+						elevation: 30.52,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-013',
+						length: 1560,
+						elevation: 31.78,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-014',
+						length: 790,
+						elevation: 28.2,
+						diameters: [0.8759],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-015',
+						length: 320,
+						elevation: 15.78,
+						diameters: [0.8759],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-016',
+						length: 2500,
+						elevation: 5.25,
+						diameters: [0.8759],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-017',
+						length: 2460,
+						elevation: 5.04,
+						diameters: [0.8759],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-018',
+						length: 1980,
+						elevation: 5.67,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-019',
+						length: 1210,
+						elevation: 11.78,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-020',
+						length: 940,
+						elevation: 46.73,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-021',
+						length: 1830,
+						elevation: 80.64,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-022',
+						length: 1390,
+						elevation: 88.22,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-023',
+						length: 1040,
+						elevation: 89.9,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-024',
+						length: 920,
+						elevation: 90.96,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-025',
+						length: 940,
+						elevation: 109.91,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-026',
+						length: 420,
+						elevation: 100.85,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-027',
+						length: 450,
+						elevation: 89.69,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-028',
+						length: 810,
+						elevation: 101.49,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-029',
+						length: 10,
+						elevation: 89.06,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-030',
+						length: -10,
+						elevation: 88.43,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-031',
+						length: 30,
+						elevation: 87.77,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-032',
+						length: 10,
+						elevation: 87.17,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-033',
+						length: 60,
+						elevation: 86.88,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-034',
+						length: 420,
+						elevation: 86.53,
+						diameters: [0.8886],
+					},
+				},
+				{
+					pipeseg: {
+						name: 'PIPE-035',
+						length: 500,
+						elevation: 67.58,
+						diameters: [0.8886],
+					},
+				},
+			],
+		}
+
+		expect(data).toEqual(expected)
 	})
 })
 

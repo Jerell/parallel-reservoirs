@@ -93,23 +93,87 @@ const OLGA = {
 							break
 					}
 
-					return [num, unitString]
+					return [Number(num.toFixed(4)), unitString]
 				} catch {
 					return [null, null]
 				}
 			}
 
-			const parameters = parameterStrings.map((param) => {
-				const [property, valueString] = param.split('=').map((s) => s.trim())
-
-				return { [property]: unitConversion(valueString) }
-			})
-			return { type, parameterStrings, parameters }
+			const parameters = parameterStrings.reduce(
+				(acc, param) => {
+					const [property, valueString] = param
+						.split('=')
+						.map((s) => s.trim()) as [string, string]
+					acc[property] = unitConversion(valueString)
+					return acc
+				},
+				type === 'GEOMETRY' ? { YSTART: [0, 'm'] } : {}
+			)
+			return { type, parameters }
 		}
 
-		console.log(readLineProperties(keyLines.firstPipe).parameters)
+		const INLET = readLineProperties(keyLines.geometry)
 
-		return 0
+		let prevX = 0
+		const getXLength = (lineParams) => {
+			if (!lineParams.XEND) return
+			const length = lineParams.XEND[0] - prevX
+			prevX = lineParams.XEND[0]
+			return length
+		}
+
+		let prevElevation = INLET.parameters.YSTART as [number, string]
+
+		const getElevation = (lineParams) => {
+			const elevation = prevElevation
+			if (lineParams.YEND) {
+				prevElevation = lineParams.YEND
+			}
+			return elevation[0]
+		}
+
+		const transformProperties = (lineProps) => {
+			const params = lineProps.parameters
+
+			const instructionMap = {
+				GEOMETRY: 'inlet',
+				PIPE: 'pipeseg',
+			}
+
+			const transformed = {
+				[instructionMap[lineProps.type]]: {
+					name: params.LABEL[0],
+					length: getXLength(params),
+					elevation: getElevation(params),
+					diameters: params.DIAMETER ? [params.DIAMETER[0]] : undefined,
+				},
+			}
+
+			for (const key of Object.keys(
+				transformed[instructionMap[lineProps.type]]
+			)) {
+				if (!transformed[instructionMap[lineProps.type]][key]) {
+					delete transformed[instructionMap[lineProps.type]][key]
+				}
+			}
+
+			return transformed
+		}
+
+		const pipes = lines
+			.slice(keyLines.firstPipe[0], keyLines.lastPipe[0] + 1)
+			.map(readLineProperties)
+
+		const data = {
+			instructions: [
+				transformProperties(INLET),
+				...pipes.map(transformProperties),
+			],
+		}
+
+		console.log(JSON.stringify(data))
+
+		return data
 	},
 }
 
@@ -117,7 +181,7 @@ export default class Parser {
 	data: any
 	constructor() {}
 
-	readFile(fileName: string) {
+	readFile(fileName: string, save = false) {
 		const file = fs.readFileSync(fileName, 'utf-8')
 		if (!file) {
 			throw new Error(`No file: ${fileName}`)
@@ -132,7 +196,14 @@ export default class Parser {
 				this.data = OLGA.parse(file)
 				break
 			default:
-				throw new Error(`File type not suppoeted: ${fileExtension}`)
+				throw new Error(`File type not supported: ${fileExtension}`)
+		}
+
+		if (save) {
+			fs.writeFileSync(
+				`${fileName.substring(0, fileName.indexOf('.'))}.yml`,
+				YAML.stringify(this.data)
+			)
 		}
 
 		return this.data
