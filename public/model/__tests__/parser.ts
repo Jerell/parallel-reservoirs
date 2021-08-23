@@ -4,7 +4,7 @@ import PipeSeg from '../pipeSeg'
 import Splitter from '../splitter'
 
 describe('readFile', () => {
-	it('should read the input file', () => {
+	it('should read a .yml input file', () => {
 		const parser = new Parser()
 		const data = parser.readFile(`${__dirname}/inputFiles/inletAndPipeSeg.yml`)
 
@@ -24,6 +24,13 @@ describe('readFile', () => {
 
 		expect(data).toEqual(expected)
 	})
+
+	it('should read a .genkey file', () => {
+		const parser = new Parser()
+		const data = parser.readFile(`${__dirname}/inputFiles/001-DTTC2.genkey`)
+
+		expect(data).toBe(0)
+	})
 })
 
 describe('build', () => {
@@ -37,6 +44,28 @@ describe('build', () => {
 	})
 
 	it('should create a more complex network (twosplit)', () => {
+		const parser = new Parser()
+		parser.readFile(`${__dirname}/inputFiles/twosplit.yml`)
+		const root = parser.build()
+
+		expect(root).toBeInstanceOf(Inlet)
+		expect((root as Inlet).destination).toBeInstanceOf(PipeSeg)
+		expect(((root as Inlet).destination as PipeSeg).destination).toBeInstanceOf(
+			Splitter
+		)
+		expect(
+			(((root as Inlet).destination as PipeSeg).destination as Splitter)
+				.destinations[0]
+		).toBeInstanceOf(PipeSeg)
+		expect(
+			(
+				(((root as Inlet).destination as PipeSeg).destination as Splitter)
+					.destinations[0] as PipeSeg
+			).destination
+		).toBeInstanceOf(Splitter)
+	})
+
+	it('should create a more complex network (series)', () => {
 		const parser = new Parser()
 		parser.readFile(`${__dirname}/inputFiles/twosplit.yml`)
 		const root = parser.build()

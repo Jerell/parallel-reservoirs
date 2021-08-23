@@ -12,6 +12,107 @@ import SnapshotBuilder, {
 } from './snapshotBuilder'
 import PipeSeg from './pipeSeg'
 
+const OLGA = {
+	parse: (fileString: string) => {
+		const lines = fileString.split('\n')
+		const linesReversed = lines.slice().reverse()
+
+		const lineThatStartsWith = (
+			word: string,
+			backwards = false
+		): [number, string] => {
+			const searchArr = backwards ? linesReversed : lines
+			const idx = searchArr.findIndex((line) =>
+				line.startsWith(word.toUpperCase())
+			)
+			if (idx < 0) {
+				throw new Error(`Line not found: ${word}`)
+			}
+			if (backwards) {
+				return [lines.length - idx - 1, linesReversed[idx]]
+			}
+			return [idx, lines[idx]]
+		}
+		const lastLineThatStartsWith = (word: string): [number, string] => {
+			return lineThatStartsWith(word, true)
+		}
+
+		const keyLines = {
+			initialConditions: lineThatStartsWith('initialconditions'),
+			geometry: lineThatStartsWith('geometry'),
+			firstPipe: lineThatStartsWith('pipe'),
+			lastPipe: lastLineThatStartsWith('pipe'),
+		}
+
+		const readLineProperties = (line: string | [number, string]) => {
+			if (typeof line !== 'string') {
+				line = line[1]
+			}
+			if (line.includes('NSEGMENT')) {
+				line = line.substring(0, line.indexOf('NSEGMENT'))
+			}
+			if (line.includes('LSEGMENT')) {
+				line = line.substring(0, line.indexOf('LSEGMENT'))
+			}
+			const [type, parameterStrings] = [
+				line.substring(0, line.indexOf(' ')),
+				line.substring(line.indexOf(' ')).trim().split(', '),
+			]
+
+			const unitConversion = (valueString: string) => {
+				try {
+					const matchNum = valueString.match(/[0-9]*\.?[0-9]*/)
+					if (!matchNum) {
+						return [null, null]
+					}
+					const numVal = matchNum[0]
+
+					if (!numVal) {
+						if (valueString.includes('"')) {
+							const textContentMatch = valueString.match(/[\w\d]+-*[\w\d]*/)
+							if (!textContentMatch) {
+								return [valueString, '-']
+							}
+							const textContent = textContentMatch[0]
+							return [textContent, '-']
+						}
+						return [valueString, '-']
+					}
+
+					let num = Number(numVal)
+					let unitString = valueString.substring(numVal.length).trim()
+
+					switch (unitString) {
+						case 'km':
+							num = num * 1000
+							unitString = 'm'
+							break
+						case 'mm':
+							num = num / 1000
+							unitString = 'm'
+							break
+					}
+
+					return [num, unitString]
+				} catch {
+					return [null, null]
+				}
+			}
+
+			const parameters = parameterStrings.map((param) => {
+				const [property, valueString] = param.split('=').map((s) => s.trim())
+
+				return { [property]: unitConversion(valueString) }
+			})
+			return { type, parameterStrings, parameters }
+		}
+
+		console.log(readLineProperties(keyLines.firstPipe).parameters)
+
+		return 0
+	},
+}
+
 export default class Parser {
 	data: any
 	constructor() {}
@@ -21,7 +122,18 @@ export default class Parser {
 		if (!file) {
 			throw new Error(`No file: ${fileName}`)
 		}
-		this.data = YAML.parse(file)
+		const fileExtension = fileName.substring(fileName.indexOf('.') + 1)
+		switch (fileExtension) {
+			case 'yml':
+			case 'yaml':
+				this.data = YAML.parse(file)
+				break
+			case 'genkey':
+				this.data = OLGA.parse(file)
+				break
+			default:
+				throw new Error(`File type not suppoeted: ${fileExtension}`)
+		}
 
 		return this.data
 	}
