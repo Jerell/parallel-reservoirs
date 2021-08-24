@@ -1,6 +1,6 @@
 instructions:
   - inlet:
-      name: '"DG-HM"'
+      name: DG-HM
       elevation: 26.6
   - pipeseg:
       name: -1

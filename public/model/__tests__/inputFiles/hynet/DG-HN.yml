@@ -1,0 +1,583 @@
+instructions:
+  - inlet:
+      name: DG-HN
+      elevation: 26.6
+  - pipeseg:
+      name: -1
+      elevation: 26.6
+      diameters:
+        - 0.3302
+  - pipeseg:
+      name: -2
+      length: 9
+      elevation: 25.5
+      diameters:
+        - 0.3302
+  - pipeseg:
+      name: -3
+      length: 11
+      diameters:
+        - 0.3302
+  - pipeseries:
+      n: 2
+      pipeDef:
+        name: -4
+        length: 250
+        elevation: -30.39
+        diameters:
+          - 0.3302
+      elevations:
+        - -30.39
+        - -29.39
+      lengths:
+        - 200
+        - 50
+  - pipeseries:
+      n: 2
+      pipeDef:
+        name: -5
+        length: 230
+        elevation: -29.14
+        diameters:
+          - 0.3302
+      elevations:
+        - -29.14
+        - -28.2965
+      lengths:
+        - 200
+        - 30
+  - pipeseries:
+      n: 2
+      pipeDef:
+        name: -6
+        length: 270
+        elevation: -28.17
+        diameters:
+          - 0.3302
+      elevations:
+        - -28.17
+        - -28.3107
+      lengths:
+        - 200
+        - 70
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: -7
+        length: 500
+        elevation: -28.36
+        diameters:
+          - 0.3302
+      elevations:
+        - -28.36
+        - -27.452
+        - -26.544
+      lengths:
+        - 200
+        - 200
+        - 100
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: -8
+        length: 490
+        elevation: -26.09
+        diameters:
+          - 0.3302
+      elevations:
+        - -26.09
+        - -26.9635
+        - -27.8369
+      lengths:
+        - 200
+        - 200
+        - 90
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: -9
+        length: 520
+        elevation: -28.23
+        diameters:
+          - 0.3302
+      elevations:
+        - -28.23
+        - -27.98
+        - -27.73
+      lengths:
+        - 200
+        - 200
+        - 120
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: -10
+        length: 470
+        elevation: -27.58
+        diameters:
+          - 0.3302
+      elevations:
+        - -27.58
+        - -27.0566
+        - -26.5332
+      lengths:
+        - 200
+        - 200
+        - 70
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: -11
+        length: 520
+        elevation: -26.35
+        diameters:
+          - 0.3302
+      elevations:
+        - -26.35
+        - -26.6846
+        - -27.0192
+      lengths:
+        - 200
+        - 200
+        - 120
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: -12
+        length: 500
+        elevation: -27.22
+        diameters:
+          - 0.3302
+      elevations:
+        - -27.22
+        - -28.3
+        - -29.38
+      lengths:
+        - 200
+        - 200
+        - 100
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: -13
+        length: 510
+        elevation: -29.92
+        diameters:
+          - 0.3302
+      elevations:
+        - -29.92
+        - -29.3867
+        - -28.8533
+      lengths:
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: -14
+        length: 490
+        elevation: -28.56
+        diameters:
+          - 0.3302
+      elevations:
+        - -28.56
+        - -28.7192
+        - -28.8784
+      lengths:
+        - 200
+        - 200
+        - 90
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: -15
+        length: 510
+        elevation: -28.95
+        diameters:
+          - 0.3302
+      elevations:
+        - -28.95
+        - -29.7382
+        - -30.5265
+      lengths:
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: -16
+        length: 480
+        elevation: -30.96
+        diameters:
+          - 0.3302
+      elevations:
+        - -30.96
+        - -31.1892
+        - -31.4183
+      lengths:
+        - 200
+        - 200
+        - 80
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: -17
+        length: 500
+        elevation: -31.51
+        diameters:
+          - 0.3302
+      elevations:
+        - -31.51
+        - -30.706
+        - -29.902
+      lengths:
+        - 200
+        - 200
+        - 100
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: -18
+        length: 500
+        elevation: -29.5
+        diameters:
+          - 0.3302
+      elevations:
+        - -29.5
+        - -29.16
+        - -28.82
+      lengths:
+        - 200
+        - 200
+        - 100
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: -19
+        length: 490
+        elevation: -28.65
+        diameters:
+          - 0.3302
+      elevations:
+        - -28.65
+        - -27.6582
+        - -26.6663
+      lengths:
+        - 200
+        - 200
+        - 90
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: -20
+        length: 520
+        elevation: -26.22
+        diameters:
+          - 0.3302
+      elevations:
+        - -26.22
+        - -26.2046
+        - -26.1892
+      lengths:
+        - 200
+        - 200
+        - 120
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: -21
+        length: 490
+        elevation: -26.18
+        diameters:
+          - 0.3302
+      elevations:
+        - -26.18
+        - -25.4127
+        - -24.6453
+      lengths:
+        - 200
+        - 200
+        - 90
+  - pipeseries:
+      n: 2
+      pipeDef:
+        name: -22
+        length: 260
+        elevation: -24.3
+        diameters:
+          - 0.3302
+      elevations:
+        - -24.3
+        - -25.5769
+      lengths:
+        - 200
+        - 60
+  - pipeseries:
+      n: 2
+      pipeDef:
+        name: -23
+        length: 250
+        elevation: -25.96
+        diameters:
+          - 0.3302
+      elevations:
+        - -25.96
+        - -24.344
+      lengths:
+        - 200
+        - 50
+  - pipeseries:
+      n: 2
+      pipeDef:
+        name: -24
+        length: 220
+        elevation: -23.94
+        diameters:
+          - 0.3302
+      elevations:
+        - -23.94
+        - -24.4127
+      lengths:
+        - 200
+        - 20
+  - pipeseries:
+      n: 2
+      pipeDef:
+        name: -25
+        length: 270
+        elevation: -24.46
+        diameters:
+          - 0.3302
+      elevations:
+        - -24.46
+        - -24.4822
+      lengths:
+        - 200
+        - 70
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: -26
+        length: 470
+        elevation: -24.49
+        diameters:
+          - 0.3302
+      elevations:
+        - -24.49
+        - -25.4177
+        - -26.3453
+      lengths:
+        - 200
+        - 200
+        - 70
+  - pipeseries:
+      n: 2
+      pipeDef:
+        name: -27
+        length: 290
+        elevation: -26.67
+        diameters:
+          - 0.3302
+      elevations:
+        - -26.67
+        - -25.2838
+      lengths:
+        - 200
+        - 90
+  - pipeseries:
+      n: 2
+      pipeDef:
+        name: -28
+        length: 260
+        elevation: -24.66
+        diameters:
+          - 0.3302
+      elevations:
+        - -24.66
+        - -27.66
+      lengths:
+        - 200
+        - 60
+  - pipeseries:
+      n: 2
+      pipeDef:
+        name: -29
+        length: 240
+        elevation: -28.56
+        diameters:
+          - 0.3302
+      elevations:
+        - -28.56
+        - -26.4433
+      lengths:
+        - 200
+        - 40
+  - pipeseries:
+      n: 2
+      pipeDef:
+        name: -30
+        length: 270
+        elevation: -26.02
+        diameters:
+          - 0.3302
+      elevations:
+        - -26.02
+        - -29.4126
+      lengths:
+        - 200
+        - 70
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: -31
+        length: 480
+        elevation: -30.6
+        diameters:
+          - 0.3302
+      elevations:
+        - -30.6
+        - -30.8167
+        - -31.0333
+      lengths:
+        - 200
+        - 200
+        - 80
+  - pipeseries:
+      n: 2
+      pipeDef:
+        name: -32
+        length: 260
+        elevation: -31.12
+        diameters:
+          - 0.3302
+      elevations:
+        - -31.12
+        - -29.4969
+      lengths:
+        - 200
+        - 60
+  - pipeseries:
+      n: 2
+      pipeDef:
+        name: -33
+        length: 220
+        elevation: -29.01
+        diameters:
+          - 0.3302
+      elevations:
+        - -29.01
+        - -31.2009
+      lengths:
+        - 200
+        - 20
+  - pipeseries:
+      n: 2
+      pipeDef:
+        name: -34
+        length: 280
+        elevation: -31.42
+        diameters:
+          - 0.3302
+      elevations:
+        - -31.42
+        - -29.6986
+      lengths:
+        - 200
+        - 80
+  - pipeseries:
+      n: 2
+      pipeDef:
+        name: -35
+        length: 230
+        elevation: -29.01
+        diameters:
+          - 0.3302
+      elevations:
+        - -29.01
+        - -30.8187
+      lengths:
+        - 200
+        - 30
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: -36
+        length: 500
+        elevation: -31.09
+        diameters:
+          - 0.3302
+      elevations:
+        - -31.09
+        - -31.246
+        - -31.402
+      lengths:
+        - 200
+        - 200
+        - 100
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: -37
+        length: 510
+        elevation: -31.48
+        diameters:
+          - 0.3302
+      elevations:
+        - -31.48
+        - -30.2565
+        - -29.0329
+      lengths:
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: -38
+        length: 490
+        elevation: -28.36
+        diameters:
+          - 0.3302
+      elevations:
+        - -28.36
+        - -27.1151
+        - -25.8702
+      lengths:
+        - 200
+        - 200
+        - 90
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: -39
+        length: 500
+        elevation: -25.31
+        diameters:
+          - 0.3302
+      elevations:
+        - -25.31
+        - -24.026
+        - -22.742
+      lengths:
+        - 200
+        - 200
+        - 100
+  - pipeseg:
+      name: -40
+      length: 8
+      elevation: -22.1
+      diameters:
+        - 0.3302
+  - pipeseg:
+      name: -41
+      length: 10
+      diameters:
+        - 0.3302
+  - pipeseg:
+      name: -42
+      length: 20
+      elevation: 26.3
+      diameters:
+        - 0.3302

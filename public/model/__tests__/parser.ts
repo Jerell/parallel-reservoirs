@@ -404,13 +404,3 @@ describe('build from .genkey', () => {
 		expect(pipe7.physical.elevation).toBe(16.7314)
 	})
 })
-
-describe('build hynet', () => {
-	const parser = new Parser()
-	parser.readFile(`${__dirname}/inputFiles/hynet/DG-HM.genkey`, true)
-	const root = parser.build()
-
-	it('should', () => {
-		expect(root).toBeInstanceOf(Inlet)
-	})
-})

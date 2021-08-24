@@ -67,7 +67,7 @@ const OLGA = {
 					if (!matchNum) {
 						const matchName = valueString.match(/".+?"/)
 						if (matchName) {
-							return [matchName[0], '-']
+							return [matchName[0].substring(1, matchName[0].length - 1), '-']
 						} else return [null, null]
 					}
 					const numVal = matchNum[0]
