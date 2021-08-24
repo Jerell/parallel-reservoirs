@@ -150,8 +150,7 @@ export default class SnapshotBuilder {
 					elevations: number[] = [],
 					lengths: number[] = []
 				) => {
-					;(this.add('pipeseg', source) as AddPipeSeg)(pipeDef)
-					for (let i = 0; i < n - 1; i++) {
+					for (let i = 0; i < n; i++) {
 						if (elevations.length) {
 							pipeDef.elevation = elevations[i % elevations.length]
 						}

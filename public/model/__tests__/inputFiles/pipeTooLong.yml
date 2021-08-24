@@ -1,0 +1,121 @@
+instructions:
+  - inlet:
+      name: 01_ST_CoQ
+      elevation: 14.51
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: PIPE-001
+        length: 470
+        elevation: 14.51
+        diameters:
+          - 0.8759
+      elevations:
+        - 14.51
+      lengths:
+        - 200
+        - 200
+        - 70
+  - pipeseries:
+      n: 5
+      pipeDef:
+        name: PIPE-002
+        length: 860
+        elevation: 25.25
+        diameters:
+          - 0.8759
+      elevations:
+        - 25.25
+      lengths:
+        - 200
+        - 200
+        - 200
+        - 200
+        - 60
+  - pipeseries:
+      n: 6
+      pipeDef:
+        name: PIPE-003
+        length: 1120
+        elevation: 13.04
+        diameters:
+          - 0.8759
+      elevations:
+        - 13.04
+      lengths:
+        - 200
+        - 200
+        - 200
+        - 200
+        - 200
+        - 120
+  - pipeseries:
+      n: 8
+      pipeDef:
+        name: PIPE-004
+        length: 1560
+        elevation: 7.99
+        diameters:
+          - 0.8759
+      elevations:
+        - 7.99
+      lengths:
+        - 200
+        - 200
+        - 200
+        - 200
+        - 200
+        - 200
+        - 200
+        - 160
+  - pipeseries:
+      n: 7
+      pipeDef:
+        name: PIPE-005
+        length: 1310
+        elevation: 6.51
+        diameters:
+          - 0.8886
+      elevations:
+        - 6.51
+      lengths:
+        - 200
+        - 200
+        - 200
+        - 200
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 5
+      pipeDef:
+        name: PIPE-006
+        length: 870
+        elevation: 2.51
+        diameters:
+          - 0.8886
+      elevations:
+        - 2.51
+      lengths:
+        - 200
+        - 200
+        - 200
+        - 200
+        - 70
+  - pipeseries:
+      n: 6
+      pipeDef:
+        name: PIPE-007
+        length: 1190
+        elevation: 13.67
+        diameters:
+          - 0.8886
+      elevations:
+        - 13.67
+      lengths:
+        - 200
+        - 200
+        - 200
+        - 200
+        - 200
+        - 190

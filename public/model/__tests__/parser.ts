@@ -319,7 +319,7 @@ describe('readFile', () => {
 	})
 })
 
-describe('build', () => {
+describe('build from .yml', () => {
 	it('should create a simple network', () => {
 		const parser = new Parser()
 		parser.readFile(`${__dirname}/inputFiles/inletAndPipeSeg.yml`)
@@ -371,5 +371,23 @@ describe('build', () => {
 					.destinations[0] as PipeSeg
 			).destination
 		).toBeInstanceOf(Splitter)
+	})
+})
+
+describe('build from .genkey', () => {
+	it('should create a pipeseries when the length would be too long for one pipeseg', () => {
+		const parser = new Parser()
+		parser.readFile(`${__dirname}/inputFiles/pipeTooLong.genkey`)
+		const root = parser.build()
+
+		const pipe1 = (root as Inlet).destination as PipeSeg
+		const pipe2 = (pipe1 as PipeSeg).destination as PipeSeg
+		const pipe3 = (pipe2 as PipeSeg).destination as PipeSeg
+		const pipe4 = (pipe3 as PipeSeg).destination as PipeSeg
+
+		expect(pipe1.physical.length).toBe(200)
+		expect(pipe2.physical.length).toBe(200)
+		expect(pipe3.physical.length).toBe(70)
+		expect(pipe4.physical.length).toBe(200)
 	})
 })

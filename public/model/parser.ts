@@ -116,7 +116,7 @@ const OLGA = {
 
 		let prevX = 0
 		const getXLength = (lineParams) => {
-			if (!lineParams.XEND) return
+			if (!lineParams.XEND) return 0
 			const length = lineParams.XEND[0] - prevX
 			prevX = lineParams.XEND[0]
 			return length
@@ -140,21 +140,79 @@ const OLGA = {
 				PIPE: 'pipeseg',
 			}
 
+			type PipeSegInstruction = {
+				name: string
+				length: number
+				elevation: number
+				diameters: number[]
+			}
+
+			type PipeSeriesInstruction = {
+				n: number
+				pipeDef: IPipeDefinition
+				elevations: number[]
+				lengths: number[]
+			}
+
+			const instructionType: string = instructionMap[lineProps.type]
+
 			const transformed = {
-				[instructionMap[lineProps.type]]: {
+				[instructionType]: {
 					name: params.LABEL[0],
 					length: getXLength(params),
 					elevation: getElevation(params),
 					diameters: params.DIAMETER ? [params.DIAMETER[0]] : undefined,
-				},
+				} as PipeSegInstruction | PipeSeriesInstruction,
 			}
 
-			for (const key of Object.keys(
-				transformed[instructionMap[lineProps.type]]
-			)) {
-				if (!transformed[instructionMap[lineProps.type]][key]) {
-					delete transformed[instructionMap[lineProps.type]][key]
+			for (const key of Object.keys(transformed[instructionType])) {
+				if (!transformed[instructionType][key]) {
+					delete transformed[instructionType][key]
 				}
+			}
+
+			const maxSegLength = 200
+			const reduceToMaxLengthArr = (length: number) => {
+				if (length < maxSegLength) return [length]
+
+				const lengths: number[] = []
+
+				const sum = () => lengths.reduce((acc, a) => acc + a, 0)
+				const remainder = () => length - sum()
+
+				while (remainder() >= maxSegLength) {
+					lengths.push(maxSegLength)
+				}
+				if (remainder()) {
+					lengths.push(remainder())
+				} else return [maxSegLength]
+				return lengths
+			}
+
+			if (
+				instructionType === 'pipeseg' &&
+				(transformed.pipeseg as PipeSegInstruction).length &&
+				(transformed.pipeseg as PipeSegInstruction).length > maxSegLength
+			) {
+				const seriesLengths = reduceToMaxLengthArr(
+					(transformed.pipeseg as PipeSegInstruction).length
+				)
+
+				transformed.pipeseries = <PipeSeriesInstruction>{
+					n: seriesLengths.length,
+					pipeDef: {
+						name: (transformed.pipeseg as PipeSegInstruction).name,
+						length: (transformed.pipeseg as PipeSegInstruction).length,
+						elevation: (transformed.pipeseg as PipeSegInstruction).elevation,
+						diameters: [
+							...(transformed.pipeseg as PipeSegInstruction).diameters,
+						],
+					},
+					elevations: [(transformed.pipeseg as PipeSegInstruction).elevation],
+					lengths: seriesLengths,
+				}
+
+				delete transformed.pipeseg
 			}
 
 			return transformed
@@ -170,8 +228,6 @@ const OLGA = {
 				...pipes.map(transformProperties),
 			],
 		}
-
-		console.log(JSON.stringify(data))
 
 		return data
 	},
