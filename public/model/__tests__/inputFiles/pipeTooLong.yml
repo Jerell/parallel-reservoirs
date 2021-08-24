@@ -11,6 +11,8 @@ instructions:
         diameters:
           - 0.8759
       elevations:
+        - 6.1745
+        - 12.3489
         - 14.51
       lengths:
         - 200
@@ -25,6 +27,10 @@ instructions:
         diameters:
           - 0.8759
       elevations:
+        - 5.8721
+        - 11.7442
+        - 17.6163
+        - 23.4884
         - 25.25
       lengths:
         - 200
@@ -41,6 +47,11 @@ instructions:
         diameters:
           - 0.8759
       elevations:
+        - 2.3286
+        - 4.6571
+        - 6.9857
+        - 9.3143
+        - 11.6429
         - 13.04
       lengths:
         - 200
@@ -58,6 +69,13 @@ instructions:
         diameters:
           - 0.8759
       elevations:
+        - 1.0244
+        - 2.0487
+        - 3.0731
+        - 4.0974
+        - 5.1218
+        - 6.1462
+        - 7.1705
         - 7.99
       lengths:
         - 200
@@ -77,6 +95,12 @@ instructions:
         diameters:
           - 0.8886
       elevations:
+        - 0.9939
+        - 1.9878
+        - 2.9817
+        - 3.9756
+        - 4.9695
+        - 5.9634
         - 6.51
       lengths:
         - 200
@@ -95,6 +119,10 @@ instructions:
         diameters:
           - 0.8886
       elevations:
+        - 0.577
+        - 1.154
+        - 1.731
+        - 2.308
         - 2.51
       lengths:
         - 200
@@ -111,6 +139,11 @@ instructions:
         diameters:
           - 0.8886
       elevations:
+        - 2.2975
+        - 4.595
+        - 6.8924
+        - 9.1899
+        - 11.4874
         - 13.67
       lengths:
         - 200

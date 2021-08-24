@@ -198,17 +198,28 @@ const OLGA = {
 					(transformed.pipeseg as PipeSegInstruction).length
 				)
 
+				// Elevation
+				let lengthSoFar = 0
+				const maxElevation = (transformed.pipeseg as PipeSegInstruction)
+					.elevation
+				const fullLength = (transformed.pipeseg as PipeSegInstruction).length
+
 				transformed.pipeseries = <PipeSeriesInstruction>{
 					n: seriesLengths.length,
 					pipeDef: {
 						name: (transformed.pipeseg as PipeSegInstruction).name,
-						length: (transformed.pipeseg as PipeSegInstruction).length,
-						elevation: (transformed.pipeseg as PipeSegInstruction).elevation,
+						length: fullLength,
+						elevation: maxElevation,
 						diameters: [
 							...(transformed.pipeseg as PipeSegInstruction).diameters,
 						],
 					},
-					elevations: [(transformed.pipeseg as PipeSegInstruction).elevation],
+					elevations: seriesLengths.map((sLength) => {
+						lengthSoFar += sLength
+						return Number(
+							((maxElevation * lengthSoFar) / fullLength).toFixed(4)
+						)
+					}),
 					lengths: seriesLengths,
 				}
 
