@@ -49,32 +49,24 @@ const OLGA = {
 				line = line[1]
 			}
 			line = line.replace(/NSEGMENT=\d+,\s/g, '')
-			line = line.replace(/LSEGMENT=.+\).+?,\s/g, '')
+			line = line.replace(/LSEGMENT=.+\).+?\s/g, '')
 
 			const [type, parameterStrings] = [
 				line.substring(0, line.indexOf(' ')),
 				line.substring(line.indexOf(' ')).trim().split(', '),
 			]
 
-			if (type == 'GEOMETRY') {
-				console.log(type, parameterStrings)
-			}
-
 			const unitConversion = (valueString: string) => {
-				try {
-					const matchNum = valueString.match(/-?[0-9]+\.?[0-9]*/)
+				const matchName = valueString.match(/".+?"/)
+				if (matchName) {
+					return [matchName[0].substring(1, matchName[0].length - 1), '-']
+				}
 
-					if (!matchNum) {
-						const matchName = valueString.match(/".+?"/)
-						if (matchName) {
-							return [matchName[0].substring(1, matchName[0].length - 1), '-']
-						} else return [null, null]
-					}
+				const matchNum = valueString.match(/-?[0-9]+\.?[0-9]*/)
+				if (matchNum) {
 					const numVal = matchNum[0]
-
 					let num = Number(numVal)
 					let unitString = valueString.substring(numVal.length).trim()
-
 					switch (unitString) {
 						case 'km':
 							num = num * 1000
@@ -85,11 +77,9 @@ const OLGA = {
 							unitString = 'm'
 							break
 					}
-
 					return [Number(num.toFixed(4)), unitString]
-				} catch {
-					return [null, null]
 				}
+				return [null, null]
 			}
 
 			const parameters = parameterStrings.reduce(
@@ -97,9 +87,6 @@ const OLGA = {
 					const [property, valueString] = param
 						.split('=')
 						.map((s) => s.trim()) as [string, string]
-					if (type === 'GEOMETRY') {
-						console.log({ property, valueString })
-					}
 					acc[property] = unitConversion(valueString)
 					return acc
 				},
@@ -109,7 +96,6 @@ const OLGA = {
 		}
 
 		const INLET = readLineProperties(keyLines.geometry)
-		console.log(INLET)
 
 		let prevX = 0
 		const getXLength = (lineParams) => {
