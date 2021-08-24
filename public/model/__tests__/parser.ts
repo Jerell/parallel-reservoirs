@@ -376,13 +376,16 @@ describe('build from .yml', () => {
 
 describe('build from .genkey', () => {
 	const parser = new Parser()
-	parser.readFile(`${__dirname}/inputFiles/pipeTooLong.genkey`)
+	parser.readFile(`${__dirname}/inputFiles/pipeTooLong.genkey`, true)
 	const root = parser.build()
 
 	const pipe1 = (root as Inlet).destination as PipeSeg
 	const pipe2 = (pipe1 as PipeSeg).destination as PipeSeg
 	const pipe3 = (pipe2 as PipeSeg).destination as PipeSeg
 	const pipe4 = (pipe3 as PipeSeg).destination as PipeSeg
+	const pipe5 = (pipe4 as PipeSeg).destination as PipeSeg
+	const pipe6 = (pipe5 as PipeSeg).destination as PipeSeg
+	const pipe7 = (pipe6 as PipeSeg).destination as PipeSeg
 
 	it('should create a pipeseries when the length would be too long for one pipeseg', () => {
 		expect(pipe1.physical.length).toBe(200)
@@ -392,8 +395,12 @@ describe('build from .genkey', () => {
 	})
 
 	it('should elevate the pipe segments appropriately', () => {
-		expect(pipe1.physical.elevation).toBe(6.1745)
-		expect(pipe2.physical.elevation).toBe(12.3489)
-		expect(pipe3.physical.elevation).toBe(14.51)
+		expect(pipe1.physical.elevation).toBe(14.51)
+		expect(pipe2.physical.elevation).toBe(19.0802)
+		expect(pipe3.physical.elevation).toBe(23.6504)
+		expect(pipe4.physical.elevation).toBe(25.25)
+		expect(pipe5.physical.elevation).toBe(22.4105)
+		expect(pipe6.physical.elevation).toBe(19.5709)
+		expect(pipe7.physical.elevation).toBe(16.7314)
 	})
 })

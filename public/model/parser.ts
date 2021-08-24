@@ -122,12 +122,12 @@ const OLGA = {
 			return length
 		}
 
-		let prevElevation = INLET.parameters.YSTART as [number, string]
+		let endElevation = INLET.parameters.YSTART as [number, string]
 
 		const getElevation = (lineParams) => {
-			const elevation = prevElevation
+			const elevation = endElevation
 			if (lineParams.YEND) {
-				prevElevation = lineParams.YEND
+				endElevation = lineParams.YEND
 			}
 			return elevation[0]
 		}
@@ -194,32 +194,33 @@ const OLGA = {
 				(transformed.pipeseg as PipeSegInstruction).length &&
 				(transformed.pipeseg as PipeSegInstruction).length > maxSegLength
 			) {
-				const seriesLengths = reduceToMaxLengthArr(
-					(transformed.pipeseg as PipeSegInstruction).length
-				)
+				const fullLength = (transformed.pipeseg as PipeSegInstruction).length
+				const seriesLengths = reduceToMaxLengthArr(fullLength)
 
 				// Elevation
 				let lengthSoFar = 0
-				const maxElevation = (transformed.pipeseg as PipeSegInstruction)
+				const startElevation = (transformed.pipeseg as PipeSegInstruction)
 					.elevation
-				const fullLength = (transformed.pipeseg as PipeSegInstruction).length
+				const elevationIncrease = endElevation[0] - startElevation
+				const elevations = seriesLengths.map((sLength) => {
+					lengthSoFar += sLength
+					const yGain = (elevationIncrease * lengthSoFar) / fullLength
+					return Number((startElevation + yGain).toFixed(4))
+				})
+				elevations.unshift(startElevation)
+				elevations.pop()
 
 				transformed.pipeseries = <PipeSeriesInstruction>{
 					n: seriesLengths.length,
 					pipeDef: {
 						name: (transformed.pipeseg as PipeSegInstruction).name,
 						length: fullLength,
-						elevation: maxElevation,
+						elevation: startElevation,
 						diameters: [
 							...(transformed.pipeseg as PipeSegInstruction).diameters,
 						],
 					},
-					elevations: seriesLengths.map((sLength) => {
-						lengthSoFar += sLength
-						return Number(
-							((maxElevation * lengthSoFar) / fullLength).toFixed(4)
-						)
-					}),
+					elevations,
 					lengths: seriesLengths,
 				}
 
