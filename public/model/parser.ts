@@ -48,36 +48,29 @@ const OLGA = {
 			if (typeof line !== 'string') {
 				line = line[1]
 			}
-			if (line.includes('NSEGMENT')) {
-				line = line.substring(0, line.indexOf('NSEGMENT'))
-			}
-			if (line.includes('LSEGMENT')) {
-				line = line.substring(0, line.indexOf('LSEGMENT'))
-			}
+			line = line.replace(/NSEGMENT=\d+,\s/g, '')
+			line = line.replace(/LSEGMENT=.+\).+?,\s/g, '')
+
 			const [type, parameterStrings] = [
 				line.substring(0, line.indexOf(' ')),
 				line.substring(line.indexOf(' ')).trim().split(', '),
 			]
 
+			if (type == 'GEOMETRY') {
+				console.log(type, parameterStrings)
+			}
+
 			const unitConversion = (valueString: string) => {
 				try {
-					const matchNum = valueString.match(/[0-9]*\.?[0-9]*/)
+					const matchNum = valueString.match(/-?[0-9]+\.?[0-9]*/)
+
 					if (!matchNum) {
-						return [null, null]
+						const matchName = valueString.match(/".+?"/)
+						if (matchName) {
+							return [matchName[0], '-']
+						} else return [null, null]
 					}
 					const numVal = matchNum[0]
-
-					if (!numVal) {
-						if (valueString.includes('"')) {
-							const textContentMatch = valueString.match(/[\w\d]+-*[\w\d]*/)
-							if (!textContentMatch) {
-								return [valueString, '-']
-							}
-							const textContent = textContentMatch[0]
-							return [textContent, '-']
-						}
-						return [valueString, '-']
-					}
 
 					let num = Number(numVal)
 					let unitString = valueString.substring(numVal.length).trim()
@@ -104,6 +97,9 @@ const OLGA = {
 					const [property, valueString] = param
 						.split('=')
 						.map((s) => s.trim()) as [string, string]
+					if (type === 'GEOMETRY') {
+						console.log({ property, valueString })
+					}
 					acc[property] = unitConversion(valueString)
 					return acc
 				},
@@ -113,6 +109,7 @@ const OLGA = {
 		}
 
 		const INLET = readLineProperties(keyLines.geometry)
+		console.log(INLET)
 
 		let prevX = 0
 		const getXLength = (lineParams) => {

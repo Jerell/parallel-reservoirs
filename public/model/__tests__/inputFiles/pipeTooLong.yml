@@ -1,11 +1,11 @@
 instructions:
   - inlet:
-      name: 01_ST_CoQ
+      name: 1
       elevation: 14.51
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-001
+        name: -1
         length: 470
         elevation: 14.51
         diameters:
@@ -21,7 +21,7 @@ instructions:
   - pipeseries:
       n: 5
       pipeDef:
-        name: PIPE-002
+        name: -2
         length: 860
         elevation: 25.25
         diameters:
@@ -41,7 +41,7 @@ instructions:
   - pipeseries:
       n: 6
       pipeDef:
-        name: PIPE-003
+        name: -3
         length: 1120
         elevation: 13.04
         diameters:
@@ -63,7 +63,7 @@ instructions:
   - pipeseries:
       n: 8
       pipeDef:
-        name: PIPE-004
+        name: -4
         length: 1560
         elevation: 7.99
         diameters:
@@ -89,7 +89,7 @@ instructions:
   - pipeseries:
       n: 7
       pipeDef:
-        name: PIPE-005
+        name: -5
         length: 1310
         elevation: 6.51
         diameters:
@@ -113,7 +113,7 @@ instructions:
   - pipeseries:
       n: 5
       pipeDef:
-        name: PIPE-006
+        name: -6
         length: 870
         elevation: 2.51
         diameters:
@@ -133,7 +133,7 @@ instructions:
   - pipeseries:
       n: 6
       pipeDef:
-        name: PIPE-007
+        name: -7
         length: 1190
         elevation: 13.67
         diameters:
