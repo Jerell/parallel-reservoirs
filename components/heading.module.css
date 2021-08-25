@@ -1,4 +1,4 @@
 .heading {
-	@apply uppercase p-6 font-semibold;
+	@apply uppercase p-6 font-semibold flex-grow;
 	font-family: Raleway;
 }
