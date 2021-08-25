@@ -1,0 +1,1271 @@
+instructions:
+  - inlet:
+      name: POA-DG
+      elevation: 4.14
+  - pipeseg:
+      name: POAtoDG-001
+      elevation: 4.14
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-002
+      length: 80.61
+      elevation: 2.75
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-003
+      length: 43.19
+      elevation: 2.43
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-004
+      length: 51.83
+      elevation: 2.78
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-005
+      length: 100.76999999999998
+      elevation: 2.99
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-006
+      length: 103.65000000000003
+      elevation: 3
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-007
+      length: 103.64999999999998
+      elevation: 3
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-008
+      length: 28.80000000000001
+      elevation: 2.97
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-009
+      elevation: 2.87
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-010
+      length: 2.8799999999999955
+      elevation: 2.07
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-011
+      length: 69.10000000000002
+      elevation: 1.29
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-012
+      length: 48.93999999999994
+      elevation: 1.28
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-013
+      length: 54.710000000000036
+      elevation: 1.13
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-014
+      length: 95.00999999999999
+      elevation: 1.24
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-015
+      length: 40.31000000000006
+      elevation: 1.57
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-016
+      length: 63.33999999999992
+      elevation: 2.71
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-017
+      length: 100.78000000000009
+      elevation: 2.78
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-018
+      length: 43.17999999999995
+      elevation: 2.76
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-019
+      length: 57.58999999999992
+      elevation: 2.67
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-020
+      length: 46.070000000000164
+      elevation: 3.08
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-021
+      length: 54.69999999999982
+      elevation: 2.86
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-022
+      length: 100.77000000000021
+      elevation: 2.84
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-023
+      length: 11.519999999999982
+      elevation: 2.91
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-024
+      length: 25.909999999999854
+      elevation: 2.29
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-025
+      length: 34.549999999999955
+      elevation: 1.77
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-026
+      length: 20.160000000000082
+      elevation: 2.32
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-027
+      length: 43.190000000000055
+      elevation: 2.97
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-028
+      length: 71.98000000000002
+      elevation: 3.22
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-029
+      length: 97.88999999999987
+      elevation: 3.28
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-030
+      length: 60.460000000000036
+      elevation: 3.87
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-031
+      length: 77.74000000000001
+      elevation: 2.89
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-032
+      length: 37.430000000000064
+      elevation: 2.87
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-033
+      length: 54.710000000000036
+      elevation: 3.56
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-034
+      length: 66.22000000000003
+      elevation: 3.98
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-035
+      length: 112.28999999999996
+      elevation: 4.64
+      diameters:
+        - 0.4572
+  - pipeseg:
+      name: POAtoDG-036
+      length: 96.06999999999994
+      elevation: 5.37
+      diameters:
+        - 0.4572
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-37
+        length: 500
+        elevation: 5.98
+        diameters:
+          - 0.4668
+      elevations:
+        - 5.98
+        - 5.588
+        - 5.196
+      lengths:
+        - 200
+        - 200
+        - 100
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-38
+        length: 560
+        elevation: 5
+        diameters:
+          - 0.4668
+      elevations:
+        - 5
+        - 4.5321
+        - 4.0643
+      lengths:
+        - 200
+        - 200
+        - 160
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-39
+        length: 480
+        elevation: 3.69
+        diameters:
+          - 0.4668
+      elevations:
+        - 3.69
+        - -1.2683
+        - -6.2267
+      lengths:
+        - 200
+        - 200
+        - 80
+  - pipeseries:
+      n: 2
+      pipeDef:
+        name: POAtoDG-40
+        length: 240
+        elevation: -8.21
+        diameters:
+          - 0.4668
+      elevations:
+        - -8.21
+        - -9.86
+      lengths:
+        - 200
+        - 40
+  - pipeseries:
+      n: 2
+      pipeDef:
+        name: POAtoDG-41
+        length: 330
+        elevation: -10.19
+        diameters:
+          - 0.4668
+      elevations:
+        - -10.19
+        - -7.7355
+      lengths:
+        - 200
+        - 130
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-42
+        length: 450
+        elevation: -6.14
+        diameters:
+          - 0.4668
+      elevations:
+        - -6.14
+        - -3.38
+        - -0.62
+      lengths:
+        - 200
+        - 200
+        - 50
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-43
+        length: 490
+        elevation: 0.07
+        diameters:
+          - 0.4668
+      elevations:
+        - 0.07
+        - 0.0006
+        - -0.0688
+      lengths:
+        - 200
+        - 200
+        - 90
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-44
+        length: 510
+        elevation: -0.1
+        diameters:
+          - 0.4668
+      elevations:
+        - -0.1
+        - -1.1471
+        - -2.1941
+      lengths:
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-45
+        length: 510
+        elevation: -2.77
+        diameters:
+          - 0.4668
+      elevations:
+        - -2.77
+        - -4.4641
+        - -6.1582
+      lengths:
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-46
+        length: 480
+        elevation: -7.09
+        diameters:
+          - 0.4668
+      elevations:
+        - -7.09
+        - -7.7358
+        - -8.3817
+      lengths:
+        - 200
+        - 200
+        - 80
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-47
+        length: 510
+        elevation: -8.64
+        diameters:
+          - 0.4668
+      elevations:
+        - -8.64
+        - -8.4361
+        - -8.2322
+      lengths:
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-48
+        length: 480
+        elevation: -8.12
+        diameters:
+          - 0.4668
+      elevations:
+        - -8.12
+        - -8.12
+        - -8.12
+      lengths:
+        - 200
+        - 200
+        - 80
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-49
+        length: 520
+        elevation: -8.12
+        diameters:
+          - 0.4668
+      elevations:
+        - -8.12
+        - -8.22
+        - -8.32
+      lengths:
+        - 200
+        - 200
+        - 120
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-50
+        length: 510
+        elevation: -8.38
+        diameters:
+          - 0.4668
+      elevations:
+        - -8.38
+        - -8.4467
+        - -8.5133
+      lengths:
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-51
+        length: 450
+        elevation: -8.55
+        diameters:
+          - 0.4668
+      elevations:
+        - -8.55
+        - -8.59
+        - -8.63
+      lengths:
+        - 200
+        - 200
+        - 50
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-52
+        length: 510
+        elevation: -8.64
+        diameters:
+          - 0.4668
+      elevations:
+        - -8.64
+        - -8.6047
+        - -8.5694
+      lengths:
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-53
+        length: 540
+        elevation: -8.55
+        diameters:
+          - 0.4668
+      elevations:
+        - -8.55
+        - -8.6463
+        - -8.7426
+      lengths:
+        - 200
+        - 200
+        - 140
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-54
+        length: 480
+        elevation: -8.81
+        diameters:
+          - 0.4668
+      elevations:
+        - -8.81
+        - -8.9517
+        - -9.0933
+      lengths:
+        - 200
+        - 200
+        - 80
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-55
+        length: 490
+        elevation: -9.15
+        diameters:
+          - 0.4668
+      elevations:
+        - -9.15
+        - -9.0806
+        - -9.0112
+      lengths:
+        - 200
+        - 200
+        - 90
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-56
+        length: 510
+        elevation: -8.98
+        diameters:
+          - 0.4668
+      elevations:
+        - -8.98
+        - -9.082
+        - -9.1839
+      lengths:
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-57
+        length: 510
+        elevation: -9.24
+        diameters:
+          - 0.4668
+      elevations:
+        - -9.24
+        - -9.5106
+        - -9.7812
+      lengths:
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-58
+        length: 480
+        elevation: -9.93
+        diameters:
+          - 0.4668
+      elevations:
+        - -9.93
+        - -10.0383
+        - -10.1467
+      lengths:
+        - 200
+        - 200
+        - 80
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-59
+        length: 480
+        elevation: -10.19
+        diameters:
+          - 0.4668
+      elevations:
+        - -10.19
+        - -10.1192
+        - -10.0483
+      lengths:
+        - 200
+        - 200
+        - 80
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-60
+        length: 540
+        elevation: -10.02
+        diameters:
+          - 0.4668
+      elevations:
+        - -10.02
+        - -10.02
+        - -10.02
+      lengths:
+        - 200
+        - 200
+        - 140
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-61
+        length: 480
+        elevation: -10.02
+        diameters:
+          - 0.4668
+      elevations:
+        - -10.02
+        - -10.3408
+        - -10.6617
+      lengths:
+        - 200
+        - 200
+        - 80
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-62
+        length: 490
+        elevation: -10.79
+        diameters:
+          - 0.4668
+      elevations:
+        - -10.79
+        - -10.4757
+        - -10.1614
+      lengths:
+        - 200
+        - 200
+        - 90
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-63
+        length: 540
+        elevation: -10.02
+        diameters:
+          - 0.4668
+      elevations:
+        - -10.02
+        - -9.9237
+        - -9.8274
+      lengths:
+        - 200
+        - 200
+        - 140
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-64
+        length: 450
+        elevation: -9.76
+        diameters:
+          - 0.4668
+      elevations:
+        - -9.76
+        - -10.3333
+        - -10.9067
+      lengths:
+        - 200
+        - 200
+        - 50
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-65
+        length: 510
+        elevation: -11.05
+        diameters:
+          - 0.4668
+      elevations:
+        - -11.05
+        - -11.0147
+        - -10.9794
+      lengths:
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-66
+        length: 510
+        elevation: -10.96
+        diameters:
+          - 0.4668
+      elevations:
+        - -10.96
+        - -11.0973
+        - -11.2345
+      lengths:
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-67
+        length: 480
+        elevation: -11.31
+        diameters:
+          - 0.4668
+      elevations:
+        - -11.31
+        - -11.2392
+        - -11.1683
+      lengths:
+        - 200
+        - 200
+        - 80
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-68
+        length: 520
+        elevation: -11.14
+        diameters:
+          - 0.4668
+      elevations:
+        - -11.14
+        - -11.4362
+        - -11.7323
+      lengths:
+        - 200
+        - 200
+        - 120
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-69
+        length: 480
+        elevation: -11.91
+        diameters:
+          - 0.4668
+      elevations:
+        - -11.91
+        - -11.5892
+        - -11.2683
+      lengths:
+        - 200
+        - 200
+        - 80
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-70
+        length: 540
+        elevation: -11.14
+        diameters:
+          - 0.4668
+      elevations:
+        - -11.14
+        - -11.6511
+        - -12.1622
+      lengths:
+        - 200
+        - 200
+        - 140
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-71
+        length: 510
+        elevation: -12.52
+        diameters:
+          - 0.4668
+      elevations:
+        - -12.52
+        - -13.0612
+        - -13.6024
+      lengths:
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-72
+        length: 480
+        elevation: -13.9
+        diameters:
+          - 0.4668
+      elevations:
+        - -13.9
+        - -13.5042
+        - -13.1083
+      lengths:
+        - 200
+        - 200
+        - 80
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-73
+        length: 480
+        elevation: -12.95
+        diameters:
+          - 0.4668
+      elevations:
+        - -12.95
+        - -12.7333
+        - -12.5167
+      lengths:
+        - 200
+        - 200
+        - 80
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-74
+        length: 490
+        elevation: -12.43
+        diameters:
+          - 0.4668
+      elevations:
+        - -12.43
+        - -12.781
+        - -13.132
+      lengths:
+        - 200
+        - 200
+        - 90
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-75
+        length: 540
+        elevation: -13.29
+        diameters:
+          - 0.4668
+      elevations:
+        - -13.29
+        - -13.2604
+        - -13.2307
+      lengths:
+        - 200
+        - 200
+        - 140
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-76
+        length: 510
+        elevation: -13.21
+        diameters:
+          - 0.4668
+      elevations:
+        - -13.21
+        - -13.4806
+        - -13.7512
+      lengths:
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-77
+        length: 450
+        elevation: -13.9
+        diameters:
+          - 0.4668
+      elevations:
+        - -13.9
+        - -14.8556
+        - -15.8111
+      lengths:
+        - 200
+        - 200
+        - 50
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-78
+        length: 510
+        elevation: -16.05
+        diameters:
+          - 0.4668
+      elevations:
+        - -16.05
+        - -16.3873
+        - -16.7245
+      lengths:
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-79
+        length: 480
+        elevation: -16.91
+        diameters:
+          - 0.4668
+      elevations:
+        - -16.91
+        - -16.91
+        - -16.91
+      lengths:
+        - 200
+        - 200
+        - 80
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-80
+        length: 550
+        elevation: -16.91
+        diameters:
+          - 0.4668
+      elevations:
+        - -16.91
+        - -16.9427
+        - -16.9755
+      lengths:
+        - 200
+        - 200
+        - 150
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-81
+        length: 480
+        elevation: -17
+        diameters:
+          - 0.4668
+      elevations:
+        - -17
+        - -17
+        - -17
+      lengths:
+        - 200
+        - 200
+        - 80
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-82
+        length: 480
+        elevation: -17
+        diameters:
+          - 0.4668
+      elevations:
+        - -17
+        - -17.575
+        - -18.15
+      lengths:
+        - 200
+        - 200
+        - 80
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-83
+        length: 540
+        elevation: -18.38
+        diameters:
+          - 0.4668
+      elevations:
+        - -18.38
+        - -18.0615
+        - -17.743
+      lengths:
+        - 200
+        - 200
+        - 140
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-84
+        length: 510
+        elevation: -17.52
+        diameters:
+          - 0.4668
+      elevations:
+        - -17.52
+        - -18.1592
+        - -18.7984
+      lengths:
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-85
+        length: 480
+        elevation: -19.15
+        diameters:
+          - 0.4668
+      elevations:
+        - -19.15
+        - -19.6542
+        - -20.1583
+      lengths:
+        - 200
+        - 200
+        - 80
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-86
+        length: 520
+        elevation: -20.36
+        diameters:
+          - 0.4668
+      elevations:
+        - -20.36
+        - -20.6254
+        - -20.8908
+      lengths:
+        - 200
+        - 200
+        - 120
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-87
+        length: 480
+        elevation: -21.05
+        diameters:
+          - 0.4668
+      elevations:
+        - -21.05
+        - -21.2667
+        - -21.4833
+      lengths:
+        - 200
+        - 200
+        - 80
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-88
+        length: 480
+        elevation: -21.57
+        diameters:
+          - 0.4668
+      elevations:
+        - -21.57
+        - -21.8908
+        - -22.2117
+      lengths:
+        - 200
+        - 200
+        - 80
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-89
+        length: 510
+        elevation: -22.34
+        diameters:
+          - 0.4668
+      elevations:
+        - -22.34
+        - -22.7831
+        - -23.2263
+      lengths:
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-90
+        length: 510
+        elevation: -23.47
+        diameters:
+          - 0.4668
+      elevations:
+        - -23.47
+        - -23.772
+        - -24.0739
+      lengths:
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-91
+        length: 510
+        elevation: -24.24
+        diameters:
+          - 0.4668
+      elevations:
+        - -24.24
+        - -23.2243
+        - -22.2086
+      lengths:
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-92
+        length: 490
+        elevation: -21.65
+        diameters:
+          - 0.4668
+      elevations:
+        - -21.65
+        - -22.7071
+        - -23.7643
+      lengths:
+        - 200
+        - 200
+        - 90
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-93
+        length: 510
+        elevation: -24.24
+        diameters:
+          - 0.4668
+      elevations:
+        - -24.24
+        - -24.5459
+        - -24.8518
+      lengths:
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-94
+        length: 480
+        elevation: -25.02
+        diameters:
+          - 0.4668
+      elevations:
+        - -25.02
+        - -25.7367
+        - -26.4533
+      lengths:
+        - 200
+        - 200
+        - 80
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-95
+        length: 510
+        elevation: -26.74
+        diameters:
+          - 0.4668
+      elevations:
+        - -26.74
+        - -26.9439
+        - -27.1478
+      lengths:
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-96
+        length: 510
+        elevation: -27.26
+        diameters:
+          - 0.4668
+      elevations:
+        - -27.26
+        - -27.8325
+        - -28.4051
+      lengths:
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-97
+        length: 510
+        elevation: -28.72
+        diameters:
+          - 0.4668
+      elevations:
+        - -28.72
+        - -29.0612
+        - -29.4024
+      lengths:
+        - 200
+        - 200
+        - 110
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-98
+        length: 520
+        elevation: -29.59
+        diameters:
+          - 0.4668
+      elevations:
+        - -29.59
+        - -30.2169
+        - -30.8438
+      lengths:
+        - 200
+        - 200
+        - 120
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-99
+        length: 480
+        elevation: -31.22
+        diameters:
+          - 0.4668
+      elevations:
+        - -31.22
+        - -31.0408
+        - -30.8617
+      lengths:
+        - 200
+        - 200
+        - 80
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-100
+        length: 480
+        elevation: -30.79
+        diameters:
+          - 0.4668
+      elevations:
+        - -30.79
+        - -30.4692
+        - -30.1483
+      lengths:
+        - 200
+        - 200
+        - 80
+  - pipeseries:
+      n: 3
+      pipeDef:
+        name: POAtoDG-101
+        length: 450
+        elevation: -30.02
+        diameters:
+          - 0.4668
+      elevations:
+        - -30.02
+        - -30.0111
+        - -30.0022
+      lengths:
+        - 200
+        - 200
+        - 50
+  - pipeseg:
+      name: POAtoDG-102
+      length: 200
+      elevation: -30
+      diameters:
+        - 0.4668
+  - pipeseg:
+      name: POAtoDG-103
+      length: 11
+      elevation: -29.2
+      diameters:
+        - 0.4668
+  - pipeseg:
+      name: POAtoDG-104
+      length: 9
+      diameters:
+        - 0.4668

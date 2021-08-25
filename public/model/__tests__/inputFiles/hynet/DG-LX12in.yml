@@ -3,25 +3,25 @@ instructions:
       name: DG_LNX_12in
       elevation: 26.6
   - pipeseg:
-      name: PIPE-001
+      name: DGtoLX12-001
       elevation: 26.6
       diameters:
         - 0.2794
   - pipeseg:
-      name: PIPE-002
+      name: DGtoLX12-002
       length: 9
       elevation: 25.5
       diameters:
         - 0.2794
   - pipeseg:
-      name: PIPE-003
+      name: DGtoLX12-003
       length: 11
       diameters:
         - 0.2794
   - pipeseries:
       n: 4
       pipeDef:
-        name: PIPE-004
+        name: DGtoLX12-004
         length: 620
         elevation: -29.38
         diameters:
@@ -39,7 +39,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-005
+        name: DGtoLX12-005
         length: 490
         elevation: -27.32
         diameters:
@@ -55,7 +55,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-006
+        name: DGtoLX12-006
         length: 490
         elevation: -26.18
         diameters:
@@ -71,7 +71,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-007
+        name: DGtoLX12-007
         length: 420
         elevation: -24.98
         diameters:
@@ -87,7 +87,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-008
+        name: DGtoLX12-008
         length: 590
         elevation: -27.39
         diameters:
@@ -103,7 +103,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-009
+        name: DGtoLX12-009
         length: 490
         elevation: -25.8
         diameters:
@@ -119,7 +119,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-010
+        name: DGtoLX12-010
         length: 520
         elevation: -27.45
         diameters:
@@ -135,7 +135,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-011
+        name: DGtoLX12-011
         length: 490
         elevation: -25.99
         diameters:
@@ -151,7 +151,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-012
+        name: DGtoLX12-012
         length: 520
         elevation: -26.82
         diameters:
@@ -167,7 +167,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-013
+        name: DGtoLX12-013
         length: 560
         elevation: -32.64
         diameters:
@@ -183,7 +183,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-014
+        name: DGtoLX12-014
         length: 450
         elevation: -32.01
         diameters:
@@ -199,7 +199,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-015
+        name: DGtoLX12-015
         length: 420
         elevation: -32.77
         diameters:
@@ -215,7 +215,7 @@ instructions:
   - pipeseries:
       n: 1
       pipeDef:
-        name: PIPE-016
+        name: DGtoLX12-016
         length: 600
         elevation: -30.74
         diameters:
@@ -227,7 +227,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-017
+        name: DGtoLX12-017
         length: 480
         elevation: -30.74
         diameters:
@@ -243,7 +243,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-018
+        name: DGtoLX12-018
         length: 530
         elevation: -30.68
         diameters:
@@ -259,7 +259,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-019
+        name: DGtoLX12-019
         length: 590
         elevation: -30.49
         diameters:
@@ -275,7 +275,7 @@ instructions:
   - pipeseries:
       n: 2
       pipeDef:
-        name: PIPE-020
+        name: DGtoLX12-020
         length: 380
         elevation: -30.11
         diameters:
@@ -289,7 +289,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-021
+        name: DGtoLX12-021
         length: 490
         elevation: -27.96
         diameters:
@@ -305,7 +305,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-022
+        name: DGtoLX12-022
         length: 530
         elevation: -26.75
         diameters:
@@ -321,7 +321,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-023
+        name: DGtoLX12-023
         length: 520
         elevation: -26.88
         diameters:
@@ -337,7 +337,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-024
+        name: DGtoLX12-024
         length: 560
         elevation: -26.56
         diameters:
@@ -353,7 +353,7 @@ instructions:
   - pipeseries:
       n: 2
       pipeDef:
-        name: PIPE-025
+        name: DGtoLX12-025
         length: 380
         elevation: -24.92
         diameters:
@@ -367,7 +367,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-026
+        name: DGtoLX12-026
         length: 420
         elevation: -24.6
         diameters:
@@ -383,7 +383,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-027
+        name: DGtoLX12-027
         length: 590
         elevation: -22.13
         diameters:
@@ -399,7 +399,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-028
+        name: DGtoLX12-028
         length: 420
         elevation: -22.83
         diameters:
@@ -415,7 +415,7 @@ instructions:
   - pipeseries:
       n: 1
       pipeDef:
-        name: PIPE-029
+        name: DGtoLX12-029
         length: 600
         elevation: -23.97
         diameters:
@@ -427,7 +427,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-030
+        name: DGtoLX12-030
         length: 480
         elevation: -23.27
         diameters:
@@ -443,7 +443,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-031
+        name: DGtoLX12-031
         length: 460
         elevation: -21.18
         diameters:
@@ -459,7 +459,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-032
+        name: DGtoLX12-032
         length: 520
         elevation: -21.63
         diameters:
@@ -475,7 +475,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-033
+        name: DGtoLX12-033
         length: 560
         elevation: -20.8
         diameters:
@@ -491,7 +491,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-034
+        name: DGtoLX12-034
         length: 450
         elevation: -20.55
         diameters:
@@ -507,7 +507,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-035
+        name: DGtoLX12-035
         length: 530
         elevation: -20.42
         diameters:
@@ -523,7 +523,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-036
+        name: DGtoLX12-036
         length: 480
         elevation: -20.04
         diameters:
@@ -539,7 +539,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-037
+        name: DGtoLX12-037
         length: 490
         elevation: -19.6
         diameters:
@@ -555,7 +555,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-038
+        name: DGtoLX12-038
         length: 490
         elevation: -19.28
         diameters:
@@ -571,7 +571,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-039
+        name: DGtoLX12-039
         length: 490
         elevation: -18.97
         diameters:
@@ -587,7 +587,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-040
+        name: DGtoLX12-040
         length: 490
         elevation: -18.71
         diameters:
@@ -603,7 +603,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-041
+        name: DGtoLX12-041
         length: 490
         elevation: -18.21
         diameters:
@@ -619,7 +619,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-042
+        name: DGtoLX12-042
         length: 520
         elevation: -17.51
         diameters:
@@ -635,7 +635,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-043
+        name: DGtoLX12-043
         length: 560
         elevation: -16.75
         diameters:
@@ -651,7 +651,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-044
+        name: DGtoLX12-044
         length: 420
         elevation: -16.18
         diameters:
@@ -667,7 +667,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-045
+        name: DGtoLX12-045
         length: 520
         elevation: -15.55
         diameters:
@@ -683,7 +683,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-046
+        name: DGtoLX12-046
         length: 450
         elevation: -13.52
         diameters:
@@ -699,7 +699,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-047
+        name: DGtoLX12-047
         length: 560
         elevation: -12.44
         diameters:
@@ -715,7 +715,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-048
+        name: DGtoLX12-048
         length: 490
         elevation: -12.57
         diameters:
@@ -731,7 +731,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-049
+        name: DGtoLX12-049
         length: 520
         elevation: -12.57
         diameters:
@@ -747,7 +747,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-050
+        name: DGtoLX12-050
         length: 460
         elevation: -12.57
         diameters:
@@ -763,7 +763,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-051
+        name: DGtoLX12-051
         length: 520
         elevation: -12.32
         diameters:
@@ -779,7 +779,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-052
+        name: DGtoLX12-052
         length: 450
         elevation: -12.32
         diameters:
@@ -795,7 +795,7 @@ instructions:
   - pipeseries:
       n: 1
       pipeDef:
-        name: PIPE-053
+        name: DGtoLX12-053
         length: 600
         elevation: -12.51
         diameters:
@@ -807,7 +807,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-054
+        name: DGtoLX12-054
         length: 450
         elevation: -13.14
         diameters:
@@ -823,7 +823,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-055
+        name: DGtoLX12-055
         length: 520
         elevation: -13.01
         diameters:
@@ -839,7 +839,7 @@ instructions:
   - pipeseries:
       n: 2
       pipeDef:
-        name: PIPE-056
+        name: DGtoLX12-056
         length: 390
         elevation: -12.51
         diameters:
@@ -853,7 +853,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-057
+        name: DGtoLX12-057
         length: 560
         elevation: -12.7
         diameters:
@@ -869,7 +869,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-058
+        name: DGtoLX12-058
         length: 520
         elevation: -12.32
         diameters:
@@ -885,7 +885,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-059
+        name: DGtoLX12-059
         length: 520
         elevation: -12.19
         diameters:
@@ -901,7 +901,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-060
+        name: DGtoLX12-060
         length: 460
         elevation: -12.38
         diameters:
@@ -917,7 +917,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-061
+        name: DGtoLX12-061
         length: 520
         elevation: -12.38
         diameters:
@@ -933,7 +933,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-062
+        name: DGtoLX12-062
         length: 450
         elevation: -12.57
         diameters:
@@ -949,7 +949,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-063
+        name: DGtoLX12-063
         length: 560
         elevation: -12.7
         diameters:
@@ -965,7 +965,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-064
+        name: DGtoLX12-064
         length: 490
         elevation: -9.15
         diameters:
@@ -981,7 +981,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-065
+        name: DGtoLX12-065
         length: 490
         elevation: -9.22
         diameters:
@@ -997,7 +997,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-066
+        name: DGtoLX12-066
         length: 500
         elevation: -9.28
         diameters:
@@ -1011,18 +1011,18 @@ instructions:
         - 200
         - 100
   - pipeseg:
-      name: PIPE-067
+      name: DGtoLX12-067
       length: 3
       elevation: -8.96
       diameters:
         - 0.2794
   - pipeseg:
-      name: PIPE-068
+      name: DGtoLX12-068
       length: 10
       diameters:
         - 0.2794
   - pipeseg:
-      name: PIPE-069
+      name: DGtoLX12-069
       length: 20
       elevation: 27.9
       diameters:

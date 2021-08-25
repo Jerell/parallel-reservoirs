@@ -3,26 +3,27 @@ instructions:
       name: DG-LX_16in
       elevation: 26.6
   - pipeseg:
-      name: PIPE-001
+      name: DGtoLX16-001
+      length: 25.5
       elevation: 26.6
       diameters:
         - 0.3826
   - pipeseg:
-      name: PIPE-002
-      length: 9
+      name: DGtoLX16-002
+      length: 27.04163456597992
       elevation: 25.5
       diameters:
         - 0.3826
   - pipeseg:
-      name: PIPE-003
-      length: 11
+      name: DGtoLX16-003
+      length: 31.371713373674698
       diameters:
         - 0.3826
   - pipeseries:
       n: 4
       pipeDef:
-        name: PIPE-004
-        length: 620
+        name: DGtoLX16-004
+        length: 620.0034222486195
         elevation: -29.38
         diameters:
           - 0.3826
@@ -35,12 +36,12 @@ instructions:
         - 200
         - 200
         - 200
-        - 20
+        - 20.003422248619472
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-005
-        length: 490
+        name: DGtoLX16-005
+        length: 490.0013261206545
         elevation: -27.32
         diameters:
           - 0.3826
@@ -51,12 +52,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 90
+        - 90.00132612065448
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-006
-        length: 490
+        name: DGtoLX16-006
+        length: 490.00146938555196
         elevation: -26.18
         diameters:
           - 0.3826
@@ -67,12 +68,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 90
+        - 90.00146938555196
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-007
-        length: 420
+        name: DGtoLX16-007
+        length: 420.0069143478474
         elevation: -24.98
         diameters:
           - 0.3826
@@ -83,12 +84,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 20
+        - 20.006914347847385
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-008
-        length: 590
+        name: DGtoLX16-008
+        length: 590.0021424537372
         elevation: -27.39
         diameters:
           - 0.3826
@@ -99,12 +100,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 190
+        - 190.00214245373718
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-009
-        length: 490
+        name: DGtoLX16-009
+        length: 490.0027780533494
         elevation: -25.8
         diameters:
           - 0.3826
@@ -115,12 +116,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 90
+        - 90.0027780533494
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-010
-        length: 520
+        name: DGtoLX16-010
+        length: 520.0020496113453
         elevation: -27.45
         diameters:
           - 0.3826
@@ -131,12 +132,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 120
+        - 120.00204961134534
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-011
-        length: 490
+        name: DGtoLX16-011
+        length: 490.0007029586794
         elevation: -25.99
         diameters:
           - 0.3826
@@ -147,28 +148,28 @@ instructions:
       lengths:
         - 200
         - 200
-        - 90
+        - 90.00070295867943
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-012
-        length: 520
+        name: DGtoLX16-012
+        length: 520.0325685954679
         elevation: -26.82
         diameters:
           - 0.3826
       elevations:
         - -26.82
-        - -29.0585
-        - -31.2969
+        - -29.0583
+        - -31.2966
       lengths:
         - 200
         - 200
-        - 120
+        - 120.03256859546786
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-013
-        length: 560
+        name: DGtoLX16-013
+        length: 560.0003543748878
         elevation: -32.64
         diameters:
           - 0.3826
@@ -179,12 +180,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 160
+        - 160.00035437488782
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-014
-        length: 450
+        name: DGtoLX16-014
+        length: 450.00064177732014
         elevation: -32.01
         diameters:
           - 0.3826
@@ -195,12 +196,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 50
+        - 50.00064177732014
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-015
-        length: 420
+        name: DGtoLX16-015
+        length: 420.00490580468227
         elevation: -32.77
         diameters:
           - 0.3826
@@ -211,11 +212,11 @@ instructions:
       lengths:
         - 200
         - 200
-        - 20
+        - 20.004905804682267
   - pipeseries:
       n: 1
       pipeDef:
-        name: PIPE-016
+        name: DGtoLX16-016
         length: 600
         elevation: -30.74
         diameters:
@@ -227,8 +228,8 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-017
-        length: 480
+        name: DGtoLX16-017
+        length: 480.00000374999996
         elevation: -30.74
         diameters:
           - 0.3826
@@ -239,12 +240,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 80
+        - 80.00000374999996
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-018
-        length: 530
+        name: DGtoLX16-018
+        length: 530.0000340566027
         elevation: -30.68
         diameters:
           - 0.3826
@@ -255,12 +256,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 130
+        - 130.00003405660266
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-019
-        length: 590
+        name: DGtoLX16-019
+        length: 590.0001223728686
         elevation: -30.49
         diameters:
           - 0.3826
@@ -271,12 +272,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 190
+        - 190.00012237286865
   - pipeseries:
       n: 2
       pipeDef:
-        name: PIPE-020
-        length: 380
+        name: DGtoLX16-020
+        length: 380.0060821881671
         elevation: -30.11
         diameters:
           - 0.3826
@@ -285,12 +286,12 @@ instructions:
         - -28.9784
       lengths:
         - 200
-        - 180
+        - 180.0060821881671
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-021
-        length: 490
+        name: DGtoLX16-021
+        length: 490.00149397731434
         elevation: -27.96
         diameters:
           - 0.3826
@@ -301,12 +302,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 90
+        - 90.00149397731434
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-022
-        length: 530
+        name: DGtoLX16-022
+        length: 530.000015943396
         elevation: -26.75
         diameters:
           - 0.3826
@@ -317,12 +318,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 130
+        - 130.00001594339597
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-023
-        length: 520
+        name: DGtoLX16-023
+        length: 520.0000984615291
         elevation: -26.88
         diameters:
           - 0.3826
@@ -333,12 +334,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 120
+        - 120.00009846152909
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-024
-        length: 560
+        name: DGtoLX16-024
+        length: 560.0024014234225
         elevation: -26.56
         diameters:
           - 0.3826
@@ -349,12 +350,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 160
+        - 160.0024014234225
   - pipeseries:
       n: 2
       pipeDef:
-        name: PIPE-025
-        length: 380
+        name: DGtoLX16-025
+        length: 380.0001347368182
         elevation: -24.92
         diameters:
           - 0.3826
@@ -363,28 +364,28 @@ instructions:
         - -24.7516
       lengths:
         - 200
-        - 180
+        - 180.0001347368182
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-026
-        length: 420
+        name: DGtoLX16-026
+        length: 420.00726291339294
         elevation: -24.6
         diameters:
           - 0.3826
       elevations:
         - -24.6
         - -23.4238
-        - -22.2476
+        - -22.2477
       lengths:
         - 200
         - 200
-        - 20
+        - 20.007262913392935
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-027
-        length: 590
+        name: DGtoLX16-027
+        length: 590.0004152540912
         elevation: -22.13
         diameters:
           - 0.3826
@@ -395,12 +396,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 190
+        - 190.0004152540912
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-028
-        length: 420
+        name: DGtoLX16-028
+        length: 420.0015471400076
         elevation: -22.83
         diameters:
           - 0.3826
@@ -411,24 +412,30 @@ instructions:
       lengths:
         - 200
         - 200
-        - 20
+        - 20.001547140007574
   - pipeseries:
-      n: 1
+      n: 4
       pipeDef:
-        name: PIPE-029
-        length: 600
+        name: DGtoLX16-029
+        length: 600.0004083331944
         elevation: -23.97
         diameters:
           - 0.3826
       elevations:
         - -23.97
+        - -23.7367
+        - -23.5033
+        - -23.27
       lengths:
         - 200
+        - 200
+        - 200
+        - 0.0004083331944002566
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-030
-        length: 480
+        name: DGtoLX16-030
+        length: 480.00455008260076
         elevation: -23.27
         diameters:
           - 0.3826
@@ -439,12 +446,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 80
+        - 80.00455008260076
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-031
-        length: 460
+        name: DGtoLX16-031
+        length: 460.000220108643
         elevation: -21.18
         diameters:
           - 0.3826
@@ -455,12 +462,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 60
+        - 60.00022010864302
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-032
-        length: 520
+        name: DGtoLX16-032
+        length: 520.0006624034243
         elevation: -21.63
         diameters:
           - 0.3826
@@ -471,12 +478,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 120
+        - 120.00066240342426
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-033
-        length: 560
+        name: DGtoLX16-033
+        length: 560.0000558035687
         elevation: -20.8
         diameters:
           - 0.3826
@@ -487,12 +494,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 160
+        - 160.00005580356867
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-034
-        length: 450
+        name: DGtoLX16-034
+        length: 450.00001877777737
         elevation: -20.55
         diameters:
           - 0.3826
@@ -503,12 +510,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 50
+        - 50.00001877777737
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-035
-        length: 530
+        name: DGtoLX16-035
+        length: 530.0001362263976
         elevation: -20.42
         diameters:
           - 0.3826
@@ -519,12 +526,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 130
+        - 130.00013622639756
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-036
-        length: 480
+        name: DGtoLX16-036
+        length: 480.0002016666243
         elevation: -20.04
         diameters:
           - 0.3826
@@ -535,12 +542,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 80
+        - 80.00020166662432
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-037
-        length: 490
+        name: DGtoLX16-037
+        length: 490.0001044897848
         elevation: -19.6
         diameters:
           - 0.3826
@@ -551,12 +558,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 90
+        - 90.0001044897848
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-038
-        length: 490
+        name: DGtoLX16-038
+        length: 490.00009806121466
         elevation: -19.28
         diameters:
           - 0.3826
@@ -567,12 +574,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 90
+        - 90.00009806121466
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-039
-        length: 490
+        name: DGtoLX16-039
+        length: 490.000068979587
         elevation: -18.97
         diameters:
           - 0.3826
@@ -583,12 +590,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 90
+        - 90.00006897958701
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-040
-        length: 490
+        name: DGtoLX16-040
+        length: 490.0002551019744
         elevation: -18.71
         diameters:
           - 0.3826
@@ -599,12 +606,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 90
+        - 90.0002551019744
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-041
-        length: 490
+        name: DGtoLX16-041
+        length: 490.0004999997449
         elevation: -18.21
         diameters:
           - 0.3826
@@ -615,12 +622,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 90
+        - 90.00049999974487
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-042
-        length: 520
+        name: DGtoLX16-042
+        length: 520.0005553843188
         elevation: -17.51
         diameters:
           - 0.3826
@@ -631,12 +638,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 120
+        - 120.00055538431877
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-043
-        length: 560
+        name: DGtoLX16-043
+        length: 560.0002900892106
         elevation: -16.75
         diameters:
           - 0.3826
@@ -647,12 +654,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 160
+        - 160.00029008921058
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-044
-        length: 420
+        name: DGtoLX16-044
+        length: 420.0004724997342
         elevation: -16.18
         diameters:
           - 0.3826
@@ -663,12 +670,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 20
+        - 20.0004724997342
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-045
-        length: 520
+        name: DGtoLX16-045
+        length: 520.0039623887495
         elevation: -15.55
         diameters:
           - 0.3826
@@ -679,12 +686,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 120
+        - 120.00396238874953
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-046
-        length: 450
+        name: DGtoLX16-046
+        length: 450.00129599813374
         elevation: -13.52
         diameters:
           - 0.3826
@@ -695,12 +702,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 50
+        - 50.00129599813374
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-047
-        length: 560
+        name: DGtoLX16-047
+        length: 560.0000150892855
         elevation: -12.44
         diameters:
           - 0.3826
@@ -711,11 +718,11 @@ instructions:
       lengths:
         - 200
         - 200
-        - 160
+        - 160.0000150892855
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-048
+        name: DGtoLX16-048
         length: 490
         elevation: -12.57
         diameters:
@@ -731,7 +738,7 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-049
+        name: DGtoLX16-049
         length: 520
         elevation: -12.57
         diameters:
@@ -747,8 +754,8 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-050
-        length: 460
+        name: DGtoLX16-050
+        length: 460.0000679347776
         elevation: -12.57
         diameters:
           - 0.3826
@@ -759,11 +766,11 @@ instructions:
       lengths:
         - 200
         - 200
-        - 60
+        - 60.000067934777576
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-051
+        name: DGtoLX16-051
         length: 520
         elevation: -12.32
         diameters:
@@ -779,8 +786,8 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-052
-        length: 450
+        name: DGtoLX16-052
+        length: 450.00004011110934
         elevation: -12.32
         diameters:
           - 0.3826
@@ -791,24 +798,30 @@ instructions:
       lengths:
         - 200
         - 200
-        - 50
+        - 50.00004011110934
   - pipeseries:
-      n: 1
+      n: 4
       pipeDef:
-        name: PIPE-053
-        length: 600
+        name: DGtoLX16-053
+        length: 600.0003307499088
         elevation: -12.51
         diameters:
           - 0.3826
       elevations:
         - -12.51
+        - -12.72
+        - -12.93
+        - -13.14
       lengths:
         - 200
+        - 200
+        - 200
+        - 0.00033074990881232225
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-054
-        length: 450
+        name: DGtoLX16-054
+        length: 450.00001877777737
         elevation: -13.14
         diameters:
           - 0.3826
@@ -819,12 +832,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 50
+        - 50.00001877777737
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-055
-        length: 520
+        name: DGtoLX16-055
+        length: 520.0002403845598
         elevation: -13.01
         diameters:
           - 0.3826
@@ -835,12 +848,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 120
+        - 120.00024038455979
   - pipeseries:
       n: 2
       pipeDef:
-        name: PIPE-056
-        length: 390
+        name: DGtoLX16-056
+        length: 390.0000462820485
         elevation: -12.51
         diameters:
           - 0.3826
@@ -849,12 +862,12 @@ instructions:
         - -12.6074
       lengths:
         - 200
-        - 190
+        - 190.00004628204852
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-057
-        length: 560
+        name: DGtoLX16-057
+        length: 560.0001289285566
         elevation: -12.7
         diameters:
           - 0.3826
@@ -865,12 +878,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 160
+        - 160.0001289285566
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-058
-        length: 520
+        name: DGtoLX16-058
+        length: 520.0000162499997
         elevation: -12.32
         diameters:
           - 0.3826
@@ -881,12 +894,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 120
+        - 120.0000162499997
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-059
-        length: 520
+        name: DGtoLX16-059
+        length: 520.0000347115373
         elevation: -12.19
         diameters:
           - 0.3826
@@ -897,11 +910,11 @@ instructions:
       lengths:
         - 200
         - 200
-        - 120
+        - 120.0000347115373
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-060
+        name: DGtoLX16-060
         length: 460
         elevation: -12.38
         diameters:
@@ -917,8 +930,8 @@ instructions:
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-061
-        length: 520
+        name: DGtoLX16-061
+        length: 520.0000347115373
         elevation: -12.38
         diameters:
           - 0.3826
@@ -929,12 +942,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 120
+        - 120.0000347115373
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-062
-        length: 450
+        name: DGtoLX16-062
+        length: 450.00001877777737
         elevation: -12.57
         diameters:
           - 0.3826
@@ -945,28 +958,28 @@ instructions:
       lengths:
         - 200
         - 200
-        - 50
+        - 50.00001877777737
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-063
-        length: 560
+        name: DGtoLX16-063
+        length: 560.011252119098
         elevation: -12.7
         diameters:
           - 0.3826
       elevations:
         - -12.7
-        - -11.4321
+        - -11.4322
         - -10.1643
       lengths:
         - 200
         - 200
-        - 160
+        - 160.011252119098
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-064
-        length: 490
+        name: DGtoLX16-064
+        length: 490.000005
         elevation: -9.15
         diameters:
           - 0.3826
@@ -977,12 +990,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 90
+        - 90.00000499999999
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-065
-        length: 490
+        name: DGtoLX16-065
+        length: 490.0000036734694
         elevation: -9.22
         diameters:
           - 0.3826
@@ -993,12 +1006,12 @@ instructions:
       lengths:
         - 200
         - 200
-        - 90
+        - 90.0000036734694
   - pipeseries:
       n: 3
       pipeDef:
-        name: PIPE-066
-        length: 500
+        name: DGtoLX16-066
+        length: 500.00010239998954
         elevation: -9.28
         diameters:
           - 0.3826
@@ -1009,20 +1022,20 @@ instructions:
       lengths:
         - 200
         - 200
-        - 100
+        - 100.00010239998954
   - pipeseg:
-      name: PIPE-067
-      length: 3
+      name: DGtoLX16-067
+      length: 9.44889411518618
       elevation: -8.96
       diameters:
         - 0.3826
   - pipeseg:
-      name: PIPE-068
-      length: 10
+      name: DGtoLX16-068
+      length: 29.637982387470306
       diameters:
         - 0.3826
   - pipeseg:
-      name: PIPE-069
+      name: DGtoLX16-069
       length: 20
       elevation: 27.9
       diameters:
