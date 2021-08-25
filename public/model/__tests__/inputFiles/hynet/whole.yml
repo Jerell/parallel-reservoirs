@@ -2340,7 +2340,7 @@ instructions:
       name: HN1
       physical:
         elevation: 0
-      realReservoirName: Hamilton North
+      realReservoirName: HamiltonNorth
   - reservoir:
       name: Hamilton North
       physical:
