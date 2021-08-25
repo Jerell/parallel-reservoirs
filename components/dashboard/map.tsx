@@ -15,6 +15,18 @@ const LocationLabel = ({ children, index = 0 }) => {
 	)
 }
 
+const FillerBox = ({ children, index = 0 }) => {
+	return (
+		<div
+			className={`${
+				index % 2 ? 'bg-gray-400' : 'bg-gray-300'
+			} bg-opacity-10 flex-grow h-96 text-transparent`}
+		>
+			{children}
+		</div>
+	)
+}
+
 const Map = () => {
 	const [open, setOpenState] = useState(true)
 	function toggleExpand(e) {
@@ -44,11 +56,20 @@ const Map = () => {
 	}
 
 	return (
-		<>
+		<section>
 			{head}
 			<div className='grid grid-cols-8'>
-				<div className='col-span-full mx-8'>
-					<MapSvg width={700} height={400} />
+				<div className='col-span-full flex flex-row'>
+					<div className='flex flex-row justify-center absolute left-0 right-0'>
+						<MapSvg width={700} height={400} />
+					</div>
+					{Array(8)
+						.fill(1)
+						.map((n, i) => (
+							<FillerBox key={i} index={i}>
+								{i}
+							</FillerBox>
+						))}
 				</div>
 				{locations.map((loc, i) => (
 					<LocationLabel key={i} index={i}>
@@ -56,7 +77,7 @@ const Map = () => {
 					</LocationLabel>
 				))}
 			</div>
-		</>
+		</section>
 	)
 }
 

@@ -49,12 +49,12 @@ const DataTable = () => {
 	}
 
 	return (
-		<>
+		<section>
 			{head}
 			{variables.map((v, i) => (
 				<Row variable={v} key={i} />
 			))}
-		</>
+		</section>
 	)
 }
 

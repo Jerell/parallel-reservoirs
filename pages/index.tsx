@@ -5,13 +5,9 @@ import DataTable from '@/components/dashboard/data/dataTable'
 
 const Index = () => (
 	<Page fullWidth noPadding>
-		<section>
-			<Heading level={1}>Project name</Heading>
-			<Map />
-		</section>
-		<section>
-			<DataTable />
-		</section>
+		<Heading level={1}>Project name</Heading>
+		<Map />
+		<DataTable />
 		<section>
 			<Heading level={2}>Graphs</Heading>
 		</section>
