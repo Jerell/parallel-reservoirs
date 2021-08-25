@@ -104,16 +104,16 @@ const OLGA = {
 			prevX = lineParams.XEND[0]
 			return length
 		}
-
-		let endElevation = INLET.parameters.YSTART as [number, string]
-
-		const getElevation = (lineParams) => {
+		let prevY = 0
+		const getYGain = (lineParams) => {
 			const elevation = endElevation
 			if (lineParams.YEND) {
 				endElevation = lineParams.YEND
 			}
 			return elevation[0]
 		}
+
+		let endElevation = INLET.parameters.YSTART as [number, string]
 
 		const transformProperties = (lineProps) => {
 			const params = lineProps.parameters
@@ -137,13 +137,17 @@ const OLGA = {
 				lengths: number[]
 			}
 
+			const x = getXLength(params)
+			const y = getYGain(params)
+			const length = Math.sqrt(x ** 2 + y ** 2)
+
 			const instructionType: string = instructionMap[lineProps.type]
 
 			const transformed = {
 				[instructionType]: {
 					name: params.LABEL[0],
-					length: getXLength(params),
-					elevation: getElevation(params),
+					length: length,
+					elevation: y,
 					diameters: params.DIAMETER ? [params.DIAMETER[0]] : undefined,
 				} as PipeSegInstruction | PipeSeriesInstruction,
 			}
@@ -186,7 +190,8 @@ const OLGA = {
 					.elevation
 				const elevationIncrease = endElevation[0] - startElevation
 				const elevations = seriesLengths.map((sLength) => {
-					lengthSoFar += sLength
+					const cos = x / length
+					lengthSoFar += cos * sLength
 					const yGain = (elevationIncrease * lengthSoFar) / fullLength
 					return Number((startElevation + yGain).toFixed(4))
 				})

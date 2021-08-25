@@ -1,15 +1,17 @@
 instructions:
   - inlet:
       name: DG-HN
+      length: 26.6
       elevation: 26.6
   - pipeseg:
       name: DGtoHN-001
+      length: 26.6
       elevation: 26.6
       diameters:
         - 0.3302
   - pipeseg:
       name: DGtoHN-002
-      length: 9
+      length: 27.04163456597992
       elevation: 25.5
       diameters:
         - 0.3302
@@ -22,551 +24,551 @@ instructions:
       n: 2
       pipeDef:
         name: DGtoHN-004
-        length: 250
+        length: 251.84033056680974
         elevation: -30.39
         diameters:
           - 0.3302
       elevations:
         - -30.39
-        - -29.39
+        - -29.4046
       lengths:
         - 200
-        - 50
+        - 51.84033056680974
   - pipeseries:
       n: 2
       pipeDef:
         name: DGtoHN-005
-        length: 230
+        length: 231.83860679360546
         elevation: -29.14
         diameters:
           - 0.3302
       elevations:
         - -29.14
-        - -28.2965
+        - -28.3098
       lengths:
         - 200
-        - 30
+        - 31.838606793605464
   - pipeseries:
       n: 2
       pipeDef:
         name: DGtoHN-006
-        length: 270
+        length: 271.4655574838178
         elevation: -28.17
         diameters:
           - 0.3302
       elevations:
         - -28.17
-        - -28.3107
+        - -28.3092
       lengths:
         - 200
-        - 70
+        - 71.4655574838178
   - pipeseries:
       n: 3
       pipeDef:
         name: DGtoHN-007
-        length: 500
+        length: 500.8036437567123
         elevation: -28.36
         diameters:
           - 0.3302
       elevations:
         - -28.36
-        - -27.452
-        - -26.544
+        - -27.4549
+        - -26.5498
       lengths:
         - 200
         - 200
-        - 100
+        - 100.80364375671229
   - pipeseries:
       n: 3
       pipeDef:
         name: DGtoHN-008
-        length: 490
+        length: 490.6940881037798
         elevation: -26.09
         diameters:
           - 0.3302
       elevations:
         - -26.09
-        - -26.9635
-        - -27.8369
+        - -26.961
+        - -27.832
       lengths:
         - 200
         - 200
-        - 90
+        - 90.69408810377979
   - pipeseries:
       n: 3
       pipeDef:
         name: DGtoHN-009
-        length: 520
+        length: 520.7657178616887
         elevation: -28.23
         diameters:
           - 0.3302
       elevations:
         - -28.23
-        - -27.98
-        - -27.73
+        - -27.9807
+        - -27.7315
       lengths:
         - 200
         - 200
-        - 120
+        - 120.7657178616887
   - pipeseries:
       n: 3
       pipeDef:
         name: DGtoHN-010
-        length: 470
+        length: 470.80851351690745
         elevation: -27.58
         diameters:
           - 0.3302
       elevations:
         - -27.58
-        - -27.0566
-        - -26.5332
+        - -27.0584
+        - -26.5368
       lengths:
         - 200
         - 200
-        - 70
+        - 70.80851351690745
   - pipeseries:
       n: 3
       pipeDef:
         name: DGtoHN-011
-        length: 520
+        length: 520.6671897671295
         elevation: -26.35
         diameters:
           - 0.3302
       elevations:
         - -26.35
-        - -26.6846
-        - -27.0192
+        - -26.6838
+        - -27.0175
       lengths:
         - 200
         - 200
-        - 120
+        - 120.66718976712946
   - pipeseries:
       n: 3
       pipeDef:
         name: DGtoHN-012
-        length: 500
+        length: 500.7403802371045
         elevation: -27.22
         diameters:
           - 0.3302
       elevations:
         - -27.22
-        - -28.3
-        - -29.38
+        - -28.2968
+        - -29.3736
       lengths:
         - 200
         - 200
-        - 100
+        - 100.74038023710449
   - pipeseries:
       n: 3
       pipeDef:
         name: DGtoHN-013
-        length: 510
+        length: 510.8768994581767
         elevation: -29.92
         diameters:
           - 0.3302
       elevations:
         - -29.92
-        - -29.3867
-        - -28.8533
+        - -29.3885
+        - -28.857
       lengths:
         - 200
         - 200
-        - 110
+        - 110.8768994581767
   - pipeseries:
       n: 3
       pipeDef:
         name: DGtoHN-014
-        length: 490
+        length: 490.83161430372434
         elevation: -28.56
         diameters:
           - 0.3302
       elevations:
         - -28.56
-        - -28.7192
-        - -28.8784
+        - -28.7186
+        - -28.8773
       lengths:
         - 200
         - 200
-        - 90
+        - 90.83161430372434
   - pipeseries:
       n: 3
       pipeDef:
         name: DGtoHN-015
-        length: 510
+        length: 510.8210082798083
         elevation: -28.95
         diameters:
           - 0.3302
       elevations:
         - -28.95
-        - -29.7382
-        - -30.5265
+        - -29.7357
+        - -30.5214
       lengths:
         - 200
         - 200
-        - 110
+        - 110.82100827980832
   - pipeseries:
       n: 3
       pipeDef:
         name: DGtoHN-016
-        length: 480
+        length: 480.99742369372416
         elevation: -30.96
         diameters:
           - 0.3302
       elevations:
         - -30.96
-        - -31.1892
-        - -31.4183
+        - -31.1882
+        - -31.4164
       lengths:
         - 200
         - 200
-        - 80
+        - 80.99742369372416
   - pipeseries:
       n: 3
       pipeDef:
         name: DGtoHN-017
-        length: 500
+        length: 500.99189624184544
         elevation: -31.51
         diameters:
           - 0.3302
       elevations:
         - -31.51
-        - -30.706
-        - -29.902
+        - -30.7092
+        - -29.9084
       lengths:
         - 200
         - 200
-        - 100
+        - 100.99189624184544
   - pipeseries:
       n: 3
       pipeDef:
         name: DGtoHN-018
-        length: 500
+        length: 500.86949398021835
         elevation: -29.5
         diameters:
           - 0.3302
       elevations:
         - -29.5
-        - -29.16
-        - -28.82
+        - -29.1612
+        - -28.8224
       lengths:
         - 200
         - 200
-        - 100
+        - 100.86949398021835
   - pipeseries:
       n: 3
       pipeDef:
         name: DGtoHN-019
-        length: 490
+        length: 490.83685935349234
         elevation: -28.65
         diameters:
           - 0.3302
       elevations:
         - -28.65
-        - -27.6582
-        - -26.6663
+        - -27.6615
+        - -26.6731
       lengths:
         - 200
         - 200
-        - 90
+        - 90.83685935349234
   - pipeseries:
       n: 3
       pipeDef:
         name: DGtoHN-020
-        length: 520
+        length: 520.6606268962538
         elevation: -26.22
         diameters:
           - 0.3302
       elevations:
         - -26.22
-        - -26.2046
-        - -26.1892
+        - -26.2047
+        - -26.1893
       lengths:
         - 200
         - 200
-        - 120
+        - 120.6606268962538
   - pipeseries:
       n: 3
       pipeDef:
         name: DGtoHN-021
-        length: 490
+        length: 490.698881596443
         elevation: -26.18
         diameters:
           - 0.3302
       elevations:
         - -26.18
-        - -25.4127
-        - -24.6453
+        - -25.4148
+        - -24.6497
       lengths:
         - 200
         - 200
-        - 90
+        - 90.69888159644302
   - pipeseries:
       n: 2
       pipeDef:
         name: DGtoHN-022
-        length: 260
+        length: 261.1330886731898
         elevation: -24.3
         diameters:
           - 0.3302
       elevations:
         - -24.3
-        - -25.5769
+        - -25.5659
       lengths:
         - 200
-        - 60
+        - 61.133088673189775
   - pipeseries:
       n: 2
       pipeDef:
         name: DGtoHN-023
-        length: 250
+        length: 251.34422929520383
         elevation: -25.96
         diameters:
           - 0.3302
       elevations:
         - -25.96
-        - -24.344
+        - -24.3612
       lengths:
         - 200
-        - 50
+        - 51.34422929520383
   - pipeseries:
       n: 2
       pipeDef:
         name: DGtoHN-024
-        length: 220
+        length: 221.29872028550005
         elevation: -23.94
         diameters:
           - 0.3302
       elevations:
         - -23.94
-        - -24.4127
+        - -24.4072
       lengths:
         - 200
-        - 20
+        - 21.298720285500053
   - pipeseries:
       n: 2
       pipeDef:
         name: DGtoHN-025
-        length: 270
+        length: 271.1056834520442
         elevation: -24.46
         diameters:
           - 0.3302
       elevations:
         - -24.46
-        - -24.4822
+        - -24.482
       lengths:
         - 200
-        - 70
+        - 71.10568345204422
   - pipeseries:
       n: 3
       pipeDef:
         name: DGtoHN-026
-        length: 470
+        length: 470.6376101630638
         elevation: -24.49
         diameters:
           - 0.3302
       elevations:
         - -24.49
-        - -25.4177
-        - -26.3453
+        - -25.4151
+        - -26.3403
       lengths:
         - 200
         - 200
-        - 70
+        - 70.63761016306381
   - pipeseries:
       n: 2
       pipeDef:
         name: DGtoHN-027
-        length: 290
+        length: 291.2237780470544
         elevation: -26.67
         diameters:
           - 0.3302
       elevations:
         - -26.67
-        - -25.2838
+        - -25.2954
       lengths:
         - 200
-        - 90
+        - 91.2237780470544
   - pipeseries:
       n: 2
       pipeDef:
         name: DGtoHN-028
-        length: 260
+        length: 261.16683480105206
         elevation: -24.66
         diameters:
           - 0.3302
       elevations:
         - -24.66
-        - -27.66
+        - -27.6333
       lengths:
         - 200
-        - 60
+        - 61.16683480105206
   - pipeseries:
       n: 2
       pipeDef:
         name: DGtoHN-029
-        length: 240
+        length: 241.69334620547585
         elevation: -28.56
         diameters:
           - 0.3302
       elevations:
         - -28.56
-        - -26.4433
+        - -26.4729
       lengths:
         - 200
-        - 40
+        - 41.69334620547585
   - pipeseries:
       n: 2
       pipeDef:
         name: DGtoHN-030
-        length: 270
+        length: 271.25088092022855
         elevation: -26.02
         diameters:
           - 0.3302
       elevations:
         - -26.02
-        - -29.4126
+        - -29.3814
       lengths:
         - 200
-        - 70
+        - 71.25088092022855
   - pipeseries:
       n: 3
       pipeDef:
         name: DGtoHN-031
-        length: 480
+        length: 480.97438601239463
         elevation: -30.6
         diameters:
           - 0.3302
       elevations:
         - -30.6
-        - -30.8167
-        - -31.0333
+        - -30.8158
+        - -31.0316
       lengths:
         - 200
         - 200
-        - 80
+        - 80.97438601239463
   - pipeseries:
       n: 2
       pipeDef:
         name: DGtoHN-032
-        length: 260
+        length: 261.8557893192358
         elevation: -31.12
         diameters:
           - 0.3302
       elevations:
         - -31.12
-        - -29.4969
+        - -29.5198
       lengths:
         - 200
-        - 60
+        - 61.85578931923578
   - pipeseries:
       n: 2
       pipeDef:
         name: DGtoHN-033
-        length: 220
+        length: 221.90443911738222
         elevation: -29.01
         diameters:
           - 0.3302
       elevations:
         - -29.01
-        - -31.2009
+        - -31.1635
       lengths:
         - 200
-        - 20
+        - 21.904439117382225
   - pipeseries:
       n: 2
       pipeDef:
         name: DGtoHN-034
-        length: 280
+        length: 281.7573715096022
         elevation: -31.42
         diameters:
           - 0.3302
       elevations:
         - -31.42
-        - -29.6986
+        - -29.72
       lengths:
         - 200
-        - 80
+        - 81.7573715096022
   - pipeseries:
       n: 2
       pipeDef:
         name: DGtoHN-035
-        length: 230
+        length: 231.82230285285323
         elevation: -29.01
         diameters:
           - 0.3302
       elevations:
         - -29.01
-        - -30.8187
+        - -30.7904
       lengths:
         - 200
-        - 30
+        - 31.822302852853227
   - pipeseries:
       n: 3
       pipeDef:
         name: DGtoHN-036
-        length: 500
+        length: 500.9656556092443
         elevation: -31.09
         diameters:
           - 0.3302
       elevations:
         - -31.09
-        - -31.246
-        - -31.402
+        - -31.2454
+        - -31.4008
       lengths:
         - 200
         - 200
-        - 100
+        - 100.96565560924432
   - pipeseries:
       n: 3
       pipeDef:
         name: DGtoHN-037
-        length: 510
+        length: 510.97063555550824
         elevation: -31.48
         diameters:
           - 0.3302
       elevations:
         - -31.48
-        - -30.2565
-        - -29.0329
+        - -30.2611
+        - -29.0422
       lengths:
         - 200
         - 200
-        - 110
+        - 110.97063555550824
   - pipeseries:
       n: 3
       pipeDef:
         name: DGtoHN-038
-        length: 490
+        length: 490.82001752169805
         elevation: -28.36
         diameters:
           - 0.3302
       elevations:
         - -28.36
-        - -27.1151
-        - -25.8702
+        - -27.1193
+        - -25.8785
       lengths:
         - 200
         - 200
-        - 90
+        - 90.82001752169805
   - pipeseries:
       n: 3
       pipeDef:
         name: DGtoHN-039
-        length: 500
+        length: 500.6401862615505
         elevation: -25.31
         diameters:
           - 0.3302
       elevations:
         - -25.31
-        - -24.026
-        - -22.742
+        - -24.0293
+        - -22.7486
       lengths:
         - 200
         - 200
-        - 100
+        - 100.64018626155053
   - pipeseg:
       name: DGtoHN-040
-      length: 8
+      length: 23.503404008781366
       elevation: -22.1
       diameters:
         - 0.3302
@@ -577,7 +579,7 @@ instructions:
         - 0.3302
   - pipeseg:
       name: DGtoHN-042
-      length: 20
+      length: 33.04073243740217
       elevation: 26.3
       diameters:
         - 0.3302

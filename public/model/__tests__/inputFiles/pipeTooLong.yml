@@ -1,70 +1,71 @@
 instructions:
   - inlet:
-      name: 1
+      name: 01_ST_CoQ
+      length: 14.51
       elevation: 14.51
   - pipeseries:
       n: 3
       pipeDef:
-        name: -1
-        length: 470
+        name: PIPE-001
+        length: 470.2239254865707
         elevation: 14.51
         diameters:
           - 0.8759
       elevations:
         - 14.51
-        - 19.0802
-        - 23.6504
+        - 19.0759
+        - 23.6417
       lengths:
         - 200
         - 200
-        - 70
+        - 70.22392548657069
   - pipeseries:
       n: 5
       pipeDef:
-        name: -2
-        length: 860
+        name: PIPE-002
+        length: 860.3705960224349
         elevation: 25.25
         diameters:
           - 0.8759
       elevations:
         - 25.25
-        - 22.4105
-        - 19.5709
-        - 16.7314
-        - 13.8919
+        - 22.4129
+        - 19.5758
+        - 16.7387
+        - 13.9016
       lengths:
         - 200
         - 200
         - 200
         - 200
-        - 60
+        - 60.37059602243494
   - pipeseries:
       n: 6
       pipeDef:
-        name: -3
-        length: 1120
+        name: PIPE-003
+        length: 1120.075908856181
         elevation: 13.04
         diameters:
           - 0.8759
       elevations:
         - 13.04
-        - 12.1382
-        - 11.2364
-        - 10.3346
-        - 9.4329
-        - 8.5311
+        - 12.1383
+        - 11.2367
+        - 10.335
+        - 9.4333
+        - 8.5317
       lengths:
         - 200
         - 200
         - 200
         - 200
         - 200
-        - 120
+        - 120.07590885618106
   - pipeseries:
       n: 8
       pipeDef:
-        name: -4
-        length: 1560
+        name: PIPE-004
+        length: 1560.0204614363236
         elevation: 7.99
         diameters:
           - 0.8759
@@ -75,7 +76,7 @@ instructions:
         - 7.4208
         - 7.231
         - 7.0413
-        - 6.8515
+        - 6.8516
         - 6.6618
       lengths:
         - 200
@@ -85,23 +86,23 @@ instructions:
         - 200
         - 200
         - 200
-        - 160
+        - 160.02046143632356
   - pipeseries:
       n: 7
       pipeDef:
-        name: -5
-        length: 1310
+        name: PIPE-005
+        length: 1310.0161755108218
         elevation: 6.51
         diameters:
           - 0.8886
       elevations:
         - 6.51
         - 5.8993
-        - 5.2886
-        - 4.6779
+        - 5.2887
+        - 4.678
         - 4.0673
         - 3.4566
-        - 2.8459
+        - 2.846
       lengths:
         - 200
         - 200
@@ -109,12 +110,12 @@ instructions:
         - 200
         - 200
         - 200
-        - 110
+        - 110.01617551082177
   - pipeseries:
       n: 5
       pipeDef:
-        name: -6
-        length: 870
+        name: PIPE-006
+        length: 870.0036207395921
         elevation: 2.51
         diameters:
           - 0.8886
@@ -122,33 +123,33 @@ instructions:
         - 2.51
         - 5.0755
         - 7.641
-        - 10.2066
-        - 12.7721
+        - 10.2065
+        - 12.772
       lengths:
         - 200
         - 200
         - 200
         - 200
-        - 70
+        - 70.00362073959207
   - pipeseries:
       n: 6
       pipeDef:
-        name: -7
-        length: 1190
+        name: PIPE-007
+        length: 1190.0785137544497
         elevation: 13.67
         diameters:
           - 0.8886
       elevations:
         - 13.67
-        - 15.5809
-        - 17.4918
-        - 19.4028
-        - 21.3137
-        - 23.2246
+        - 15.5807
+        - 17.4913
+        - 19.402
+        - 21.3127
+        - 23.2234
       lengths:
         - 200
         - 200
         - 200
         - 200
         - 200
-        - 190
+        - 190.07851375444966
