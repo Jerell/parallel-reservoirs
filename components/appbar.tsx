@@ -3,7 +3,7 @@ import { useRouter } from 'next/router'
 import Heading from '@/components/heading'
 
 const links = [
-	{ label: 'Demo', href: '/demo' },
+	// { label: 'Demo', href: '/demo' },
 	// { label: 'P3', href: '/p3' },
 ]
 
@@ -13,7 +13,7 @@ const Appbar = () => {
 	return (
 		<div className='pt-safe w-full bg-gray-900 fixed top-0 z-20'>
 			<header className='bg-pace-green text-white dark:bg-gray-900'>
-				<div className='mx-auto px-6 max-w-screen-md h-20 flex items-center justify-between'>
+				<div className='mx-auto px-6 h-20 flex items-center justify-between'>
 					<Link href='/'>
 						<a>
 							<h1 className='font-medium raleway text-lg'>Digital Twin</h1>

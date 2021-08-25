@@ -1,6 +1,7 @@
 import Page from '@/components/page'
 import Heading from '@/components/heading'
 import Map from '@/components/dashboard/map'
+import DataTable from '@/components/dashboard/data/dataTable'
 
 const Index = () => (
 	<Page fullWidth noPadding>
@@ -9,7 +10,7 @@ const Index = () => (
 			<Map />
 		</section>
 		<section>
-			<Heading level={2}>Data</Heading>
+			<DataTable />
 		</section>
 		<section>
 			<Heading level={2}>Graphs</Heading>
