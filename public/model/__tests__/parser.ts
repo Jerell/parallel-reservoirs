@@ -83,7 +83,7 @@ describe('build from .yml', () => {
 
 describe('build from .genkey', () => {
 	const parser = new Parser()
-	parser.readFile(`${__dirname}/inputFiles/pipeTooLong.genkey`, true)
+	parser.readFile(`${__dirname}/inputFiles/pipeTooLong.genkey`)
 	const root = parser.build()
 
 	const pipe1 = (root as Inlet).destination as PipeSeg
