@@ -1,6 +1,4 @@
-import Heading from '@/components/heading'
-import ExpansionButton from '@/components/buttons/expansionButton'
-import { useState } from 'react'
+import DashSection from '../dashSection'
 
 const variables = ['Pressure (bar)', 'Temperature (°C)', 'Flowrate (MTPA)']
 
@@ -32,29 +30,12 @@ const Row = ({ variable }) => {
 }
 
 const DataTable = () => {
-	const [open, setOpenState] = useState(true)
-	function toggleExpand(e) {
-		setOpenState(!open)
-	}
-
-	const head = (
-		<div className='flex flex-row'>
-			<Heading level={2}>Data</Heading>
-			<ExpansionButton expanded={open} fn={toggleExpand} />
-		</div>
-	)
-
-	if (!open) {
-		return head
-	}
-
 	return (
-		<section>
-			{head}
+		<DashSection heading='Data'>
 			{variables.map((v, i) => (
 				<Row variable={v} key={i} />
 			))}
-		</section>
+		</DashSection>
 	)
 }
 
