@@ -1,6 +1,6 @@
 import fs from 'fs'
 import YAML from 'yaml'
-import { IPhysicalElement } from './element'
+import IElement, { IPhysicalElement } from './element'
 import { IPipeDefinition } from './pipeSeg'
 import SnapshotBuilder, {
 	AddInlet,
@@ -10,7 +10,6 @@ import SnapshotBuilder, {
 	AddPipeSeg,
 	AddPipeSeries,
 } from './snapshotBuilder'
-import PipeSeg from './pipeSeg'
 
 const OLGA = {
 	parse: (fileString: string) => {
@@ -104,7 +103,6 @@ const OLGA = {
 			prevX = lineParams.XEND[0]
 			return length
 		}
-		let prevY = 0
 		const getYGain = (lineParams) => {
 			const elevation = endElevation
 			if (lineParams.YEND) {
@@ -137,11 +135,14 @@ const OLGA = {
 				lengths: number[]
 			}
 
+			const instructionType: string = instructionMap[lineProps.type]
+
 			const x = getXLength(params)
 			const y = getYGain(params)
-			const length = Math.sqrt(x ** 2 + y ** 2)
-
-			const instructionType: string = instructionMap[lineProps.type]
+			const length =
+				instructionType === instructionMap.GEOMETRY
+					? 0
+					: Math.sqrt(x ** 2 + y ** 2)
 
 			const transformed = {
 				[instructionType]: {
@@ -235,6 +236,7 @@ const OLGA = {
 
 export default class Parser {
 	data: any
+	keyPoints: IElement[] = []
 	constructor() {}
 
 	readFile(fileName: string, save = false) {
@@ -277,7 +279,7 @@ export default class Parser {
 			for (let [type, parameters] of Object.entries(instruction)) {
 				type = type.toLowerCase()
 
-				if (type in ['selectsplitter', 'branch', 'setfluid']) {
+				if (['selectsplitter', 'branch', 'setfluid'].includes(type)) {
 					switch (type) {
 						case 'selectsplitter':
 							const { id } = parameters as { id: number | string }
@@ -364,6 +366,8 @@ export default class Parser {
 				}
 			}
 		}
+
+		this.keyPoints = builder.keyPoints
 
 		return builder.elements[0]
 	}

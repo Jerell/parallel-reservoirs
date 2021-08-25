@@ -46,14 +46,15 @@ export type AddPipeSeries = (
 
 export default class SnapshotBuilder {
 	elements: IElement[] = []
+	keyPoints: IElement[] = []
 	splitters: Splitter[] = []
 	selectedSplitter?: Splitter
 	previousElem?: IElement
 	fluid?: Fluid
 	constructor() {}
 
-	add(type: string, source?: Inlet | PipeSeg | Splitter) {
-		const set = (elem) => {
+	add(type: string, source?: Inlet | PipeSeg | Splitter | Well | Perforation) {
+		const set = (elem, isKey = false) => {
 			if (!this.elements.length) {
 				if (!(elem instanceof Inlet)) {
 					throw new Error(`First element must be inlet`)
@@ -65,13 +66,16 @@ export default class SnapshotBuilder {
 				this.splitters.push(elem)
 				this.selectedSplitter = elem
 			}
+			if (isKey) {
+				this.keyPoints.push(elem)
+			}
 		}
 		switch (type.toLowerCase()) {
 			case 'inlet':
 				return (name: string, physical: IPhysicalElement) => {
 					const elem = new Inlet(name, physical)
 
-					set(elem)
+					set(elem, true)
 					return this
 				}
 			case 'splitter':
@@ -81,7 +85,7 @@ export default class SnapshotBuilder {
 					}
 					const elem = new Splitter(name, physical, this.previousElem)
 
-					set(elem)
+					set(elem, true)
 					return this
 				}
 			case 'well':
@@ -103,7 +107,7 @@ export default class SnapshotBuilder {
 					)
 					this.previousElem.setDestination(well)
 
-					set(well)
+					set(well, true)
 
 					const perforation = new Perforation(
 						name,
@@ -113,7 +117,7 @@ export default class SnapshotBuilder {
 
 					well.setDestination(perforation)
 
-					set(perforation)
+					set(perforation, true)
 					return this
 				}
 			case 'reservoir':
@@ -126,22 +130,26 @@ export default class SnapshotBuilder {
 					const reservoir = new Reservoir(name, physical, pressure)
 					this.previousElem.setDestination(reservoir)
 
-					set(reservoir)
+					set(reservoir, true)
 					return this
 				}
 			case 'pipeseg':
 				return (pipeDef: IPipeDefinition) => {
 					const elem = new PipeSeg({ ...pipeDef })
 
+					set(elem)
+
 					if (source) {
 						if (source instanceof Splitter) {
 							source.addDestination(elem)
 						} else {
+							if (source instanceof Perforation) {
+								return this
+							}
 							source.setDestination(elem)
 						}
 					}
 
-					set(elem)
 					return this
 				}
 			case 'pipeseries':
@@ -168,13 +176,15 @@ export default class SnapshotBuilder {
 	}
 
 	chainAdd(type: string, from?: Splitter | PipeSeg) {
-		if (!this.previousElem) {
+		if (!this.previousElem || this.previousElem instanceof Reservoir) {
 			return this.add(type)
 		}
 		if (
 			this.previousElem instanceof Inlet ||
 			this.previousElem instanceof PipeSeg ||
-			this.previousElem instanceof Splitter
+			this.previousElem instanceof Splitter ||
+			this.previousElem instanceof Well ||
+			this.previousElem instanceof Perforation
 		) {
 			if (from) {
 				return this.add(type, from)

@@ -1,8 +1,8 @@
 instructions:
   - inlet:
       name: POA-DG
-      length: 4.14
-      elevation: 4.14
+      physical:
+        elevation: 4.14
   - pipeseg:
       name: POAtoDG-001
       length: 4.14

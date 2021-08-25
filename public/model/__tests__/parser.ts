@@ -2,6 +2,9 @@ import Parser from '../parser'
 import Inlet from '../inlet'
 import PipeSeg from '../pipeSeg'
 import Splitter from '../splitter'
+import Well from '../well'
+import Perforation from '../perforation'
+import Reservoir from '../reservoir'
 
 describe('readFile', () => {
 	it('should read a .yml input file', () => {
@@ -82,17 +85,21 @@ describe('build from .yml', () => {
 })
 
 describe('build from .genkey', () => {
-	const parser = new Parser()
-	parser.readFile(`${__dirname}/inputFiles/pipeTooLong.genkey`)
-	const root = parser.build()
+	let parser, root, pipe1, pipe2, pipe3, pipe4, pipe5, pipe6, pipe7
 
-	const pipe1 = (root as Inlet).destination as PipeSeg
-	const pipe2 = (pipe1 as PipeSeg).destination as PipeSeg
-	const pipe3 = (pipe2 as PipeSeg).destination as PipeSeg
-	const pipe4 = (pipe3 as PipeSeg).destination as PipeSeg
-	const pipe5 = (pipe4 as PipeSeg).destination as PipeSeg
-	const pipe6 = (pipe5 as PipeSeg).destination as PipeSeg
-	const pipe7 = (pipe6 as PipeSeg).destination as PipeSeg
+	beforeAll(() => {
+		parser = new Parser()
+		parser.readFile(`${__dirname}/inputFiles/pipeTooLong.genkey`)
+		root = parser.build()
+
+		pipe1 = (root as Inlet).destination as PipeSeg
+		pipe2 = (pipe1 as PipeSeg).destination as PipeSeg
+		pipe3 = (pipe2 as PipeSeg).destination as PipeSeg
+		pipe4 = (pipe3 as PipeSeg).destination as PipeSeg
+		pipe5 = (pipe4 as PipeSeg).destination as PipeSeg
+		pipe6 = (pipe5 as PipeSeg).destination as PipeSeg
+		pipe7 = (pipe6 as PipeSeg).destination as PipeSeg
+	})
 
 	it('should create a pipeseries when the length would be too long for one pipeseg', () => {
 		expect(pipe1.physical.length).toBe(200)
@@ -112,22 +119,37 @@ describe('build from .genkey', () => {
 	})
 })
 
-// describe('build hynet', () => {
-// 	const parser = new Parser()
-// 	const fileNames = [
-// 		'DG-HM',
-// 		'DG-HN',
-// 		'DG-LX12in',
-// 		'DG-LX14in',
-// 		'DG-LX16in',
-// 		'POA',
-// 	]
-// 	for (let filename of fileNames) {
-// 		parser.readFile(`${__dirname}/inputFiles/hynet/${filename}.genkey`, true)
-// 	}
-// 	const root = parser.build()
+describe('build hynet', () => {
+	let parser, keyPoints
+	beforeAll(() => {
+		parser = new Parser()
+		parser.readFile(`${__dirname}/inputFiles/hynet/whole.yml`)
+		parser.build()
+		keyPoints = parser.keyPoints
+	})
 
-// 	it('should', () => {
-// 		expect(root).toBeInstanceOf(Inlet)
-// 	})
-// })
+	it('should return a list of key points', () => {
+		const expectedKeyPoints = [
+			{ cls: Inlet, name: 'POA-DG' },
+			{ cls: Splitter, name: 'Douglas Manifold' },
+			{ cls: Well, name: 'HM1' },
+			{ cls: Perforation, name: 'HM1' },
+			{ cls: Reservoir, name: 'Hamilton' },
+			{ cls: Well, name: 'HN1' },
+			{ cls: Perforation, name: 'HN1' },
+			{ cls: Reservoir, name: 'Hamilton North' },
+			{ cls: Well, name: 'LX1' },
+			{ cls: Perforation, name: 'LX1' },
+			{ cls: Reservoir, name: 'Lennox' },
+		]
+
+		const matches = expectedKeyPoints.map(
+			(ekp, i) =>
+				keyPoints[i] instanceof ekp.cls && keyPoints[i].name === ekp.name
+		)
+		const allMatch = matches.every((match) => match)
+
+		expect(keyPoints.length).toBe(expectedKeyPoints.length)
+		expect(allMatch).toBe(true)
+	})
+})
