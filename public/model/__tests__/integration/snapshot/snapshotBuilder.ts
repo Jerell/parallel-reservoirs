@@ -120,12 +120,7 @@ describe('add', () => {
 
 		const pipeseg = builder.previousElem as PipeSeg
 
-		;(builder.add('well') as AddWell)(
-			'HM-All',
-			{ elevation: 0 },
-			pipeseg,
-			'Hamilton'
-		)
+		;(builder.add('well') as AddWell)('HM-All', { elevation: 0 }, 'Hamilton')
 
 		expect(builder.elements[2]).toBeInstanceOf(Well)
 		expect(builder.previousElem).toBeInstanceOf(Perforation)
@@ -165,12 +160,7 @@ describe('add', () => {
 					length: 200,
 					diameters: [1, 2, 3, 4],
 				}).add('well') as AddWell
-			)(
-				'HM-All',
-				{ elevation: 0 },
-				builder.previousElem as PipeSeg,
-				'Hamilton'
-			).add('reservoir') as AddReservoir
+			)('HM-All', { elevation: 0 }, 'Hamilton').add('reservoir') as AddReservoir
 		)('Hamilton', { elevation: 0 }, 4)
 
 		expect(builder.previousElem).toBeInstanceOf(Reservoir)

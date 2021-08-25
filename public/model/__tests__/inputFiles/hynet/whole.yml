@@ -1746,6 +1746,16 @@ instructions:
       elevation: 26.6
       diameters:
         - 0.4762
+  - well:
+      name: HM1
+      physical:
+        elevation: 0
+      realReservoirName: Hamilton
+  - reservoir:
+      name: Hamilton
+      physical:
+        elevation: 0
+      pressure: 1
   - branch:
       name: DGtoHN-001
       length: 26.6
@@ -2326,6 +2336,16 @@ instructions:
       elevation: 26.3
       diameters:
         - 0.3302
+  - well:
+      name: HN1
+      physical:
+        elevation: 0
+      realReservoirName: Hamilton North
+  - reservoir:
+      name: Hamilton North
+      physical:
+        elevation: 0
+      pressure: 1
   - branch:
       name: DGtoLX12-001
       length: 26.6
@@ -3508,3 +3528,13 @@ instructions:
         - 0.2794
         - 0.3302
         - 0.3826
+  - well:
+      name: LX1
+      physical:
+        elevation: 0
+      realReservoirName: Lennox
+  - reservoir:
+      name: Lennox
+      physical:
+        elevation: 0
+      pressure: 1

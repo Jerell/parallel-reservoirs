@@ -329,14 +329,12 @@ export default class Parser {
 						break
 					case 'well':
 						{
-							const { name, physical, source, realReservoirName } =
-								parameters as {
-									name: string
-									physical: IPhysicalElement
-									source: PipeSeg
-									realReservoirName: 'Hamilton' | 'Hamilton North' | 'Lennox'
-								}
-							;(adder as AddWell)(name, physical, source, realReservoirName)
+							const { name, physical, realReservoirName } = parameters as {
+								name: string
+								physical: IPhysicalElement
+								realReservoirName: 'Hamilton' | 'Hamilton North' | 'Lennox'
+							}
+							;(adder as AddWell)(name, physical, realReservoirName)
 						}
 						break
 					case 'reservoir':

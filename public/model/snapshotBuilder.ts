@@ -26,7 +26,6 @@ export type AddSplitter = (
 export type AddWell = (
 	name: string,
 	physical: IPhysicalElement,
-	source: PipeSeg,
 	realReservoirName: string
 ) => SnapshotBuilder
 
@@ -89,18 +88,20 @@ export default class SnapshotBuilder {
 				return (
 					name: string,
 					physical: IPhysicalElement,
-					source: PipeSeg,
 					realReservoirName: string
 				) => {
 					if (!Object.values(RealReservoir).includes(realReservoirName)) {
 						throw new Error(`Unsupported reservoir: ${realReservoirName}`)
+					}
+					if (!(this.previousElem instanceof PipeSeg)) {
+						throw new Error(`Well creation must come after pipe segment `)
 					}
 					const well = new Well(
 						name,
 						physical,
 						RealReservoir[realReservoirName]
 					)
-					well.source = source
+					this.previousElem.setDestination(well)
 
 					set(well)
 
