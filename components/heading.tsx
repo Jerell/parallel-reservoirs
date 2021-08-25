@@ -34,7 +34,11 @@ const Heading = ({
 		case 3:
 			return <h3 className={`${commonClasses} py-6`}>{children}</h3>
 		case 4:
-			return <h4 className={`${commonClasses} py-2`}>{children}</h4>
+			return (
+				<h4 className={`${commonClasses} py-1 bg-white text-gray-400`}>
+					{children}
+				</h4>
+			)
 		case 5:
 			return <h5 className={`${commonClasses}`}>{children}</h5>
 		case 6:
