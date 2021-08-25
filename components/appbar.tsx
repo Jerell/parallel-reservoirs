@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import Heading from '@/components/heading'
 
 const links = [
 	{ label: 'Demo', href: '/demo' },
@@ -11,11 +12,11 @@ const Appbar = () => {
 
 	return (
 		<div className='pt-safe w-full bg-gray-900 fixed top-0 z-20'>
-			<header className='bg-blue-50 border-b dark:bg-gray-900 dark:border-gray-800'>
+			<header className='bg-pace-green text-white dark:bg-gray-900'>
 				<div className='mx-auto px-6 max-w-screen-md h-20 flex items-center justify-between'>
 					<Link href='/'>
 						<a>
-							<h1 className='font-medium'>Digital Twin</h1>
+							<h1 className='font-medium raleway text-lg'>Digital Twin</h1>
 						</a>
 					</Link>
 
@@ -27,8 +28,8 @@ const Appbar = () => {
 										<a
 											className={`text-sm ${
 												router.pathname === href
-													? 'text-indigo-500 dark:text-indigo-400'
-													: 'text-gray-600 hover:text-gray-900 dark:text-gray-400 dark:hover:text-gray-50'
+													? 'text-pace-grey'
+													: 'text-white hover:text-pace-violet dark:text-gray-400 dark:hover:text-gray-50'
 											}`}
 										>
 											{label}
