@@ -11,7 +11,9 @@ const Heading = ({
 	level: LevelRange
 	center?: boolean
 }) => {
-	const commonClasses = `${styles.heading} ${center ? 'text-center' : ''} `
+	const commonClasses = `${styles.heading} ${
+		center ? 'text-center px-2' : 'px-6'
+	} `
 	switch (level) {
 		case 1:
 			return (
@@ -24,15 +26,15 @@ const Heading = ({
 		case 2:
 			return (
 				<h2
-					className={`${commonClasses} uppercase text-lg bg-gray-300 text-gray-500`}
+					className={`${commonClasses} py-6 uppercase text-lg bg-gray-300 text-gray-500`}
 				>
 					{children}
 				</h2>
 			)
 		case 3:
-			return <h3 className={`${commonClasses}`}>{children}</h3>
+			return <h3 className={`${commonClasses} py-6`}>{children}</h3>
 		case 4:
-			return <h4 className={`${commonClasses}`}>{children}</h4>
+			return <h4 className={`${commonClasses} py-2`}>{children}</h4>
 		case 5:
 			return <h5 className={`${commonClasses}`}>{children}</h5>
 		case 6:
