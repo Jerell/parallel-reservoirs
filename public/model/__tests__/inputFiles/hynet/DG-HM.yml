@@ -457,6 +457,7 @@ instructions:
   - pipeseg:
       name: DGtoHM-034
       length: 10
+      elevation: 26.6
       diameters:
         - 0.4762
   - pipeseg:

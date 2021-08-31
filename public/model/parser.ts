@@ -10,6 +10,7 @@ import SnapshotBuilder, {
 	AddPipeSeg,
 	AddPipeSeries,
 } from './snapshotBuilder'
+import Fluid from './fluid'
 
 const OLGA = {
 	parse: (fileString: string) => {
@@ -237,6 +238,7 @@ const OLGA = {
 export default class Parser {
 	data: any
 	keyPoints: IElement[] = []
+	fluid?: Fluid
 	constructor() {}
 
 	readFile(fileName: string, save = false) {
@@ -244,7 +246,7 @@ export default class Parser {
 		if (!file) {
 			throw new Error(`No file: ${fileName}`)
 		}
-		const fileExtension = fileName.substring(fileName.indexOf('.') + 1)
+		const fileExtension = fileName.split('.').pop()
 		switch (fileExtension) {
 			case 'yml':
 			case 'yaml':
@@ -267,7 +269,7 @@ export default class Parser {
 		return this.data
 	}
 
-	build() {
+	async build() {
 		if (!this.data) {
 			throw new Error(
 				`No data - call this.readFile(fileName) before this.build()`
@@ -296,7 +298,7 @@ export default class Parser {
 								temperature: number
 								flowrate: number
 							}
-							builder.setFluid(pressure, temperature, flowrate)
+							await builder.setFluid(pressure, temperature, flowrate)
 							break
 					}
 					continue
@@ -368,6 +370,7 @@ export default class Parser {
 		}
 
 		this.keyPoints = builder.keyPoints
+		this.fluid = builder.fluid
 
 		return builder.elements[0]
 	}

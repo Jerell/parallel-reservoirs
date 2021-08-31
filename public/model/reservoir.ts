@@ -22,8 +22,23 @@ export default class Reservoir implements IElement {
 		this.pressure = pressure
 	}
 
-	process(fluid: Fluid): Promise<PressureSolution> {
+	async process(fluid: Fluid): Promise<PressureSolution> {
+		if (!fluid) {
+			throw new Error(`No fluid received`)
+		}
 		this.fluid = fluid
-		throw new Error('Not implemented')
+
+		const upper = this.pressure * 1.01
+		const lower = this.pressure * 0.99
+
+		return await (() => {
+			if (fluid.pressure < lower) {
+				return PressureSolution.Low
+			}
+			if (fluid.pressure > upper) {
+				return PressureSolution.High
+			}
+			return PressureSolution.Ok
+		})()
 	}
 }

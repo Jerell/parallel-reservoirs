@@ -7,6 +7,8 @@ import {
 	PressureUnits,
 	Temperature,
 	TemperatureUnits,
+	Flowrate,
+	FlowrateUnits,
 } from 'physical-quantities'
 
 export default class Splitter extends Transport {
@@ -45,7 +47,7 @@ export default class Splitter extends Transport {
 		const newFluid = await defaultFluidConstructor(
 			new Pressure(this.fluid.pressure, PressureUnits.Pascal),
 			new Temperature(this.fluid.temperature, TemperatureUnits.Kelvin),
-			flowrate
+			new Flowrate(this.fluid.flowrate, FlowrateUnits.Kgps)
 		)
 
 		return this.destinations[branch].process(newFluid)
@@ -88,10 +90,16 @@ export default class Splitter extends Transport {
 	async process(fluid: Fluid): Promise<PressureSolution> {
 		this.fluid = fluid
 
+		console.log({
+			name: this.name,
+			p: fluid.pressure,
+			flowrate: fluid.flowrate,
+		})
+
 		const newFluid = await defaultFluidConstructor(
 			new Pressure(this.fluid.pressure, PressureUnits.Pascal),
 			new Temperature(this.fluid.temperature, TemperatureUnits.Kelvin),
-			this.fluid.flowrate
+			new Flowrate(this.fluid.flowrate, FlowrateUnits.Kgps)
 		)
 
 		for (let i = 0; i < this.destinations.length - 1; i++) {

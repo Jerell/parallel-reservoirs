@@ -77,7 +77,7 @@ describe('add', () => {
 			[2, 3]
 		)
 
-		expect(builder.elements[7].physical.elevation).toBe(3)
+		expect(builder.elements[7].physical.elevation).toBe(2)
 		expect(builder.elements.length).toBe(11)
 	})
 

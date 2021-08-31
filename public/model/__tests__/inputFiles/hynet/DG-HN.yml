@@ -575,6 +575,7 @@ instructions:
   - pipeseg:
       name: DGtoHN-041
       length: 10
+      elevation: 26.3
       diameters:
         - 0.3302
   - pipeseg:

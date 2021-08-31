@@ -7,6 +7,8 @@ import {
 	PressureUnits,
 	Temperature,
 	TemperatureUnits,
+	Flowrate,
+	FlowrateUnits,
 } from 'physical-quantities'
 
 export type ModelFunction = {
@@ -38,14 +40,18 @@ export default class Analogue extends Transport {
 		if (!this.fluid) {
 			throw new Error(`${this.type} has no fluid`)
 		}
-		return this.fluid.flowrate
+		// Analogue functions use MTPA
+		const q = new Flowrate(this.fluid.flowrate, FlowrateUnits.Kgps)
+		return q.kgps
 	}
 
 	get y() {
 		if (!this.fluid) {
 			throw new Error(`${this.type} has no fluid`)
 		}
-		return this.fluid.pressure
+		// Analogue functions use bara
+		const p = new Pressure(this.fluid.pressure, PressureUnits.Pascal)
+		return p.bara
 	}
 
 	endPressure() {
@@ -55,16 +61,19 @@ export default class Analogue extends Transport {
 			)
 		}
 
+		const [x, y] = [this.x, this.y]
+
 		const subIntoPowers = this.modelFunction.powers.map(
-			(powers) => this.x ** powers[0] * this.y ** powers[1]
+			(powers) => x ** powers[0] * y ** powers[1]
 		)
 		const multipliedByCoefs = subIntoPowers.map(
 			(xy, i) => xy * this.modelFunction.coefficients[i]
 		)
-		return (
+		const endP =
 			this.modelFunction.intercept +
 			multipliedByCoefs.reduce((acc, a) => (acc += a), 0)
-		)
+
+		return Math.max(new Pressure(endP, PressureUnits.Bara).pascal, 0)
 	}
 
 	setDestination(dest: IElement) {
@@ -73,17 +82,16 @@ export default class Analogue extends Transport {
 	}
 
 	async process(fluid: Fluid): Promise<PressureSolution> {
-		this.fluid = fluid
 		if (!this.destination) return PressureSolution.Ok
 
-		console.log(this.fluid)
+		this.fluid = fluid
 
 		const p = this.endPressure()
 
 		const endFluid = await defaultFluidConstructor(
 			new Pressure(p, PressureUnits.Pascal),
 			new Temperature(fluid.temperature, TemperatureUnits.Kelvin),
-			fluid.flowrate
+			new Flowrate(fluid.flowrate, FlowrateUnits.Kgps)
 		)
 
 		return await this.destination.process(endFluid)

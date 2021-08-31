@@ -6,6 +6,8 @@ import {
 	PressureUnits,
 	Temperature,
 	TemperatureUnits,
+	Flowrate,
+	FlowrateUnits,
 } from 'physical-quantities'
 import Analogue from './analogue'
 import Reservoir, { RealReservoir } from './reservoir'
@@ -101,39 +103,8 @@ export default class Perforation extends Analogue {
 		this.destination = null
 	}
 
-	get x() {
-		if (!this.fluid) {
-			throw new Error(`${this.type} has no fluid`)
-		}
-		return this.fluid.flowrate
-	}
-
-	get y() {
-		if (!this.fluid) {
-			throw new Error(`${this.type} has no fluid`)
-		}
-		// Perforation function uses bara
-		return new Pressure(this.fluid.pressure, PressureUnits.Pascal).bara
-	}
-
 	setDestination(dest: Reservoir) {
 		this.destination = dest
 		dest.source = this
-	}
-
-	async process(fluid: Fluid): Promise<PressureSolution> {
-		if (!this.destination) return PressureSolution.Ok
-
-		this.fluid = fluid
-
-		const p = this.endPressure() // bara
-
-		const endFluid = await defaultFluidConstructor(
-			new Pressure(p, PressureUnits.Bara),
-			new Temperature(fluid.temperature, TemperatureUnits.Kelvin),
-			fluid.flowrate
-		)
-
-		return await this.destination.process(endFluid)
 	}
 }

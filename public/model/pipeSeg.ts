@@ -6,6 +6,8 @@ import {
 	PressureUnits,
 	Temperature,
 	TemperatureUnits,
+	Flowrate,
+	FlowrateUnits,
 } from 'physical-quantities'
 
 export interface IPipeDefinition extends IPhysicalElement {
@@ -86,7 +88,8 @@ export default class PipeSeg extends Transport {
 		const μ = this.fluid.viscosity
 		const Re = (ρ * u * D) / μ
 		const ε = 4.5e-5
-		const f = 0.25 / (Math.log10(ε / (3.7 * D) + 5.74 / (Re ^ 0.7)) ^ 2)
+		const f =
+			0.25 / Math.log10((ε * 1000) / ((3.7 * D) / 1000) + 5.74 / Re ** 0.9) ** 2
 
 		const domainLimitingTerm = Math.sqrt((A ** 2 * D * P1) / (f * L * v))
 		if (domainLimitingTerm <= w) {
@@ -96,12 +99,13 @@ export default class PipeSeg extends Transport {
 		const g = 9.807
 		const elevationLoss = g * this.height * ρ
 
-		return (
+		const endP =
 			(A * Math.sqrt(D)) ** -1 *
 				Math.sqrt(P1) *
 				Math.sqrt(A ** 2 * D * P1 - f * L * v * w ** 2) -
 			elevationLoss
-		)
+
+		return endP
 	}
 
 	async process(fluid: Fluid): Promise<PressureSolution> {
@@ -115,7 +119,7 @@ export default class PipeSeg extends Transport {
 		const endFluid = await defaultFluidConstructor(
 			new Pressure(p, PressureUnits.Pascal),
 			new Temperature(fluid.temperature, TemperatureUnits.Kelvin),
-			fluid.flowrate
+			new Flowrate(fluid.flowrate, FlowrateUnits.Kgps)
 		)
 
 		return await this.destination.process(endFluid)

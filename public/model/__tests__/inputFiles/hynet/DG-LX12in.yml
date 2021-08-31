@@ -1038,9 +1038,12 @@ instructions:
         - 0.2794
   - pipeseg:
       name: DGtoLX12-068
-      length: 10
+      length: 29.637982387470306
+      elevation: 27.9
       diameters:
         - 0.2794
+        - 0.3302
+        - 0.3826
   - pipeseg:
       name: DGtoLX12-069
       length: 34.32797692844715

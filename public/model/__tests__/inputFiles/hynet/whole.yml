@@ -1,4 +1,8 @@
 instructions:
+  # - setfluid:
+  #     pressure: 1
+  #     temperature: 1
+  #     flowrate: 1
   - inlet:
       name: POA-DG
       physical:
@@ -1277,7 +1281,8 @@ instructions:
         - 0.4668
   - pipeseg:
       name: POAtoDG-104
-      length: 9
+      length: 28.081310510729374
+      elevation: 0
       diameters:
         - 0.4668
   - splitter:
@@ -1298,7 +1303,8 @@ instructions:
         - 0.4762
   - pipeseg:
       name: DGtoHM-003
-      length: 11
+      length: 27.77138815399763
+      elevation: 0
       diameters:
         - 0.4762
   - pipeseries:
@@ -1738,6 +1744,7 @@ instructions:
   - pipeseg:
       name: DGtoHM-034
       length: 10
+      elevation: 26.6
       diameters:
         - 0.4762
   - pipeseg:
@@ -1749,13 +1756,13 @@ instructions:
   - well:
       name: HM1
       physical:
-        elevation: 0
+        elevation: 26.6
       realReservoirName: Hamilton
   - reservoir:
       name: Hamilton
       physical:
         elevation: 0
-      pressure: 1
+      pressure: 1500000
   - branch:
       name: DGtoHN-001
       length: 26.6
@@ -2328,6 +2335,7 @@ instructions:
   - pipeseg:
       name: DGtoHN-041
       length: 10
+      elevation: 26.3
       diameters:
         - 0.3302
   - pipeseg:
@@ -2339,13 +2347,13 @@ instructions:
   - well:
       name: HN1
       physical:
-        elevation: 0
+        elevation: 26.3
       realReservoirName: HamiltonNorth
   - reservoir:
       name: Hamilton North
       physical:
         elevation: 0
-      pressure: 1
+      pressure: 1500000
   - branch:
       name: DGtoLX12-001
       length: 26.6
@@ -3515,7 +3523,8 @@ instructions:
         - 0.3826
   - pipeseg:
       name: DGtoLX12-068
-      length: 10
+      length: 29.637982387470306
+      elevation: 27.9
       diameters:
         - 0.2794
         - 0.3302
@@ -3531,10 +3540,10 @@ instructions:
   - well:
       name: LX1
       physical:
-        elevation: 0
+        elevation: 27.9
       realReservoirName: Lennox
   - reservoir:
       name: Lennox
       physical:
         elevation: 0
-      pressure: 1
+      pressure: 1500000

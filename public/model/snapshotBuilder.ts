@@ -11,6 +11,8 @@ import {
 	PressureUnits,
 	Temperature,
 	TemperatureUnits,
+	Flowrate,
+	FlowrateUnits,
 } from 'physical-quantities'
 
 export type AddInlet = (
@@ -199,7 +201,7 @@ export default class SnapshotBuilder {
 		this.fluid = await defaultFluidConstructor(
 			new Pressure(pressure, PressureUnits.Pascal),
 			new Temperature(temperature, TemperatureUnits.Kelvin),
-			flowrate
+			new Flowrate(flowrate, FlowrateUnits.Kgps)
 		)
 	}
 
@@ -224,6 +226,7 @@ export default class SnapshotBuilder {
 		if (!this.selectedSplitter) {
 			throw new Error(`No splitter selected to branch from`)
 		}
+		this.previousElem = this.selectedSplitter
 		return this.chainAdd('pipeseg', this.selectedSplitter)
 	}
 }

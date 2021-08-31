@@ -30,19 +30,19 @@ describe('readFile', () => {
 })
 
 describe('build from .yml', () => {
-	it('should create a simple network', () => {
+	it('should create a simple network', async () => {
 		const parser = new Parser()
 		parser.readFile(`${__dirname}/inputFiles/inletAndPipeSeg.yml`)
-		const root = parser.build()
+		const root = await parser.build()
 
 		expect(root).toBeInstanceOf(Inlet)
 		expect((root as Inlet).destination).toBeInstanceOf(PipeSeg)
 	})
 
-	it('should create a more complex network (twosplit)', () => {
+	it('should create a more complex network (twosplit)', async () => {
 		const parser = new Parser()
 		parser.readFile(`${__dirname}/inputFiles/twosplit.yml`)
-		const root = parser.build()
+		const root = await parser.build()
 
 		expect(root).toBeInstanceOf(Inlet)
 		expect((root as Inlet).destination).toBeInstanceOf(PipeSeg)
@@ -61,10 +61,10 @@ describe('build from .yml', () => {
 		).toBeInstanceOf(Splitter)
 	})
 
-	it('should create a more complex network (series)', () => {
+	it('should create a more complex network (series)', async () => {
 		const parser = new Parser()
 		parser.readFile(`${__dirname}/inputFiles/twosplit.yml`)
-		const root = parser.build()
+		const root = await parser.build()
 
 		expect(root).toBeInstanceOf(Inlet)
 		expect((root as Inlet).destination).toBeInstanceOf(PipeSeg)
@@ -84,13 +84,13 @@ describe('build from .yml', () => {
 	})
 })
 
-describe('build from .genkey', () => {
+describe('build from .genkey', async () => {
 	let parser, root, pipe1, pipe2, pipe3, pipe4, pipe5, pipe6, pipe7
 
-	beforeAll(() => {
+	await beforeAll(async () => {
 		parser = new Parser()
 		parser.readFile(`${__dirname}/inputFiles/pipeTooLong.genkey`)
-		root = parser.build()
+		root = await parser.build()
 
 		pipe1 = (root as Inlet).destination as PipeSeg
 		pipe2 = (pipe1 as PipeSeg).destination as PipeSeg
@@ -119,16 +119,13 @@ describe('build from .genkey', () => {
 	})
 })
 
-describe('build hynet', () => {
-	let parser, keyPoints
-	beforeAll(() => {
-		parser = new Parser()
+describe('build hynet', async () => {
+	it('should return a list of connected key points', async () => {
+		const parser = new Parser()
 		parser.readFile(`${__dirname}/inputFiles/hynet/whole.yml`)
-		parser.build()
-		keyPoints = parser.keyPoints
-	})
+		await parser.build()
+		const keyPoints = parser.keyPoints
 
-	it('should return a list of key points', () => {
 		const expectedKeyPoints = [
 			{ cls: Inlet, name: 'POA-DG' },
 			{ cls: Splitter, name: 'Douglas Manifold' },
@@ -151,5 +148,6 @@ describe('build hynet', () => {
 
 		expect(keyPoints.length).toBe(expectedKeyPoints.length)
 		expect(allMatch).toBe(true)
+		expect((keyPoints[1] as Splitter).destinations.length).toBe(3)
 	})
 })

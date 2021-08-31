@@ -83,7 +83,7 @@ export default class FluidProperties {
 				return Phase.Gas
 			}
 
-			console.log(temperature.celsius, pressure.pascal)
+			console.log(maxDewPressure, pressure.pascal)
 			throw new Error('Out of range')
 		}
 		const leftIdx = rightIdx - 1
@@ -176,9 +176,10 @@ export default class FluidProperties {
 	}
 
 	async density(pressure: Pressure, temperature: Temperature) {
-		const phase = await this.phase(pressure, temperature)
-		if (phase === 2) {
-			throw new Error('Fluid is two-phase')
+		let phase = await this.phase(pressure, temperature)
+		if (phase === Phase.TwoPhase) {
+			// throw new Error('Fluid is two-phase')
+			phase = Phase.Gas
 		}
 		let colIdx
 		if (phase === Phase.Gas) colIdx = 5
@@ -193,10 +194,11 @@ export default class FluidProperties {
 	}
 
 	async viscosity(pressure: Pressure, temperature: Temperature) {
-		const phase = await this.phase(pressure, temperature)
+		let phase = await this.phase(pressure, temperature)
 
-		if (phase === 2) {
-			throw new Error('Fluid is two-phase')
+		if (phase === Phase.TwoPhase) {
+			// throw new Error('Fluid is two-phase')
+			phase = Phase.Gas
 		}
 
 		let colIdx

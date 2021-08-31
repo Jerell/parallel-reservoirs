@@ -1,4 +1,4 @@
-import { Pressure, Temperature } from 'physical-quantities/lib'
+import { Pressure, Temperature, Flowrate } from 'physical-quantities'
 import { FluidDataFileReader } from './fluidDataFileReader'
 import FluidProperties from './fluidProperties'
 import { PhaseEnvelopeFileReader } from './phaseEnvelopeFileReader'
@@ -40,7 +40,7 @@ const createNewFluidConstructor = (
 	return async (
 		pressure: Pressure,
 		temperature: Temperature,
-		flowrate: number
+		flowrate: Flowrate
 	) => {
 		const [density, viscosity, enthalpy] = [
 			await properties.density(pressure, temperature),
@@ -51,7 +51,7 @@ const createNewFluidConstructor = (
 		return new Fluid(
 			pressure.pascal,
 			temperature.kelvin,
-			flowrate,
+			flowrate.kgps,
 			density,
 			viscosity,
 			enthalpy

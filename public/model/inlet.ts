@@ -7,6 +7,8 @@ import {
 	PressureUnits,
 	Temperature,
 	TemperatureUnits,
+	Flowrate,
+	FlowrateUnits,
 } from 'physical-quantities'
 
 export default class Inlet extends Transport {
@@ -24,22 +26,25 @@ export default class Inlet extends Transport {
 	async applyInletProperties(
 		pressure: number,
 		temperature: number,
-		flowrate: number
+		flowrate: number,
+		skipProcess = false
 	) {
 		const newFluid = await defaultFluidConstructor(
 			new Pressure(pressure, PressureUnits.Pascal),
 			new Temperature(temperature, TemperatureUnits.Kelvin),
-			flowrate
+			new Flowrate(flowrate, FlowrateUnits.Kgps)
 		)
 
 		this.fluid = newFluid
+		this.temperature = this.fluid.temperature
 
+		if (skipProcess) return
 		return this.process(this.fluid)
 	}
 
 	async searchInletPressure() {
 		const lowLimit = new Pressure(5, PressureUnits.Bara)
-		const highLimit = new Pressure(150, PressureUnits.Bara)
+		const highLimit = new Pressure(140, PressureUnits.Bara)
 
 		let low = lowLimit.pascal
 		let high = highLimit.pascal
@@ -63,11 +68,13 @@ export default class Inlet extends Transport {
 
 			mid = (low + high) / 2
 
-			pressureSolution = await this.applyInletProperties(
+			console.log({ guesses, inletP: mid, flowrate: this.fluid.flowrate })
+
+			pressureSolution = (await this.applyInletProperties(
 				mid,
 				this.temperature,
 				this.fluid.flowrate
-			)
+			)) as PressureSolution
 
 			if (pressureSolution === PressureSolution.Low) {
 				high = mid - stepSize
