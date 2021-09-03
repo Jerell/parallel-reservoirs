@@ -13,9 +13,16 @@ import Analogue from './analogue'
 import Reservoir, { RealReservoir } from './reservoir'
 import Well from './well'
 
+const fs = require('fs')
+
+const stream = fs.createWriteStream(`${__dirname}/perfP.txt`, {
+	flags: 'a',
+})
+
 const perforationFunctions = {}
 
 perforationFunctions[RealReservoir.Hamilton] = {
+	split: 4,
 	intercept: -0.723155611559477,
 	powers: [
 		[1, 0],
@@ -41,6 +48,7 @@ perforationFunctions[RealReservoir.Hamilton] = {
 }
 
 perforationFunctions[RealReservoir.HamiltonNorth] = {
+	split: 2,
 	intercept: -1.4034521453141124,
 	powers: [
 		[1, 0],
@@ -66,6 +74,7 @@ perforationFunctions[RealReservoir.HamiltonNorth] = {
 }
 
 perforationFunctions[RealReservoir.Lennox] = {
+	split: 2,
 	intercept: -0.5326763044220115,
 	powers: [
 		[1, 0],
@@ -101,6 +110,18 @@ export default class Perforation extends Analogue {
 	) {
 		super(name, physical, 'Well', perforationFunctions[realReservoir])
 		this.destination = null
+	}
+
+	get x() {
+		if (!this.fluid) {
+			throw new Error(`${this.type} has no fluid`)
+		}
+		const q = new Flowrate(this.fluid.flowrate, FlowrateUnits.Kgps)
+
+		const x = q.kgps / this.modelFunction.split
+
+		stream.write(`${this.name}: ${this.fluid.pressure} Pa | ${x} kg/s\n`)
+		return x
 	}
 
 	setDestination(dest: Reservoir) {
