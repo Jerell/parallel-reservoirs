@@ -8,6 +8,12 @@ export enum RealReservoir {
 	Lennox,
 }
 
+const fs = require('fs')
+
+const stream = fs.createWriteStream(`${__dirname}/resP.txt`, {
+	flags: 'a',
+})
+
 export default class Reservoir implements IElement {
 	type: string = 'Reservoir'
 	name: string
@@ -27,6 +33,10 @@ export default class Reservoir implements IElement {
 			throw new Error(`No fluid received`)
 		}
 		this.fluid = fluid
+
+		stream.write(
+			`${this.name}: ${this.fluid.pressure} Pa | ${this.fluid.flowrate} kg/s\n`
+		)
 
 		const upper = this.pressure * 1.01
 		const lower = this.pressure * 0.99

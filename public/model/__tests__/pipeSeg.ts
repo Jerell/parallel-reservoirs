@@ -79,14 +79,6 @@ describe('destinations', () => {
 		name: 'pipe3',
 	})
 
-	it('should add a destination pipe', () => {
-		expect(pipeseg1.destination).toBe(pipeseg2)
-	})
-
-	it('should set the source of the destination pipe', () => {
-		expect(pipeseg2.source).toBe(pipeseg1)
-	})
-
 	const pressureTestCases = [
 		{
 			pipes: [pipeseg1, pipeseg2],

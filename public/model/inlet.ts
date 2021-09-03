@@ -11,6 +11,12 @@ import {
 	FlowrateUnits,
 } from 'physical-quantities'
 
+const fs = require('fs')
+
+const stream = fs.createWriteStream(`${__dirname}/inletP.txt`, {
+	flags: 'a',
+})
+
 export default class Inlet extends Transport {
 	fluid: Fluid | null
 	destination: IElement | null
@@ -50,7 +56,6 @@ export default class Inlet extends Transport {
 		let high = highLimit.pascal
 		let mid = 0
 
-		const stepSize = 0.001
 		let guesses = 0
 		const maxGuesses = 25
 
@@ -61,14 +66,17 @@ export default class Inlet extends Transport {
 		}
 
 		while (pressureSolution !== PressureSolution.Ok) {
-			if (guesses++ > maxGuesses) {
+			if (guesses++ > maxGuesses - 1) {
 				console.log(`max guesses (${maxGuesses}) reached`)
 				break
 			}
 
 			mid = (low + high) / 2
 
-			console.log({ guesses, inletP: mid, flowrate: this.fluid.flowrate })
+			// console.log({ guesses, inletP: mid, flowrate: this.fluid.flowrate })
+			stream.write(
+				`${this.type} - ${this.name} GUESS ${guesses}:\n${mid} Pa\n${this.fluid.flowrate} kg/s\n\n`
+			)
 
 			pressureSolution = (await this.applyInletProperties(
 				mid,
@@ -77,9 +85,9 @@ export default class Inlet extends Transport {
 			)) as PressureSolution
 
 			if (pressureSolution === PressureSolution.Low) {
-				high = mid - stepSize
+				high = mid
 			} else if (pressureSolution === PressureSolution.High) {
-				low = mid + stepSize
+				low = mid
 			}
 		}
 

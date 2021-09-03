@@ -10,6 +10,17 @@ import {
 	FlowrateUnits,
 } from 'physical-quantities'
 
+const fs = require('fs')
+
+const stream = fs.createWriteStream(`${__dirname}/evaluated.txt`, {
+	flags: 'a',
+})
+const stream2 = fs.createWriteStream(`${__dirname}/lengthP.txt`, {
+	flags: 'a',
+})
+
+let hadanan = false
+
 export interface IPipeDefinition extends IPhysicalElement {
 	length: number
 	diameters: number[]
@@ -91,21 +102,26 @@ export default class PipeSeg extends Transport {
 		const f =
 			0.25 / Math.log10((ε * 1000) / ((3.7 * D) / 1000) + 5.74 / Re ** 0.9) ** 2
 
-		const domainLimitingTerm = Math.sqrt((A ** 2 * D * P1) / (f * L * v))
-		if (domainLimitingTerm <= w) {
-			return 0
-		}
-
 		const g = 9.807
 		const elevationLoss = g * this.height * ρ
 
-		const endP =
+		let endP =
 			(A * Math.sqrt(D)) ** -1 *
 				Math.sqrt(P1) *
 				Math.sqrt(A ** 2 * D * P1 - f * L * v * w ** 2) -
 			elevationLoss
 
+		endP = isNaN(endP) ? 0 : endP
+
 		return endP
+
+		// const limit = new Pressure(13500000, PressureUnits.Pascal)
+		// const capped = Math.min(
+		// 	Math.max(new Pressure(endP, PressureUnits.Bara).pascal, 0),
+		// 	limit.pascal
+		// )
+
+		// return capped
 	}
 
 	async process(fluid: Fluid): Promise<PressureSolution> {
@@ -115,6 +131,15 @@ export default class PipeSeg extends Transport {
 		if (!this.destination) return PressureSolution.Ok
 
 		const p = this.endPressure()
+		const lowPressureLimit = new Pressure(1000, PressureUnits.Pascal).pascal
+		// console.log({ name: this.physical.name, p, flowrate: fluid.flowrate })
+
+		stream.write(
+			`${this.physical.name}, ${p} Pa, ${this.fluid.flowrate} kg/s\n`
+		)
+		stream2.write(`${this.physical.length}, ${p}\n`)
+
+		if (p < lowPressureLimit) return PressureSolution.Low
 
 		const endFluid = await defaultFluidConstructor(
 			new Pressure(p, PressureUnits.Pascal),

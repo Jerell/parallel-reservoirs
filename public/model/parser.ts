@@ -155,7 +155,7 @@ const OLGA = {
 			}
 
 			for (const key of Object.keys(transformed[instructionType])) {
-				if (!transformed[instructionType][key]) {
+				if (!transformed[instructionType][key] && key !== 'elevation') {
 					delete transformed[instructionType][key]
 				}
 			}
