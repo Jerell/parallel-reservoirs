@@ -14,9 +14,16 @@ import { RealReservoir } from './reservoir'
 import PipeSeg from './pipeSeg'
 import IElement from './element'
 
+const fs = require('fs')
+
+const stream = fs.createWriteStream(`${__dirname}/wellP.txt`, {
+	flags: 'a',
+})
+
 const wellFunctions = {}
 
 wellFunctions[RealReservoir.Hamilton] = {
+	split: 4,
 	intercept: -1661.6940108244444,
 	powers: [
 		[1, 0],
@@ -42,6 +49,7 @@ wellFunctions[RealReservoir.Hamilton] = {
 }
 
 wellFunctions[RealReservoir.HamiltonNorth] = {
+	split: 2,
 	intercept: 191.75089661332476,
 	powers: [
 		[1, 0],
@@ -67,6 +75,7 @@ wellFunctions[RealReservoir.HamiltonNorth] = {
 }
 
 wellFunctions[RealReservoir.Lennox] = {
+	split: 2,
 	intercept: -48517.795025533436,
 	powers: [
 		[1, 0],
@@ -93,6 +102,9 @@ wellFunctions[RealReservoir.Lennox] = {
 		[5, 1],
 		[4, 2],
 		[3, 3],
+		[2, 4],
+		[1, 5],
+		[0, 6],
 	],
 	coefficients: [
 		2.9121663, 1.06009869, 4.9296878e1, 3.64633611e1, 2.11714556e1,
@@ -115,6 +127,18 @@ export default class Well extends Analogue {
 	) {
 		super(name, physical, 'Well', wellFunctions[realWell])
 		this.destination = null
+	}
+
+	get x() {
+		if (!this.fluid) {
+			throw new Error(`${this.type} has no fluid`)
+		}
+		const q = new Flowrate(this.fluid.flowrate, FlowrateUnits.Kgps)
+
+		const x = q.kgps / this.modelFunction.split
+
+		stream.write(`${this.name}: ${this.fluid.pressure} Pa | ${x} kg/s\n`)
+		return x
 	}
 
 	setDestination(dest: IElement) {
