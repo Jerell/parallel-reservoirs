@@ -78,9 +78,8 @@ export default class Well extends Analogue {
 		if (!this.fluid) {
 			throw new Error(`${this.type} has no fluid`);
 		}
-		const q = new Flowrate(this.fluid.flowrate, FlowrateUnits.Kgps);
 
-		const x = q.kgps / this.modelFunction.split;
+		const x = this.fluid.flowrate.kgps / this.modelFunction.split
 
 		stream.write(`${this.name}: ${this.fluid.pressure} Pa | ${x} kg/s\n`);
 		return x;

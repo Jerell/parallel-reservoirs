@@ -31,13 +31,13 @@ describe('Test case', () => {
 		const highPLim = new Pressure(35, PressureUnits.Bara);
 
 		await inlet.applyInletProperties(
-			highPLim.pascal,
-			300,
-			new Flowrate(1, FlowrateUnits.MTPA).kgps,
+			highPLim,
+			new Temperature(300, TemperatureUnits.Kelvin),
+			new Flowrate(1, FlowrateUnits.MTPA),
 			true
 		);
 
-		const result = await inlet.searchInletPressure();
+		await inlet.searchInletPressure();
 
 		expect(inlet).toBeInstanceOf(Inlet);
 	});
@@ -51,9 +51,9 @@ describe('Test case', () => {
 		const inlet = keyPoints[0] as Inlet;
 
 		await inlet.applyInletProperties(
-			new Pressure(25, PressureUnits.Bara).pascal,
-			300,
-			new Flowrate(1, FlowrateUnits.MTPA).kgps,
+			new Pressure(25, PressureUnits.Bara),
+			new Temperature(300, TemperatureUnits.Kelvin),
+			new Flowrate(1, FlowrateUnits.MTPA),
 			true
 		);
 
@@ -64,20 +64,20 @@ describe('Test case', () => {
 
 	const gasPhaseTestCases = [
 		{
-			inletP: new Pressure(2503906.25, PressureUnits.Pascal).pascal,
-			inletFlowrate: new Flowrate(150.3, FlowrateUnits.Kgps).kgps,
+			inletP: new Pressure(69, PressureUnits.Bara),
+			inletFlowrate: new Flowrate(150.3, FlowrateUnits.Kgps),
 			// Need actual reservoir pressures for test case
-			HM_P: new Pressure(15, PressureUnits.Bara).pascal,
-			HN_P: new Pressure(15, PressureUnits.Bara).pascal,
-			LX_P: new Pressure(15, PressureUnits.Bara).pascal,
+			HM_P: new Pressure(10, PressureUnits.Bara),
+			HN_P: new Pressure(10, PressureUnits.Bara),
+			LX_P: new Pressure(10, PressureUnits.Bara),
 		},
 		{
-			inletP: new Pressure(2451171.875, PressureUnits.Bara).pascal,
-			inletFlowrate: new Flowrate(150.3, FlowrateUnits.Kgps).kgps,
+			inletP: new Pressure(67.7, PressureUnits.Bara),
+			inletFlowrate: new Flowrate(150.3, FlowrateUnits.Kgps),
 			// Need actual reservoir pressures for test case
-			HM_P: new Pressure(15, PressureUnits.Bara).pascal,
-			HN_P: new Pressure(15, PressureUnits.Bara).pascal,
-			LX_P: new Pressure(15, PressureUnits.Bara).pascal,
+			HM_P: new Pressure(10, PressureUnits.Bara),
+			HN_P: new Pressure(10, PressureUnits.Bara),
+			LX_P: new Pressure(10, PressureUnits.Bara),
 		},
 	];
 
@@ -100,17 +100,15 @@ describe('Test case', () => {
 			LX.pressure = LX_P;
 
 			await inlet.applyInletProperties(
-				new Pressure(10, PressureUnits.Bara).pascal, // placeholder
-				new Temperature(300, TemperatureUnits.Kelvin).kelvin,
+				new Pressure(10, PressureUnits.Bara), // placeholder
+				new Temperature(300, TemperatureUnits.Kelvin),
 				inletFlowrate,
 				true
 			);
 
-			inlet.process(inlet.fluid);
+			const result = await inlet.searchInletPressure();
 
-			// const result = inlet.searchInletPressure();
-
-			expect(0).toEqual(inletP);
+			expect(result).toEqual(inletP.pascal);
 		}
 	);
 });
@@ -126,9 +124,9 @@ describe('hamilton', () => {
 
 		const runQ = async (q) => {
 			await inlet.applyInletProperties(
-				new Pressure(1, PressureUnits.Bara).pascal,
-				new Temperature(300, TemperatureUnits.Kelvin).kelvin,
-				new Flowrate(q, FlowrateUnits.Kgps).kgps,
+				new Pressure(1, PressureUnits.Bara),
+				new Temperature(300, TemperatureUnits.Kelvin),
+				new Flowrate(q, FlowrateUnits.Kgps),
 				true
 			);
 
@@ -159,9 +157,9 @@ describe('hamilton north', () => {
 
 		const runQ = async (q) => {
 			await inlet.applyInletProperties(
-				new Pressure(1, PressureUnits.Bara).pascal,
-				new Temperature(300, TemperatureUnits.Kelvin).kelvin,
-				new Flowrate(q, FlowrateUnits.Kgps).kgps,
+				new Pressure(1, PressureUnits.Bara),
+				new Temperature(300, TemperatureUnits.Kelvin),
+				new Flowrate(q, FlowrateUnits.Kgps),
 				true
 			);
 
@@ -192,9 +190,9 @@ describe('lennox', () => {
 
 		const runQ = async (q) => {
 			await inlet.applyInletProperties(
-				new Pressure(1, PressureUnits.Bara).pascal,
-				new Temperature(300, TemperatureUnits.Kelvin).kelvin,
-				new Flowrate(q, FlowrateUnits.Kgps).kgps,
+				new Pressure(1, PressureUnits.Bara),
+				new Temperature(300, TemperatureUnits.Kelvin),
+				new Flowrate(q, FlowrateUnits.Kgps),
 				true
 			);
 

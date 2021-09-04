@@ -41,8 +41,8 @@ export default class Analogue extends Transport {
 		if (!this.fluid) {
 			throw new Error(`${this.type} has no fluid`);
 		}
-		const q = new Flowrate(this.fluid.flowrate, FlowrateUnits.Kgps);
-		return q.kgps;
+
+		return this.fluid.flowrate.kgps
 	}
 
 	get y() {
@@ -50,11 +50,10 @@ export default class Analogue extends Transport {
 			throw new Error(`${this.type} has no fluid`);
 		}
 		// Analogue functions use bara
-		const p = new Pressure(this.fluid.pressure, PressureUnits.Pascal);
-		return p.bara;
+		return this.fluid.pressure.bara
 	}
 
-	endPressure() {
+	endPressure(): Pressure {
 		if (!this.fluid) {
 			throw new Error(
 				`${this.type} has no fluid - unable to calculate end pressure`
@@ -79,7 +78,7 @@ export default class Analogue extends Transport {
 			limit.pascal
 		);
 
-		return capped;
+		return new Pressure(capped, PressureUnits.Pascal);
 	}
 
 	formula() {
@@ -112,15 +111,15 @@ export default class Analogue extends Transport {
 
 		this.fluid = fluid;
 
-		const p = this.endPressure();
-		const lowPressureLimit = new Pressure(1000, PressureUnits.Pascal).pascal;
-		if (p < lowPressureLimit) return PressureSolution.Low;
+		const p = this.endPressure()
+		const lowPressureLimit = new Pressure(1000, PressureUnits.Pascal).pascal
+		if (p.pascal < lowPressureLimit) return PressureSolution.Low
 
 		const endFluid = await defaultFluidConstructor(
-			new Pressure(p, PressureUnits.Pascal),
-			new Temperature(fluid.temperature, TemperatureUnits.Kelvin),
-			new Flowrate(fluid.flowrate, FlowrateUnits.Kgps)
-		);
+			p,
+			fluid.temperature,
+			fluid.flowrate
+		)
 
 		return await this.destination.process(endFluid);
 	}
