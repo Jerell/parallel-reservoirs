@@ -31,7 +31,7 @@ describe('Test case', () => {
 			true
 		);
 
-		const result = await inlet.searchInletPressure();
+		await inlet.searchInletPressure();
 
 		expect(inlet).toBeInstanceOf(Inlet);
 	});
@@ -100,7 +100,7 @@ describe('Test case', () => {
 				true
 			);
 
-			const result = inlet.searchInletPressure();
+			const result = await inlet.searchInletPressure();
 
 			expect(result).toEqual(inletP.pascal);
 		}

@@ -84,10 +84,10 @@ describe('build from .yml', () => {
 	});
 });
 
-describe('build from .genkey', async () => {
+describe('build from .genkey', () => {
 	let parser, root, pipe1, pipe2, pipe3, pipe4, pipe5, pipe6, pipe7;
 
-	await beforeAll(async () => {
+	beforeAll(async (done) => {
 		parser = new Parser();
 		parser.readFile(`${__dirname}/inputFiles/pipeTooLong.genkey`);
 		root = await parser.build();
@@ -99,6 +99,7 @@ describe('build from .genkey', async () => {
 		pipe5 = (pipe4 as PipeSeg).destination as PipeSeg;
 		pipe6 = (pipe5 as PipeSeg).destination as PipeSeg;
 		pipe7 = (pipe6 as PipeSeg).destination as PipeSeg;
+		done(); // https://github.com/facebook/jest/issues/1256
 	});
 
 	it('should create a pipeseries when the length would be too long for one pipeseg', () => {
@@ -119,7 +120,7 @@ describe('build from .genkey', async () => {
 	});
 });
 
-describe('build hynet', async () => {
+describe('build hynet', () => {
 	it('should return a list of connected key points', async () => {
 		const parser = new Parser();
 		parser.readFile(`${__dirname}/inputFiles/hynet/whole.yml`);
