@@ -120,7 +120,6 @@ export default class Analogue extends Transport {
 		if (p.pascal < lowPressureLimit) return PressureSolution.Low
 
 		const endFluid = await defaultFluidConstructor(
-
 			p,
 			fluid.temperature,
 			fluid.flowrate

@@ -25,9 +25,9 @@ describe('Test case', () => {
 		const highPLim = new Pressure(35, PressureUnits.Bara);
 
 		await inlet.applyInletProperties(
-			highPLim.pascal,
-			300,
-			new Flowrate(1, FlowrateUnits.MTPA).kgps,
+			highPLim,
+			new Temperature(300, TemperatureUnits.Kelvin),
+			new Flowrate(1, FlowrateUnits.MTPA),
 			true
 		);
 
@@ -45,9 +45,9 @@ describe('Test case', () => {
 		const inlet = keyPoints[0] as Inlet;
 
 		await inlet.applyInletProperties(
-			new Pressure(25, PressureUnits.Bara).pascal,
-			300,
-			new Flowrate(1, FlowrateUnits.MTPA).kgps,
+			new Pressure(25, PressureUnits.Bara),
+			new Temperature(300, TemperatureUnits.Kelvin),
+			new Flowrate(1, FlowrateUnits.MTPA),
 			true
 		);
 
@@ -58,20 +58,20 @@ describe('Test case', () => {
 
 	const gasPhaseTestCases = [
 		{
-			inletP: new Pressure(69, PressureUnits.Bara).pascal,
-			inletFlowrate: new Flowrate(150.3, FlowrateUnits.Kgps).kgps,
+			inletP: new Pressure(69, PressureUnits.Bara),
+			inletFlowrate: new Flowrate(150.3, FlowrateUnits.Kgps),
 			// Need actual reservoir pressures for test case
-			HM_P: new Pressure(10, PressureUnits.Bara).pascal,
-			HN_P: new Pressure(10, PressureUnits.Bara).pascal,
-			LX_P: new Pressure(10, PressureUnits.Bara).pascal,
+			HM_P: new Pressure(10, PressureUnits.Bara),
+			HN_P: new Pressure(10, PressureUnits.Bara),
+			LX_P: new Pressure(10, PressureUnits.Bara),
 		},
 		{
-			inletP: new Pressure(67.7, PressureUnits.Bara).pascal,
-			inletFlowrate: new Flowrate(150.3, FlowrateUnits.Kgps).kgps,
+			inletP: new Pressure(67.7, PressureUnits.Bara),
+			inletFlowrate: new Flowrate(150.3, FlowrateUnits.Kgps),
 			// Need actual reservoir pressures for test case
-			HM_P: new Pressure(10, PressureUnits.Bara).pascal,
-			HN_P: new Pressure(10, PressureUnits.Bara).pascal,
-			LX_P: new Pressure(10, PressureUnits.Bara).pascal,
+			HM_P: new Pressure(10, PressureUnits.Bara),
+			HN_P: new Pressure(10, PressureUnits.Bara),
+			LX_P: new Pressure(10, PressureUnits.Bara),
 		},
 	];
 
@@ -94,15 +94,15 @@ describe('Test case', () => {
 			LX.pressure = LX_P;
 
 			await inlet.applyInletProperties(
-				new Pressure(10, PressureUnits.Bara).pascal, // placeholder
-				new Temperature(300, TemperatureUnits.Kelvin).kelvin,
+				new Pressure(10, PressureUnits.Bara), // placeholder
+				new Temperature(300, TemperatureUnits.Kelvin),
 				inletFlowrate,
 				true
 			);
 
 			const result = inlet.searchInletPressure();
 
-			expect(result).toEqual(inletP);
+			expect(result).toEqual(inletP.pascal);
 		}
 	);
 });
