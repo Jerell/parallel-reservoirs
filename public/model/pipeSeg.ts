@@ -114,7 +114,7 @@ export default class PipeSeg extends Transport {
 		const limit = new Pressure(13500000, PressureUnits.Pascal);
 		const capped = Math.max(Math.min(endP, limit.pascal), 0);
 
-		return new Pressure(capped, PressureUnits.Bara);
+		return new Pressure(capped, PressureUnits.Pascal);
 	}
 
 	async process(fluid: Fluid): Promise<PressureSolution> {

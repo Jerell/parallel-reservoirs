@@ -81,36 +81,36 @@ describe('Test case', () => {
 		},
 	];
 
-	test.each(gasPhaseTestCases)(
-		'return expected inlet flowrate',
-		async ({ inletP, inletFlowrate, HM_P, HN_P, LX_P }) => {
-			const parser = new Parser();
-			parser.readFile(`${__dirname}/../../inputFiles/hynet/whole.yml`);
-			await parser.build();
-			const keyPoints = parser.keyPoints;
+	// test.each(gasPhaseTestCases)(
+	// 	'return expected inlet flowrate',
+	// 	async ({ inletP, inletFlowrate, HM_P, HN_P, LX_P }) => {
+	// 		const parser = new Parser();
+	// 		parser.readFile(`${__dirname}/../../inputFiles/hynet/whole.yml`);
+	// 		await parser.build();
+	// 		const keyPoints = parser.keyPoints;
 
-			const inlet = keyPoints[0] as Inlet;
+	// 		const inlet = keyPoints[0] as Inlet;
 
-			const HM = keyPoints[4] as Reservoir;
-			const HN = keyPoints[7] as Reservoir;
-			const LX = keyPoints[10] as Reservoir;
+	// 		const HM = keyPoints[4] as Reservoir;
+	// 		const HN = keyPoints[7] as Reservoir;
+	// 		const LX = keyPoints[10] as Reservoir;
 
-			HM.pressure = HM_P;
-			HN.pressure = HN_P;
-			LX.pressure = LX_P;
+	// 		HM.pressure = HM_P;
+	// 		HN.pressure = HN_P;
+	// 		LX.pressure = LX_P;
 
-			await inlet.applyInletProperties(
-				new Pressure(10, PressureUnits.Bara), // placeholder
-				new Temperature(300, TemperatureUnits.Kelvin),
-				inletFlowrate,
-				true
-			);
+	// 		await inlet.applyInletProperties(
+	// 			new Pressure(10, PressureUnits.Bara), // placeholder
+	// 			new Temperature(300, TemperatureUnits.Kelvin),
+	// 			inletFlowrate,
+	// 			true
+	// 		);
 
-			const result = await inlet.searchInletPressure();
+	// 		const result = await inlet.searchInletPressure();
 
-			expect(result).toEqual(inletP.pascal);
-		}
-	);
+	// 		expect(result).toEqual(inletP.pascal);
+	// 	}
+	// );
 });
 
 describe('hamilton', () => {
