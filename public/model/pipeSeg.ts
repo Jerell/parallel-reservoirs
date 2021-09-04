@@ -10,14 +10,14 @@ import {
 	FlowrateUnits,
 } from 'physical-quantities';
 
-// const fs = require('fs')
+const fs = require('fs');
 
-// const stream = fs.createWriteStream(`${__dirname}/evaluated.txt`, {
-// 	flags: 'a',
-// })
-// const stream2 = fs.createWriteStream(`${__dirname}/lengthP.txt`, {
-// 	flags: 'a',
-// })
+const stream = fs.createWriteStream(`${__dirname}/evaluated.txt`, {
+	flags: 'a',
+});
+const stream2 = fs.createWriteStream(`${__dirname}/lengthP.txt`, {
+	flags: 'a',
+});
 
 export interface IPipeDefinition extends IPhysicalElement {
 	length: number;
@@ -113,13 +113,10 @@ export default class PipeSeg extends Transport {
 
 		return endP;
 
-		// const limit = new Pressure(13500000, PressureUnits.Pascal)
-		// const capped = Math.min(
-		// 	Math.max(new Pressure(endP, PressureUnits.Bara).pascal, 0),
-		// 	limit.pascal
-		// )
+		const limit = new Pressure(13500000, PressureUnits.Pascal);
+		const capped = Math.max(Math.min(endP, limit.pascal), 0);
 
-		// return capped
+		return new Pressure(capped, PressureUnits.Bara).pascal;
 	}
 
 	async process(fluid: Fluid): Promise<PressureSolution> {
@@ -130,12 +127,11 @@ export default class PipeSeg extends Transport {
 
 		const p = this.endPressure();
 		const lowPressureLimit = new Pressure(1000, PressureUnits.Pascal).pascal;
-		// console.log({ name: this.physical.name, p, flowrate: fluid.flowrate })
 
-		// stream.write(
-		// 	`${this.physical.name}, ${p} Pa, ${this.fluid.flowrate} kg/s\n`
-		// )
-		// stream2.write(`${this.physical.length}, ${p}\n`)
+		stream.write(
+			`${this.physical.name}, ${p} Pa, ${this.fluid.flowrate} kg/s\n`
+		);
+		stream2.write(`${this.physical.length}, ${p}\n`);
 
 		if (p < lowPressureLimit) return PressureSolution.Low;
 
