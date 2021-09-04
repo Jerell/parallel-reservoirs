@@ -49,7 +49,7 @@ export default class Inlet extends Transport {
 	}
 
 	async searchInletPressure() {
-		const lowLimit = new Pressure(5, PressureUnits.Bara);
+		const lowLimit = new Pressure(1, PressureUnits.Bara);
 		const highLimit = new Pressure(140, PressureUnits.Bara);
 
 		let low = lowLimit.pascal;
@@ -85,9 +85,9 @@ export default class Inlet extends Transport {
 			)) as PressureSolution;
 
 			if (pressureSolution === PressureSolution.Low) {
-				high = mid;
-			} else if (pressureSolution === PressureSolution.High) {
 				low = mid;
+			} else if (pressureSolution === PressureSolution.High) {
+				high = mid;
 			}
 		}
 
