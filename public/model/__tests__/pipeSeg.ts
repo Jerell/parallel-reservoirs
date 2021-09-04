@@ -76,7 +76,7 @@ describe('destinations', () => {
 		length: 1,
 		diameters: [0.8886],
 		elevation: 20,
-		name: 'pipe3',
+		name: 'pipe4',
 	})
 
 	const pressureTestCases = [
@@ -112,9 +112,10 @@ describe('destinations', () => {
 				new Flowrate(flowrate, FlowrateUnits.Kgps)
 			)
 			pipes[0].setDestination(pipes[1])
-			await pipes[0].process(fluid).then(() => {
-				expect(pipes[1].fluid.pressure).toBeCloseTo(p2)
-			})
+
+			await pipes[0].process(fluid)
+
+			expect(pipes[1].fluid.pressure).toBeCloseTo(p2)
 		}
 	)
 })
