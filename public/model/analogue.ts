@@ -112,19 +112,9 @@ export default class Analogue extends Transport {
 
 		this.fluid = fluid;
 
-		if (this.name === 'LX1') {
-			console.log('buh');
-		}
-
 		const p = this.endPressure();
 		const lowPressureLimit = new Pressure(1000, PressureUnits.Pascal).pascal;
 		if (p < lowPressureLimit) return PressureSolution.Low;
-
-		// console.log({
-		// 	name: this.name,
-		// 	p,
-		// 	flowrate: fluid.flowrate,
-		// })
 
 		const endFluid = await defaultFluidConstructor(
 			new Pressure(p, PressureUnits.Pascal),
