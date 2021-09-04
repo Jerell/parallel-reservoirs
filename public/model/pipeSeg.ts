@@ -10,16 +10,14 @@ import {
 	FlowrateUnits,
 } from 'physical-quantities'
 
-const fs = require('fs')
+// const fs = require('fs')
 
-const stream = fs.createWriteStream(`${__dirname}/evaluated.txt`, {
-	flags: 'a',
-})
-const stream2 = fs.createWriteStream(`${__dirname}/lengthP.txt`, {
-	flags: 'a',
-})
-
-let hadanan = false
+// const stream = fs.createWriteStream(`${__dirname}/evaluated.txt`, {
+// 	flags: 'a',
+// })
+// const stream2 = fs.createWriteStream(`${__dirname}/lengthP.txt`, {
+// 	flags: 'a',
+// })
 
 export interface IPipeDefinition extends IPhysicalElement {
 	length: number
@@ -100,7 +98,7 @@ export default class PipeSeg extends Transport {
 		const Re = (ρ * u * D) / μ
 		const ε = 4.5e-5
 		const f =
-			0.25 / Math.log10((ε * 1000) / ((3.7 * D) / 1000) + 5.74 / Re ** 0.9) ** 2
+			0.25 / Math.log10((ε * 1000) / (3.7 * D * 1000) + 5.74 / Re ** 0.9) ** 2
 
 		const g = 9.807
 		const elevationLoss = g * this.height * ρ
@@ -134,10 +132,10 @@ export default class PipeSeg extends Transport {
 		const lowPressureLimit = new Pressure(1000, PressureUnits.Pascal).pascal
 		// console.log({ name: this.physical.name, p, flowrate: fluid.flowrate })
 
-		stream.write(
-			`${this.physical.name}, ${p} Pa, ${this.fluid.flowrate} kg/s\n`
-		)
-		stream2.write(`${this.physical.length}, ${p}\n`)
+		// stream.write(
+		// 	`${this.physical.name}, ${p} Pa, ${this.fluid.flowrate} kg/s\n`
+		// )
+		// stream2.write(`${this.physical.length}, ${p}\n`)
 
 		if (p < lowPressureLimit) return PressureSolution.Low
 
