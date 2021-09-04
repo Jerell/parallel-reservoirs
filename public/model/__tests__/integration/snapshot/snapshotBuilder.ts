@@ -100,7 +100,7 @@ describe('add', () => {
 			[2, 3]
 		)
 
-		expect((builder.elements[7] as PipeSeg).physical.length).toBe(3)
+		expect((builder.elements[7] as PipeSeg).physical.length).toBe(2)
 		expect(builder.elements.length).toBe(11)
 	})
 
