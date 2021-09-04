@@ -25,18 +25,18 @@ describe('endPressure', () => {
 			length: 1,
 			diameters: [16, 14, 12],
 			elevation: 1,
-		});
-		const well = new Well('HM1', { elevation: 0 }, RealReservoir.Hamilton);
-		well.source = pipe;
-		const reservoir = new Reservoir('Hamilton', { elevation: 0 }, 10);
-		well.setDestination(reservoir);
-		well.process(fluid);
+		})
+		const well = new Well('HM1', { elevation: 0 }, RealReservoir.Hamilton)
+		well.source = pipe
+		const reservoir = new Reservoir('Hamilton', { elevation: 0 }, new Pressure(10, PressureUnits.Pascal))
+		well.setDestination(reservoir)
+		well.process(fluid)
 
 		const predictedValue = new Pressure(81.018176825555, PressureUnits.Bara)
 			.pascal;
 
-		expect(well.endPressure()).toBeCloseTo(predictedValue);
-	});
+		expect(well.endPressure().pascal).toBeCloseTo(predictedValue)
+	})
 
 	it('should match the predicted value from python (low flow)', async () => {
 		const fluid = await defaultFluidConstructor(
@@ -50,16 +50,16 @@ describe('endPressure', () => {
 			length: 1,
 			diameters: [16, 14, 12],
 			elevation: 1,
-		});
-		const well = new Well('HM1', { elevation: 0 }, RealReservoir.Hamilton);
-		well.source = pipe;
-		const reservoir = new Reservoir('Hamilton', { elevation: 0 }, 10);
-		well.setDestination(reservoir);
-		well.process(fluid);
+		})
+		const well = new Well('HM1', { elevation: 0 }, RealReservoir.Hamilton)
+		well.source = pipe
+		const reservoir = new Reservoir('Hamilton', { elevation: 0 }, new Pressure(10, PressureUnits.Pascal))
+		well.setDestination(reservoir)
+		well.process(fluid)
 
 		const predictedValue = new Pressure(81.018176825555, PressureUnits.Bara)
 			.pascal;
 
-		expect(well.endPressure()).toBeCloseTo(predictedValue);
-	});
-});
+		expect(well.endPressure().pascal).toBeCloseTo(predictedValue)
+	})
+})

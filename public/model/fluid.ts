@@ -4,17 +4,17 @@ import FluidProperties from './fluidProperties';
 import { PhaseEnvelopeFileReader } from './phaseEnvelopeFileReader';
 
 export default class Fluid {
-	pressure: number;
-	temperature: number;
-	flowrate: number;
-	viscosity: number;
-	density: number;
-	enthalpy: number;
+	pressure: Pressure
+	temperature: Temperature
+	flowrate: Flowrate
+	viscosity: number
+	density: number
+	enthalpy: number
 
 	constructor(
-		pressure: number,
-		temperature: number,
-		flowrate: number,
+		pressure: Pressure,
+		temperature: Temperature,
+		flowrate: Flowrate,
 		density: number,
 		viscosity: number,
 		enthalpy: number
@@ -49,9 +49,9 @@ const createNewFluidConstructor = (
 		];
 
 		return new Fluid(
-			pressure.pascal,
-			temperature.kelvin,
-			flowrate.kgps,
+			pressure,
+			temperature,
+			flowrate,
 			density,
 			viscosity,
 			enthalpy
