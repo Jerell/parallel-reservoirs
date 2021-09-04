@@ -14,8 +14,14 @@ import {
 	FlowrateUnits,
 } from 'physical-quantities';
 
+const fs = require('fs');
+
+const stream = fs.createWriteStream(`${__dirname}/setQInletP.txt`, {
+	flags: 'a',
+});
+
 describe('Test case', () => {
-	test('from trello - 1 MTPA, all reservoirs 15 bar', async () => {
+	test('1 MTPA, all reservoirs 40 bar', async () => {
 		const parser = new Parser();
 		parser.readFile(`${__dirname}/../../inputFiles/hynet/whole.yml`);
 		await parser.build();
@@ -58,20 +64,20 @@ describe('Test case', () => {
 
 	const gasPhaseTestCases = [
 		{
-			inletP: new Pressure(69, PressureUnits.Bara).pascal,
+			inletP: new Pressure(2503906.25, PressureUnits.Pascal).pascal,
 			inletFlowrate: new Flowrate(150.3, FlowrateUnits.Kgps).kgps,
 			// Need actual reservoir pressures for test case
-			HM_P: new Pressure(10, PressureUnits.Bara).pascal,
-			HN_P: new Pressure(10, PressureUnits.Bara).pascal,
-			LX_P: new Pressure(10, PressureUnits.Bara).pascal,
+			HM_P: new Pressure(15, PressureUnits.Bara).pascal,
+			HN_P: new Pressure(15, PressureUnits.Bara).pascal,
+			LX_P: new Pressure(15, PressureUnits.Bara).pascal,
 		},
 		{
-			inletP: new Pressure(67.7, PressureUnits.Bara).pascal,
+			inletP: new Pressure(2451171.875, PressureUnits.Bara).pascal,
 			inletFlowrate: new Flowrate(150.3, FlowrateUnits.Kgps).kgps,
 			// Need actual reservoir pressures for test case
-			HM_P: new Pressure(10, PressureUnits.Bara).pascal,
-			HN_P: new Pressure(10, PressureUnits.Bara).pascal,
-			LX_P: new Pressure(10, PressureUnits.Bara).pascal,
+			HM_P: new Pressure(15, PressureUnits.Bara).pascal,
+			HN_P: new Pressure(15, PressureUnits.Bara).pascal,
+			LX_P: new Pressure(15, PressureUnits.Bara).pascal,
 		},
 	];
 
@@ -100,27 +106,110 @@ describe('Test case', () => {
 				true
 			);
 
-			const result = inlet.searchInletPressure();
+			inlet.process(inlet.fluid);
 
-			expect(result).toEqual(inletP);
+			// const result = inlet.searchInletPressure();
+
+			expect(0).toEqual(inletP);
 		}
 	);
 });
 
-// describe('lennox', () => {
-// 	it('should', async () => {
-// 		const fluid = await defaultFluidConstructor(
-// 			new Pressure(121.3, PressureUnits.Bara),
-// 			new Temperature(300, TemperatureUnits.Kelvin),
-// 			new Flowrate(2.77, FlowrateUnits.Kgps)
-// 		)
-// 		const lennox = new Well('lx', { elevation: 0 }, RealReservoir.Lennox)
-// 		const perf = new Perforation('lx-p', { elevation: 0 }, RealReservoir.Lennox)
-// 		lennox.setDestination(perf)
+describe('hamilton', () => {
+	it('manual', async () => {
+		const parser = new Parser();
+		parser.readFile(`${__dirname}/../../inputFiles/hynet/hm-only.yml`);
+		await parser.build();
+		const keyPoints = parser.keyPoints;
 
-// 		lennox.process(fluid)
-// 		// const f = lennox.formula()
+		const inlet = keyPoints[0] as Inlet;
 
-// 		expect(true).toBe(true)
-// 	})
-// })
+		const runQ = async (q) => {
+			await inlet.applyInletProperties(
+				new Pressure(1, PressureUnits.Bara).pascal,
+				new Temperature(300, TemperatureUnits.Kelvin).kelvin,
+				new Flowrate(q, FlowrateUnits.Kgps).kgps,
+				true
+			);
+
+			const { pressure, pressureSolution } = await inlet.searchInletPressure();
+
+			stream.write(`${q} kg/s | ${pressure} Pa\n`);
+		};
+
+		for (let i = 1; i < 31; i++) {
+			await runQ(i);
+		}
+
+		await runQ(0.1);
+		await runQ(0.5);
+
+		expect(true).toBe(true);
+	});
+});
+
+describe('hamilton north', () => {
+	it('manual', async () => {
+		const parser = new Parser();
+		parser.readFile(`${__dirname}/../../inputFiles/hynet/hn-only.yml`);
+		await parser.build();
+		const keyPoints = parser.keyPoints;
+
+		const inlet = keyPoints[0] as Inlet;
+
+		const runQ = async (q) => {
+			await inlet.applyInletProperties(
+				new Pressure(1, PressureUnits.Bara).pascal,
+				new Temperature(300, TemperatureUnits.Kelvin).kelvin,
+				new Flowrate(q, FlowrateUnits.Kgps).kgps,
+				true
+			);
+
+			const { pressure, pressureSolution } = await inlet.searchInletPressure();
+
+			stream.write(`${q} kg/s | ${pressure} Pa\n`);
+		};
+
+		for (let i = 1; i < 31; i++) {
+			await runQ(i);
+		}
+
+		await runQ(0.1);
+		await runQ(0.5);
+
+		expect(true).toBe(true);
+	});
+});
+
+describe('lennox', () => {
+	it('manual', async () => {
+		const parser = new Parser();
+		parser.readFile(`${__dirname}/../../inputFiles/hynet/lx-only.yml`);
+		await parser.build();
+		const keyPoints = parser.keyPoints;
+
+		const inlet = keyPoints[0] as Inlet;
+
+		const runQ = async (q) => {
+			await inlet.applyInletProperties(
+				new Pressure(1, PressureUnits.Bara).pascal,
+				new Temperature(300, TemperatureUnits.Kelvin).kelvin,
+				new Flowrate(q, FlowrateUnits.Kgps).kgps,
+				true
+			);
+
+			const { pressure, pressureSolution } = await inlet.searchInletPressure();
+
+			stream.write(`${q} kg/s | ${pressure} Pa\n`);
+		};
+
+		for (let i = 1; i < 31; i++) {
+			await runQ(i);
+		}
+
+		await runQ(0.1);
+		await runQ(0.5);
+
+		expect(true).toBe(true);
+	});
+});
