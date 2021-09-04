@@ -1,6 +1,6 @@
-import Fluid from './fluid'
-import { defaultFluidConstructor } from './fluid'
-import { IPhysicalElement, PressureSolution } from './element'
+import Fluid from './fluid';
+import { defaultFluidConstructor } from './fluid';
+import { IPhysicalElement, PressureSolution } from './element';
 import {
 	Pressure,
 	PressureUnits,
@@ -8,18 +8,18 @@ import {
 	TemperatureUnits,
 	Flowrate,
 	FlowrateUnits,
-} from 'physical-quantities'
-import Analogue from './analogue'
-import Reservoir, { RealReservoir } from './reservoir'
-import Well from './well'
+} from 'physical-quantities';
+import Analogue from './analogue';
+import Reservoir, { RealReservoir } from './reservoir';
+import Well from './well';
 
-const fs = require('fs')
+const fs = require('fs');
 
 const stream = fs.createWriteStream(`${__dirname}/perfP.txt`, {
 	flags: 'a',
-})
+});
 
-const perforationFunctions = {}
+const perforationFunctions = {};
 
 perforationFunctions[RealReservoir.Hamilton] = {
 	split: 4,
@@ -34,7 +34,7 @@ perforationFunctions[RealReservoir.Hamilton] = {
 	coefficients: [
 		-5.31124455e-2, 1.00818995, 1.48023509e-4, 4.18609179e-4, 3.00308213e-6,
 	],
-}
+};
 
 perforationFunctions[RealReservoir.HamiltonNorth] = {
 	split: 2,
@@ -49,7 +49,7 @@ perforationFunctions[RealReservoir.HamiltonNorth] = {
 	coefficients: [
 		-1.4969207e-1, 1.06629533, -2.80472165e-5, 1.40749378e-3, -5.39246727e-4,
 	],
-}
+};
 
 perforationFunctions[RealReservoir.Lennox] = {
 	split: 2,
@@ -64,35 +64,35 @@ perforationFunctions[RealReservoir.Lennox] = {
 	coefficients: [
 		-6.23044797e-3, 1.00131251, -2.09522684e-5, 7.52686842e-5, 1.19926497e-5,
 	],
-}
+};
 
 export default class Perforation extends Analogue {
-	source?: Well
-	destination: Reservoir | null
+	source?: Well;
+	destination: Reservoir | null;
 
 	constructor(
 		name: string,
 		physical: IPhysicalElement,
 		realReservoir: RealReservoir
 	) {
-		super(name, physical, 'Well', perforationFunctions[realReservoir])
-		this.destination = null
+		super(name, physical, 'Well', perforationFunctions[realReservoir]);
+		this.destination = null;
 	}
 
 	get x() {
 		if (!this.fluid) {
-			throw new Error(`${this.type} has no fluid`)
+			throw new Error(`${this.type} has no fluid`);
 		}
-		const q = new Flowrate(this.fluid.flowrate, FlowrateUnits.Kgps)
+		const q = new Flowrate(this.fluid.flowrate, FlowrateUnits.Kgps);
 
-		const x = q.kgps / this.modelFunction.split
+		const x = q.kgps / this.modelFunction.split;
 
-		stream.write(`${this.name}: ${this.fluid.pressure} Pa | ${x} kg/s\n`)
-		return x
+		stream.write(`${this.name}: ${this.fluid.pressure} Pa | ${x} kg/s\n`);
+		return x;
 	}
 
 	setDestination(dest: Reservoir) {
-		this.destination = dest
-		dest.source = this
+		this.destination = dest;
+		dest.source = this;
 	}
 }

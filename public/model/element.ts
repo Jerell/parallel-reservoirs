@@ -1,16 +1,16 @@
-import Fluid from './fluid'
+import Fluid from './fluid';
 
 export default interface IElement {
-	physical: IPhysicalElement
-	name: string
-	type: string
-	source?: IElement
+	physical: IPhysicalElement;
+	name: string;
+	type: string;
+	source?: IElement;
 	// Returns pressure delta between end and passed
-	process(fluid: Fluid): Promise<PressureSolution>
+	process(fluid: Fluid): Promise<PressureSolution>;
 }
 
 export interface IPhysicalElement {
-	elevation: number
+	elevation: number;
 }
 
 export enum PressureSolution {

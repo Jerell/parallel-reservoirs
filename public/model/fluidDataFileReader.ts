@@ -1,41 +1,41 @@
-import { FluidData, FluidDatum } from './fluidProperties'
+import { FluidData, FluidDatum } from './fluidProperties';
 
-const csv = require('csv-parser')
-const fs = require('fs')
+const csv = require('csv-parser');
+const fs = require('fs');
 
 export default interface IFluidPropertiesFileReader {
-	readFluidProperties(): Promise<FluidData>
+	readFluidProperties(): Promise<FluidData>;
 }
 
 export class FluidDataFileReader implements IFluidPropertiesFileReader {
-	fileName: string
+	fileName: string;
 
 	constructor(fileName: string) {
-		this.fileName = fileName
+		this.fileName = fileName;
 	}
 
 	async readFluidProperties(): Promise<FluidData> {
-		const data: FluidDatum[] = []
+		const data: FluidDatum[] = [];
 		const readData = () => {
 			return new Promise((resolve, reject) => {
 				fs.createReadStream(this.fileName)
 					.on('error', (error) => {
-						reject(error)
+						reject(error);
 					})
 					.pipe(csv())
 					.on('data', (row) => {
 						const rowData = Object.values(row).map((value) =>
 							Number(value)
-						) as FluidDatum
-						data.push(rowData)
+						) as FluidDatum;
+						data.push(rowData);
 					})
 					.on('end', () => {
-						resolve(data)
-					})
-			})
-		}
-		await readData()
+						resolve(data);
+					});
+			});
+		};
+		await readData();
 
-		return new FluidData(data)
+		return new FluidData(data);
 	}
 }

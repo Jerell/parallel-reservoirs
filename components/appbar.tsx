@@ -1,14 +1,14 @@
-import Link from 'next/link'
-import { useRouter } from 'next/router'
-import Heading from '@/components/heading'
+import Link from 'next/link';
+import { useRouter } from 'next/router';
+import Heading from '@/components/heading';
 
 const links = [
 	// { label: 'Demo', href: '/demo' },
 	// { label: 'P3', href: '/p3' },
-]
+];
 
 const Appbar = () => {
-	const router = useRouter()
+	const router = useRouter();
 
 	return (
 		<div className='pt-safe w-full bg-gray-900 fixed top-0 z-20'>
@@ -42,7 +42,7 @@ const Appbar = () => {
 				</div>
 			</header>
 		</div>
-	)
-}
+	);
+};
 
-export default Appbar
+export default Appbar;

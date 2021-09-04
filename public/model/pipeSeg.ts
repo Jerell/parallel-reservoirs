@@ -1,6 +1,6 @@
-import Transport from './transport'
-import Fluid, { defaultFluidConstructor } from './fluid'
-import IElement, { IPhysicalElement, PressureSolution } from './element'
+import Transport from './transport';
+import Fluid, { defaultFluidConstructor } from './fluid';
+import IElement, { IPhysicalElement, PressureSolution } from './element';
 import {
 	Pressure,
 	PressureUnits,
@@ -8,7 +8,7 @@ import {
 	TemperatureUnits,
 	Flowrate,
 	FlowrateUnits,
-} from 'physical-quantities'
+} from 'physical-quantities';
 
 // const fs = require('fs')
 
@@ -20,98 +20,98 @@ import {
 // })
 
 export interface IPipeDefinition extends IPhysicalElement {
-	length: number
-	diameters: number[]
-	elevation: number
-	name: string
+	length: number;
+	diameters: number[];
+	elevation: number;
+	name: string;
 }
 
 export default class PipeSeg extends Transport {
-	fluid?: Fluid
-	physical: IPipeDefinition
-	_source: IElement | null
-	destination: IElement | null
+	fluid?: Fluid;
+	physical: IPipeDefinition;
+	_source: IElement | null;
+	destination: IElement | null;
 
 	constructor(pipeDef: IPipeDefinition) {
-		super(pipeDef.name, pipeDef, 'PipeSeg')
+		super(pipeDef.name, pipeDef, 'PipeSeg');
 
-		this.physical = pipeDef
+		this.physical = pipeDef;
 
-		this._source = null
-		this.destination = null
+		this._source = null;
+		this.destination = null;
 	}
 
 	get source() {
-		return this._source as IElement
+		return this._source as IElement;
 	}
 
 	set source(node: IElement) {
-		this._source = node
+		this._source = node;
 	}
 
 	get effectiveArea() {
 		return this.physical.diameters
 			.map((d) => (Math.PI / 4) * d ** 2)
-			.reduce((acc, a) => (acc += a), 0)
+			.reduce((acc, a) => (acc += a), 0);
 	}
 
 	removeLine(size) {
 		if (!this.physical.diameters.includes(size)) {
-			throw new Error(`Pipe does not have a line of size ${size}`)
+			throw new Error(`Pipe does not have a line of size ${size}`);
 		}
 		if (this.physical.diameters.length === 1) {
-			throw new Error(`Pipe only has one line`)
+			throw new Error(`Pipe only has one line`);
 		}
-		this.physical.diameters.splice(this.physical.diameters.indexOf(size), 1)
+		this.physical.diameters.splice(this.physical.diameters.indexOf(size), 1);
 	}
 
 	addLine(size) {
-		this.physical.diameters.push(size)
+		this.physical.diameters.push(size);
 	}
 
 	setDestination(dest: IElement) {
-		this.destination = dest
-		dest.source = this
+		this.destination = dest;
+		dest.source = this;
 	}
 
 	get height() {
-		if (!this.destination) throw new Error('No destination')
-		return this.destination.physical.elevation - this.physical.elevation
+		if (!this.destination) throw new Error('No destination');
+		return this.destination.physical.elevation - this.physical.elevation;
 	}
 
 	endPressure() {
 		if (!this.fluid)
 			throw new Error(
 				'Pipe segment has no fluid - unable to calculate end pressure'
-			)
-		const w = this.fluid.flowrate
-		const D = Math.sqrt(this.effectiveArea / Math.PI) * 2
-		const A = this.effectiveArea
-		const ρ = this.fluid.density
-		const v = 1 / ρ
-		const L = this.physical.length
-		const P1 = this.fluid.pressure
+			);
+		const w = this.fluid.flowrate;
+		const D = Math.sqrt(this.effectiveArea / Math.PI) * 2;
+		const A = this.effectiveArea;
+		const ρ = this.fluid.density;
+		const v = 1 / ρ;
+		const L = this.physical.length;
+		const P1 = this.fluid.pressure;
 
 		// Friction factor
-		const u = w / (A * ρ)
-		const μ = this.fluid.viscosity
-		const Re = (ρ * u * D) / μ
-		const ε = 4.5e-5
+		const u = w / (A * ρ);
+		const μ = this.fluid.viscosity;
+		const Re = (ρ * u * D) / μ;
+		const ε = 4.5e-5;
 		const f =
-			0.25 / Math.log10((ε * 1000) / (3.7 * D * 1000) + 5.74 / Re ** 0.9) ** 2
+			0.25 / Math.log10((ε * 1000) / (3.7 * D * 1000) + 5.74 / Re ** 0.9) ** 2;
 
-		const g = 9.807
-		const elevationLoss = g * this.height * ρ
+		const g = 9.807;
+		const elevationLoss = g * this.height * ρ;
 
 		let endP =
 			(A * Math.sqrt(D)) ** -1 *
 				Math.sqrt(P1) *
 				Math.sqrt(A ** 2 * D * P1 - f * L * v * w ** 2) -
-			elevationLoss
+			elevationLoss;
 
-		endP = isNaN(endP) ? 0 : endP
+		endP = isNaN(endP) ? 0 : endP;
 
-		return endP
+		return endP;
 
 		// const limit = new Pressure(13500000, PressureUnits.Pascal)
 		// const capped = Math.min(
@@ -123,13 +123,13 @@ export default class PipeSeg extends Transport {
 	}
 
 	async process(fluid: Fluid): Promise<PressureSolution> {
-		this.fluid = fluid
+		this.fluid = fluid;
 
 		// TODO: remove this after adding reservoirs to tests
-		if (!this.destination) return PressureSolution.Ok
+		if (!this.destination) return PressureSolution.Ok;
 
-		const p = this.endPressure()
-		const lowPressureLimit = new Pressure(1000, PressureUnits.Pascal).pascal
+		const p = this.endPressure();
+		const lowPressureLimit = new Pressure(1000, PressureUnits.Pascal).pascal;
 		// console.log({ name: this.physical.name, p, flowrate: fluid.flowrate })
 
 		// stream.write(
@@ -137,14 +137,14 @@ export default class PipeSeg extends Transport {
 		// )
 		// stream2.write(`${this.physical.length}, ${p}\n`)
 
-		if (p < lowPressureLimit) return PressureSolution.Low
+		if (p < lowPressureLimit) return PressureSolution.Low;
 
 		const endFluid = await defaultFluidConstructor(
 			new Pressure(p, PressureUnits.Pascal),
 			new Temperature(fluid.temperature, TemperatureUnits.Kelvin),
 			new Flowrate(fluid.flowrate, FlowrateUnits.Kgps)
-		)
+		);
 
-		return await this.destination.process(endFluid)
+		return await this.destination.process(endFluid);
 	}
 }

@@ -1,4 +1,4 @@
-import binarySearch from '../binarySearch'
+import binarySearch from '../binarySearch';
 
 describe('Search', () => {
 	const testCases = [
@@ -49,25 +49,25 @@ describe('Search', () => {
 			item: 48,
 			expected: 1,
 		},
-	]
+	];
 
 	test.each(testCases)('return expected', ({ list, item, expected }) => {
-		expect(binarySearch(list, item)).toEqual(expected)
-	})
-})
+		expect(binarySearch(list, item)).toEqual(expected);
+	});
+});
 
 describe('Outside range', () => {
 	it('should throw an error when the value is too high', () => {
-		const list = [1, 2, 3, 4, 5]
-		const item = 6
+		const list = [1, 2, 3, 4, 5];
+		const item = 6;
 
-		expect(() => binarySearch(list, item)).toThrow('too high')
-	})
+		expect(() => binarySearch(list, item)).toThrow('too high');
+	});
 
 	it('should throw an error when the value is too low', () => {
-		const list = [1, 2, 3, 4, 5]
-		const item = 0
+		const list = [1, 2, 3, 4, 5];
+		const item = 0;
 
-		expect(() => binarySearch(list, item)).toThrow('too low')
-	})
-})
+		expect(() => binarySearch(list, item)).toThrow('too low');
+	});
+});

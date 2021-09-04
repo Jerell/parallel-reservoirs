@@ -11,7 +11,8 @@
 		"test": "jest",
 		"test:unit": "jest",
 		"test:watch": "jest --watch --verbose",
-		"type-check": "tsc"
+		"type-check": "tsc",
+		"pretty": "prettier --write \"./**/*.{js,jsx,json,ts,tsx}\""
 	},
 	"dependencies": {
 		"@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -55,7 +56,6 @@
 	},
 	"prettier": {
 		"bracketSpacing": true,
-		"semi": false,
 		"singleQuote": true,
 		"jsxSingleQuote": true
 	},

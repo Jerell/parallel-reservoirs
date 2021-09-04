@@ -1,8 +1,8 @@
-import Heading from '@/components/heading'
-import DashSection from '../dashSection'
-import FillerBox from '../fillerBox'
+import Heading from '@/components/heading';
+import DashSection from '../dashSection';
+import FillerBox from '../fillerBox';
 
-const variables = ['Pressure (bar)', 'Temperature (°C)', 'Flowrate (MTPA)']
+const variables = ['Pressure (bar)', 'Temperature (°C)', 'Flowrate (MTPA)'];
 
 const GraphRow = ({ heading = 'graphs' }) => {
 	return (
@@ -23,8 +23,8 @@ const GraphRow = ({ heading = 'graphs' }) => {
 					))}
 			</div>
 		</>
-	)
-}
+	);
+};
 
 const Graphs = () => {
 	return (
@@ -33,7 +33,7 @@ const Graphs = () => {
 				<GraphRow heading={v} key={i} />
 			))}
 		</DashSection>
-	)
-}
+	);
+};
 
-export default Graphs
+export default Graphs;

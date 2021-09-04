@@ -1,43 +1,43 @@
-import { PhaseData, PhaseDatum } from './fluidProperties'
+import { PhaseData, PhaseDatum } from './fluidProperties';
 
-const csv = require('csv-parser')
-const fs = require('fs')
+const csv = require('csv-parser');
+const fs = require('fs');
 
 export default interface IPhaseEnvelopeFileReader {
-	readPhaseEnvelope(): Promise<PhaseData>
+	readPhaseEnvelope(): Promise<PhaseData>;
 }
 
 export class PhaseEnvelopeFileReader implements IPhaseEnvelopeFileReader {
-	fileName: string
+	fileName: string;
 
 	constructor(fileName: string) {
-		this.fileName = fileName
+		this.fileName = fileName;
 	}
 
 	async readPhaseEnvelope(): Promise<PhaseData> {
-		const data: PhaseDatum[] = []
+		const data: PhaseDatum[] = [];
 		const readData = () => {
 			return new Promise((resolve, reject) => {
 				fs.createReadStream(this.fileName)
 					.on('error', (error) => {
-						reject(error)
+						reject(error);
 					})
 					.pipe(csv())
 					.on('data', (row) => {
-						const rowData = Object.values(row)
+						const rowData = Object.values(row);
 						data.push([
 							Number(rowData[0]),
 							Number(rowData[1]),
 							Number(rowData[2]),
-						])
+						]);
 					})
 					.on('end', () => {
-						resolve(data)
-					})
-			})
-		}
-		await readData()
+						resolve(data);
+					});
+			});
+		};
+		await readData();
 
-		return new PhaseData(data)
+		return new PhaseData(data);
 	}
 }

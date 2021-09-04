@@ -1,7 +1,7 @@
-import MapSvg from '@/public/images/map.svg'
-import Heading from '@/components/heading'
-import FillerBox from '@/components/dashboard/fillerBox'
-import DashSection from './dashSection'
+import MapSvg from '@/public/images/map.svg';
+import Heading from '@/components/heading';
+import FillerBox from '@/components/dashboard/fillerBox';
+import DashSection from './dashSection';
 
 const LocationLabel = ({ children, index = 0 }) => {
 	return (
@@ -12,8 +12,8 @@ const LocationLabel = ({ children, index = 0 }) => {
 				{children}
 			</Heading>
 		</div>
-	)
-}
+	);
+};
 
 const Map = () => {
 	const locations = [
@@ -25,7 +25,7 @@ const Map = () => {
 		'HAMILTON NORTH',
 		'Lennox Wellhead',
 		'LENNOX',
-	]
+	];
 
 	return (
 		<DashSection heading='network map'>
@@ -49,7 +49,7 @@ const Map = () => {
 				))}
 			</div>
 		</DashSection>
-	)
-}
+	);
+};
 
-export default Map
+export default Map;

@@ -1,14 +1,14 @@
 interface IButtonProps {
-	fn?: (e) => void
-	text?: string
+	fn?: (e) => void;
+	text?: string;
 }
 
 const Button = ({ fn, text = 'Submit' }: IButtonProps) => {
 	function handleClick(e) {
-		e.persist()
-		e.preventDefault()
+		e.persist();
+		e.preventDefault();
 		if (fn) {
-			fn(e)
+			fn(e);
 		}
 	}
 	return (
@@ -18,7 +18,7 @@ const Button = ({ fn, text = 'Submit' }: IButtonProps) => {
 		>
 			{text}
 		</button>
-	)
-}
+	);
+};
 
-export default Button
+export default Button;

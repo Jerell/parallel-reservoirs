@@ -1,15 +1,15 @@
-import { Pressure, Temperature, Flowrate } from 'physical-quantities'
-import { FluidDataFileReader } from './fluidDataFileReader'
-import FluidProperties from './fluidProperties'
-import { PhaseEnvelopeFileReader } from './phaseEnvelopeFileReader'
+import { Pressure, Temperature, Flowrate } from 'physical-quantities';
+import { FluidDataFileReader } from './fluidDataFileReader';
+import FluidProperties from './fluidProperties';
+import { PhaseEnvelopeFileReader } from './phaseEnvelopeFileReader';
 
 export default class Fluid {
-	pressure: number
-	temperature: number
-	flowrate: number
-	viscosity: number
-	density: number
-	enthalpy: number
+	pressure: number;
+	temperature: number;
+	flowrate: number;
+	viscosity: number;
+	density: number;
+	enthalpy: number;
 
 	constructor(
 		pressure: number,
@@ -19,12 +19,12 @@ export default class Fluid {
 		viscosity: number,
 		enthalpy: number
 	) {
-		this.pressure = pressure
-		this.temperature = temperature
-		this.flowrate = flowrate
-		this.density = density
-		this.viscosity = viscosity
-		this.enthalpy = enthalpy
+		this.pressure = pressure;
+		this.temperature = temperature;
+		this.flowrate = flowrate;
+		this.density = density;
+		this.viscosity = viscosity;
+		this.enthalpy = enthalpy;
 	}
 }
 
@@ -32,10 +32,10 @@ const createNewFluidConstructor = (
 	phaseFilePath: string = `${__dirname}/phaseEnvelope.csv`,
 	fluidFilePath: string = `${__dirname}/co2lookup.csv`
 ) => {
-	const phaseData = new PhaseEnvelopeFileReader(phaseFilePath)
-	const fluidData = new FluidDataFileReader(fluidFilePath)
+	const phaseData = new PhaseEnvelopeFileReader(phaseFilePath);
+	const fluidData = new FluidDataFileReader(fluidFilePath);
 
-	const properties = new FluidProperties(phaseData, fluidData)
+	const properties = new FluidProperties(phaseData, fluidData);
 
 	return async (
 		pressure: Pressure,
@@ -46,7 +46,7 @@ const createNewFluidConstructor = (
 			await properties.density(pressure, temperature),
 			await properties.viscosity(pressure, temperature),
 			await properties.enthalpy(pressure, temperature),
-		]
+		];
 
 		return new Fluid(
 			pressure.pascal,
@@ -55,8 +55,8 @@ const createNewFluidConstructor = (
 			density,
 			viscosity,
 			enthalpy
-		)
-	}
-}
+		);
+	};
+};
 
-export const defaultFluidConstructor = createNewFluidConstructor()
+export const defaultFluidConstructor = createNewFluidConstructor();

@@ -1,4 +1,4 @@
-import boundarySearch from '../boundarySearch'
+import boundarySearch from '../boundarySearch';
 
 describe('Search', () => {
 	const testCases = [
@@ -42,9 +42,9 @@ describe('Search', () => {
 				},
 			},
 		},
-	]
+	];
 
 	test.each(testCases)('return ', ({ list, item, expected }) => {
-		expect(boundarySearch(list, item)).toEqual(expected)
-	})
-})
+		expect(boundarySearch(list, item)).toEqual(expected);
+	});
+});

@@ -1,16 +1,16 @@
-import CytoscapeComponent from 'react-cytoscapejs'
-import { useRef, useEffect } from 'react'
-import cytoStyles from './cyto.module.css'
+import CytoscapeComponent from 'react-cytoscapejs';
+import { useRef, useEffect } from 'react';
+import cytoStyles from './cyto.module.css';
 
-const cytoscape = require('cytoscape')
-const nodeHtmlLabel = require('cytoscape-node-html-label')
-nodeHtmlLabel(cytoscape) // register extension
+const cytoscape = require('cytoscape');
+const nodeHtmlLabel = require('cytoscape-node-html-label');
+nodeHtmlLabel(cytoscape); // register extension
 
 const Cyto = ({ cb = (e) => console.log(e) }) => {
-	const cyRef = useRef<typeof CytoscapeComponent>(null)
+	const cyRef = useRef<typeof CytoscapeComponent>(null);
 
 	useEffect(() => {
-		const cy = cyRef.current
+		const cy = cyRef.current;
 		// Initialise the HTML Label
 		cy.nodeHtmlLabel([
 			{
@@ -23,13 +23,13 @@ const Cyto = ({ cb = (e) => console.log(e) }) => {
 				tpl: (data) => {
 					return `<span class="material-icons ${cytoStyles[data.icon]}">${
 						data.icon
-					}</span>`
+					}</span>`;
 				},
 			},
-		])
+		]);
 
-		cy.on('tap', 'node, edge', cb)
-	})
+		cy.on('tap', 'node, edge', cb);
+	});
 
 	return (
 		<CytoscapeComponent
@@ -166,7 +166,7 @@ const Cyto = ({ cb = (e) => console.log(e) }) => {
 				},
 			]}
 		/>
-	)
-}
+	);
+};
 
-export default Cyto
+export default Cyto;

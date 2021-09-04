@@ -1,8 +1,8 @@
-import DashSection from '../dashSection'
+import DashSection from '../dashSection';
 
-const variables = ['Pressure (bar)', 'Temperature (°C)', 'Flowrate (MTPA)']
+const variables = ['Pressure (bar)', 'Temperature (°C)', 'Flowrate (MTPA)'];
 
-const zeros = [0, 0, 0, 0, 0, 0, 0, 0]
+const zeros = [0, 0, 0, 0, 0, 0, 0, 0];
 
 const Cell = ({ children, index = 0 }) => {
 	return (
@@ -13,8 +13,8 @@ const Cell = ({ children, index = 0 }) => {
 		>
 			{children}
 		</div>
-	)
-}
+	);
+};
 
 const Row = ({ variable }) => {
 	return (
@@ -26,8 +26,8 @@ const Row = ({ variable }) => {
 				</Cell>
 			))}
 		</div>
-	)
-}
+	);
+};
 
 const DataTable = () => {
 	return (
@@ -36,7 +36,7 @@ const DataTable = () => {
 				<Row variable={v} key={i} />
 			))}
 		</DashSection>
-	)
-}
+	);
+};
 
-export default DataTable
+export default DataTable;

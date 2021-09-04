@@ -1,8 +1,8 @@
-import Link from 'next/link'
-import { useRouter } from 'next/router'
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 
 const BottomNav = () => {
-	const router = useRouter()
+	const router = useRouter();
 
 	return (
 		<div className='sm:hidden'>
@@ -27,10 +27,10 @@ const BottomNav = () => {
 				</div>
 			</nav>
 		</div>
-	)
-}
+	);
+};
 
-export default BottomNav
+export default BottomNav;
 
 const links = [
 	{
@@ -87,4 +87,4 @@ const links = [
 	// 		</svg>
 	// 	),
 	// },
-]
+];
