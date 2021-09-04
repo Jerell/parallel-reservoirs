@@ -79,7 +79,7 @@ export default class PipeSeg extends Transport {
 		return this.destination.physical.elevation - this.physical.elevation;
 	}
 
-	endPressure() {
+	endPressure(): Pressure {
 		if (!this.fluid)
 			throw new Error(
 				'Pipe segment has no fluid - unable to calculate end pressure'
@@ -93,10 +93,10 @@ export default class PipeSeg extends Transport {
 		const P1 = this.fluid.pressure;
 
 		// Friction factor
-		const u = w / (A * ρ);
-		const μ = this.fluid.viscosity;
-		const Re = (ρ * u * D) / μ;
-		const ε = 4.5e-5;
+		const u = w.kgps / (A * ρ)
+		const μ = this.fluid.viscosity
+		const Re = (ρ * u * D) / μ
+		const ε = 4.5e-5
 		const f =
 			0.25 / Math.log10((ε * 1000) / (3.7 * D * 1000) + 5.74 / Re ** 0.9) ** 2;
 
@@ -105,13 +105,13 @@ export default class PipeSeg extends Transport {
 
 		let endP =
 			(A * Math.sqrt(D)) ** -1 *
-				Math.sqrt(P1) *
-				Math.sqrt(A ** 2 * D * P1 - f * L * v * w ** 2) -
-			elevationLoss;
+				Math.sqrt(P1.pascal) *
+				Math.sqrt(A ** 2 * D * P1.pascal - f * L * v * w.kgps ** 2) -
+			elevationLoss
 
 		endP = isNaN(endP) ? 0 : endP;
 
-		return endP;
+		return new Pressure(endP, PressureUnits.Pascal)
 
 		// const limit = new Pressure(13500000, PressureUnits.Pascal)
 		// const capped = Math.min(
@@ -137,13 +137,13 @@ export default class PipeSeg extends Transport {
 		// )
 		// stream2.write(`${this.physical.length}, ${p}\n`)
 
-		if (p < lowPressureLimit) return PressureSolution.Low;
+		if (p.pascal < lowPressureLimit) return PressureSolution.Low
 
 		const endFluid = await defaultFluidConstructor(
-			new Pressure(p, PressureUnits.Pascal),
-			new Temperature(fluid.temperature, TemperatureUnits.Kelvin),
-			new Flowrate(fluid.flowrate, FlowrateUnits.Kgps)
-		);
+			p,
+			fluid.temperature,
+			fluid.flowrate
+		)
 
 		return await this.destination.process(endFluid);
 	}

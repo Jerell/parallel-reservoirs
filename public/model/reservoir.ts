@@ -1,6 +1,14 @@
-import IElement, { IPhysicalElement, PressureSolution } from './element';
-import Fluid from './fluid';
-import Perforation from './perforation';
+import IElement, { IPhysicalElement, PressureSolution } from './element'
+import Fluid from './fluid'
+import Perforation from './perforation'
+import {
+	Pressure,
+	PressureUnits,
+	Temperature,
+	TemperatureUnits,
+	Flowrate,
+	FlowrateUnits,
+} from 'physical-quantities'
 
 export enum RealReservoir {
 	Hamilton,
@@ -15,17 +23,17 @@ const stream = fs.createWriteStream(`${__dirname}/resP.txt`, {
 });
 
 export default class Reservoir implements IElement {
-	type: string = 'Reservoir';
-	name: string;
-	physical: IPhysicalElement;
-	pressure: number;
-	fluid?: Fluid;
-	source?: Perforation;
+	type: string = 'Reservoir'
+	name: string
+	physical: IPhysicalElement
+	pressure: Pressure
+	fluid?: Fluid
+	source?: Perforation
 
-	constructor(name: string, physical: IPhysicalElement, pressure: number) {
-		this.name = name;
-		this.physical = physical;
-		this.pressure = pressure;
+	constructor(name: string, physical: IPhysicalElement, pressure: Pressure) {
+		this.name = name
+		this.physical = physical
+		this.pressure = pressure
 	}
 
 	async process(fluid: Fluid): Promise<PressureSolution> {
@@ -38,15 +46,15 @@ export default class Reservoir implements IElement {
 			`${this.name}: ${this.fluid.pressure} Pa | ${this.fluid.flowrate} kg/s\n`
 		);
 
-		const upper = this.pressure * 1.01;
-		const lower = this.pressure * 0.99;
+		const upper = this.pressure.pascal * 1.01
+		const lower = this.pressure.pascal * 0.99
 
 		return await (() => {
-			if (fluid.pressure < lower) {
-				return PressureSolution.Low;
+			if (fluid.pressure.pascal < lower) {
+				return PressureSolution.Low
 			}
-			if (fluid.pressure > upper) {
-				return PressureSolution.High;
+			if (fluid.pressure.pascal > upper) {
+				return PressureSolution.High
 			}
 			return PressureSolution.Ok;
 		})();

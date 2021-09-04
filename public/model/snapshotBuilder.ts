@@ -129,8 +129,8 @@ export default class SnapshotBuilder {
 							`Reservoir creation must come after well (perforation)`
 						);
 					}
-					const reservoir = new Reservoir(name, physical, pressure);
-					this.previousElem.setDestination(reservoir);
+					const reservoir = new Reservoir(name, physical, new Pressure(pressure, PressureUnits.Pascal))
+					this.previousElem.setDestination(reservoir)
 
 					set(reservoir, true);
 					return this;

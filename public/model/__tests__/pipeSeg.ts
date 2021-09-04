@@ -115,7 +115,7 @@ describe('destinations', () => {
 
 			await pipes[0].process(fluid);
 
-			expect(pipes[1].fluid.pressure).toBeCloseTo(p2);
+			expect(pipes[1].fluid.pressure.pascal).toBeCloseTo(p2)
 		}
 	);
 });

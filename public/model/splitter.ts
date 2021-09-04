@@ -47,9 +47,9 @@ export default class Splitter extends Transport {
 
 	async applyFlowrate(
 		branch: number,
-		flowrate: number,
+		flowrate: Flowrate,
 		guesses: number,
-		logFn: (guessNum: number, q: number) => void
+		logFn: (guessNum: number, q: Flowrate) => void
 	): Promise<PressureSolution> {
 		if (!this.fluid) {
 			throw new Error(
@@ -64,10 +64,10 @@ export default class Splitter extends Transport {
 		logFn(guesses, flowrate);
 
 		const newFluid = await defaultFluidConstructor(
-			new Pressure(this.fluid.pressure, PressureUnits.Pascal),
-			new Temperature(this.fluid.temperature, TemperatureUnits.Kelvin),
-			new Flowrate(flowrate, FlowrateUnits.Kgps)
-		);
+			this.fluid.pressure,
+			this.fluid.temperature,
+			flowrate
+		)
 
 		return this.destinations[branch].process(newFluid);
 	}
@@ -78,9 +78,9 @@ export default class Splitter extends Transport {
 				'Splitter has no fluid - unable to calculate end pressure'
 			);
 		}
-		let low = 0;
-		let high = fluid.flowrate;
-		let mid = 0;
+		let low = 0
+		let high = fluid.flowrate.kgps
+		let mid = 0
 
 		let guesses = 0;
 		const maxGuesses = 25;
@@ -95,13 +95,13 @@ export default class Splitter extends Transport {
 
 			mid = (low + high) / 2;
 
-			if (mid >= fluid.flowrate * 0.9) {
-				return { flowrate: mid, pressureSolution };
+			if (mid >= fluid.flowrate.kgps * 0.9) {
+				return { flowrate: mid, pressureSolution }
 			}
 
 			// console.log({ branch, guesses, flowrate: mid })
 
-			pressureSolution = await this.applyFlowrate(branch, mid, guesses, () =>
+			pressureSolution = await this.applyFlowrate(branch, new Flowrate(mid, FlowrateUnits.Kgps), guesses, () =>
 				logFn(guesses, mid)
 			);
 			if (pressureSolution === PressureSolution.Low) {
@@ -117,19 +117,19 @@ export default class Splitter extends Transport {
 	async process(fluid: Fluid): Promise<PressureSolution> {
 		this.fluid = fluid;
 
-		const lowPressureLimit = new Pressure(1000, PressureUnits.Pascal).pascal;
-		if (this.fluid.pressure < lowPressureLimit) return PressureSolution.Low;
+		const lowPressureLimit = new Pressure(1000, PressureUnits.Pascal).pascal
+		if (this.fluid.pressure.pascal < lowPressureLimit) return PressureSolution.Low
 
 		const newFluid = await defaultFluidConstructor(
-			new Pressure(this.fluid.pressure, PressureUnits.Pascal),
-			new Temperature(this.fluid.temperature, TemperatureUnits.Kelvin),
-			new Flowrate(this.fluid.flowrate, FlowrateUnits.Kgps)
-		);
+			this.fluid.pressure,
+			this.fluid.temperature,
+			this.fluid.flowrate
+		)
 
-		const Qs: number[] = [];
+		const Qs: Flowrate[] = []
 
-		const writeOutput = (branch: number) => (guessNum: number, q: number) => {
-			Qs[branch] = q;
+		const writeOutput = (branch: number) => (guessNum: number, q: Flowrate) => {
+			Qs[branch] = q
 
 			stream2.write(
 				`DG pressure: ${fluid.pressure} Pa | HM flowrate: ${Qs[0]} kg/s | HN flowrate: ${Qs[1]} kg/s | LX flowrate: ${Qs[2]} kg/s\n`
@@ -151,14 +151,14 @@ export default class Splitter extends Transport {
 			if (pressureSolution !== PressureSolution.Ok) {
 				return pressureSolution;
 			}
-			newFluid.flowrate -= flowrate;
+			newFluid.flowrate = new Flowrate(newFluid.flowrate.kgps - flowrate, FlowrateUnits.Kgps)
 
 			// stream.write(
 			// 	`${this.type} - ${this.name} BRANCH ${i} GUESS ${guesses}:\n${this.fluid.pressure} Pa\n${flowrate} kg/s\n\n`
 			// )
 
-			if (newFluid.flowrate >= this.fluid.flowrate * 0.9) {
-				console.log('all flow allocated before final branch');
+			if (newFluid.flowrate.kgps >= this.fluid.flowrate.kgps * 0.9) {
+				console.log('all flow allocated before final branch')
 
 				return PressureSolution.High;
 			}

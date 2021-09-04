@@ -74,7 +74,11 @@ export default class FluidProperties {
 	}
 
 	async phase(pressure: Pressure, temperature: Temperature) {
-		const data = await this.phaseData;
+		if (!(pressure instanceof Pressure))
+		{
+			throw new Error('Not a prsesure')
+		}
+		const data = await this.phaseData
 		if (!data.data.length) {
 			throw new Error('No data');
 		}
