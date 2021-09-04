@@ -1762,7 +1762,7 @@ instructions:
       name: Hamilton
       physical:
         elevation: 0
-      pressure: 1500000
+      pressure: 4000000
   - branch:
       name: DGtoHN-001
       length: 26.6
@@ -2354,7 +2354,7 @@ instructions:
       name: Hamilton North
       physical:
         elevation: 0
-      pressure: 1500000
+      pressure: 4000000
   - branch:
       name: DGtoLX12-001
       length: 26.6
@@ -3548,4 +3548,4 @@ instructions:
       name: Lennox
       physical:
         elevation: 0
-      pressure: 1500000
+      pressure: 4000000
