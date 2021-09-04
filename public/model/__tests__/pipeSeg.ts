@@ -85,27 +85,20 @@ describe('destinations', () => {
 			pressure: 3500000,
 			temperature: 300,
 			flowrate: 120,
-			p2: 3506671.2,
+			expectedPressure: 3506671.2,
 		},
 		{
 			pipes: [pipeseg1, pipeseg3],
 			pressure: 3500000,
 			temperature: 300,
 			flowrate: 120,
-			p2: 3499381.3,
-		},
-		{
-			pipes: [pipeseg1, pipeseg4],
-			pressure: 3500000,
-			temperature: 300,
-			flowrate: 120,
-			p2: 3492091.5,
+			expectedPressure: 3499381.3,
 		},
 	];
 
 	test.each(pressureTestCases)(
 		'should update in pressure of destination',
-		async ({ pipes, pressure, temperature, flowrate, p2 }) => {
+		async ({ pipes, pressure, temperature, flowrate, expectedPressure }) => {
 			const fluid = await defaultFluidConstructor(
 				new Pressure(pressure, PressureUnits.Pascal),
 				new Temperature(temperature, TemperatureUnits.Kelvin),
@@ -115,7 +108,7 @@ describe('destinations', () => {
 
 			await pipes[0].process(fluid);
 
-			expect(pipes[1].fluid.pressure).toBeCloseTo(p2);
+			expect(pipes[1].fluid.pressure).toBeCloseTo(expectedPressure, 1);
 		}
 	);
 });
