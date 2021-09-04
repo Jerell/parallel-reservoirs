@@ -1277,6 +1277,7 @@ instructions:
         - 0.4668
   - pipeseg:
       name: POAtoDG-104
-      length: 9
+      length: 28.081310510729374
+      elevation: 0
       diameters:
         - 0.4668

@@ -1,11 +1,11 @@
-import Heading from '@/components/heading'
-import ExpansionButton from '@/components/buttons/expansionButton'
-import { useState } from 'react'
+import Heading from '@/components/heading';
+import ExpansionButton from '@/components/buttons/expansionButton';
+import { useState } from 'react';
 
 const DashSection = ({ children, heading = 'section' }) => {
-	const [open, setOpenState] = useState(true)
+	const [open, setOpenState] = useState(true);
 	function toggleExpand(e) {
-		setOpenState(!open)
+		setOpenState(!open);
 	}
 
 	const head = (
@@ -13,9 +13,9 @@ const DashSection = ({ children, heading = 'section' }) => {
 			<Heading level={2}>{heading}</Heading>
 			<ExpansionButton expanded={open} fn={toggleExpand} />
 		</div>
-	)
+	);
 	if (!open) {
-		return head
+		return head;
 	}
 
 	return (
@@ -23,7 +23,7 @@ const DashSection = ({ children, heading = 'section' }) => {
 			{head}
 			{children}
 		</section>
-	)
-}
+	);
+};
 
-export default DashSection
+export default DashSection;

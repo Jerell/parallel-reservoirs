@@ -1,22 +1,24 @@
-import Well from '../well'
-import Reservoir from '../reservoir'
-import { defaultFluidConstructor } from '../fluid'
+import Well from '../well';
+import Reservoir from '../reservoir';
+import { defaultFluidConstructor } from '../fluid';
 import {
 	Pressure,
 	PressureUnits,
 	Temperature,
 	TemperatureUnits,
-} from 'physical-quantities'
-import { RealReservoir } from '../reservoir'
-import PipeSeg from '../pipeSeg'
+	Flowrate,
+	FlowrateUnits,
+} from 'physical-quantities';
+import { RealReservoir } from '../reservoir';
+import PipeSeg from '../pipeSeg';
 
 describe('endPressure', () => {
 	it('should match the predicted value from python', async () => {
 		const fluid = await defaultFluidConstructor(
 			new Pressure(60, PressureUnits.Bara),
 			new Temperature(300, TemperatureUnits.Kelvin),
-			30
-		)
+			new Flowrate(30 * 4, FlowrateUnits.Kgps) // the well function divides by the number of lines
+		);
 
 		const pipe = new PipeSeg({
 			name: 'pipe',
@@ -26,12 +28,13 @@ describe('endPressure', () => {
 		})
 		const well = new Well('HM1', { elevation: 0 }, RealReservoir.Hamilton)
 		well.source = pipe
-		const reservoir = new Reservoir('Hamilton', { elevation: 0 }, 10)
+		const reservoir = new Reservoir('Hamilton', { elevation: 0 }, new Pressure(10, PressureUnits.Pascal))
 		well.setDestination(reservoir)
 		well.process(fluid)
 
-		const predictedValue = 81.01817 // bara
+		const predictedValue = new Pressure(7961834.114000641, PressureUnits.Pascal)
+			.pascal;
 
-		expect(well.endPressure()).toBeCloseTo(predictedValue)
+		expect(well.endPressure().pascal).toBeCloseTo(predictedValue)
 	})
 })

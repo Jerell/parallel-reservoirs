@@ -1,25 +1,36 @@
 instructions:
+  # - setfluid:
+  #     pressure: 1
+  #     temperature: 1
+  #     flowrate: 1
   - inlet:
-      name: DG_LNX_12in
-      length: 26.6
-      elevation: 26.6
+      name: 'Douglas Manifold'
+      physical:
+        elevation: 26.6
   - pipeseg:
       name: DGtoLX12-001
       length: 26.6
       elevation: 26.6
       diameters:
         - 0.2794
+        - 0.3302
+        - 0.3826
   - pipeseg:
       name: DGtoLX12-002
       length: 27.04163456597992
       elevation: 25.5
       diameters:
         - 0.2794
+        - 0.3302
+        - 0.3826
   - pipeseg:
       name: DGtoLX12-003
       length: 11
+      elevation: 0
       diameters:
         - 0.2794
+        - 0.3302
+        - 0.3826
   - pipeseries:
       n: 4
       pipeDef:
@@ -28,6 +39,8 @@ instructions:
         elevation: -29.38
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -29.38
         - -28.717
@@ -46,6 +59,8 @@ instructions:
         elevation: -27.32
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -27.32
         - -26.8561
@@ -62,6 +77,8 @@ instructions:
         elevation: -26.18
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -26.18
         - -25.6916
@@ -78,6 +95,8 @@ instructions:
         elevation: -24.98
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -24.98
         - -26.1236
@@ -94,6 +113,8 @@ instructions:
         elevation: -27.39
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -27.39
         - -26.8522
@@ -110,6 +131,8 @@ instructions:
         elevation: -25.8
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -25.8
         - -26.4716
@@ -126,6 +149,8 @@ instructions:
         elevation: -27.45
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -27.45
         - -26.89
@@ -142,6 +167,8 @@ instructions:
         elevation: -25.99
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -25.99
         - -26.3278
@@ -158,6 +185,8 @@ instructions:
         elevation: -26.82
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -26.82
         - -29.0525
@@ -174,6 +203,8 @@ instructions:
         elevation: -32.64
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -32.64
         - -32.4158
@@ -190,6 +221,8 @@ instructions:
         elevation: -32.01
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -32.01
         - -32.3461
@@ -206,6 +239,8 @@ instructions:
         elevation: -32.77
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -32.77
         - -31.8092
@@ -222,6 +257,8 @@ instructions:
         elevation: -30.74
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -30.74
         - -30.74
@@ -240,6 +277,8 @@ instructions:
         elevation: -30.74
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -30.74
         - -30.7151
@@ -256,6 +295,8 @@ instructions:
         elevation: -30.68
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -30.68
         - -30.6085
@@ -272,6 +313,8 @@ instructions:
         elevation: -30.49
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -30.49
         - -30.3615
@@ -288,6 +331,8 @@ instructions:
         elevation: -30.11
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -30.11
         - -28.9855
@@ -302,6 +347,8 @@ instructions:
         elevation: -27.96
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -27.96
         - -27.4677
@@ -318,6 +365,8 @@ instructions:
         elevation: -26.75
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -26.75
         - -26.7989
@@ -334,6 +383,8 @@ instructions:
         elevation: -26.88
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -26.88
         - -26.7573
@@ -350,6 +401,8 @@ instructions:
         elevation: -26.56
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -26.56
         - -25.9756
@@ -366,6 +419,8 @@ instructions:
         elevation: -24.92
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -24.92
         - -24.7523
@@ -380,6 +435,8 @@ instructions:
         elevation: -24.6
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -24.6
         - -23.4278
@@ -396,6 +453,8 @@ instructions:
         elevation: -22.13
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -22.13
         - -22.367
@@ -412,6 +471,8 @@ instructions:
         elevation: -22.83
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -22.83
         - -23.3713
@@ -428,6 +489,8 @@ instructions:
         elevation: -23.97
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -23.97
         - -23.737
@@ -446,6 +509,8 @@ instructions:
         elevation: -23.27
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -23.27
         - -22.4012
@@ -462,6 +527,8 @@ instructions:
         elevation: -21.18
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -21.18
         - -21.3752
@@ -478,6 +545,8 @@ instructions:
         elevation: -21.63
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -21.63
         - -21.3113
@@ -494,6 +563,8 @@ instructions:
         elevation: -20.8
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -20.8
         - -20.7108
@@ -510,6 +581,8 @@ instructions:
         elevation: -20.55
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -20.55
         - -20.4923
@@ -526,6 +599,8 @@ instructions:
         elevation: -20.42
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -20.42
         - -20.2768
@@ -542,6 +617,8 @@ instructions:
         elevation: -20.04
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -20.04
         - -19.857
@@ -558,6 +635,8 @@ instructions:
         elevation: -19.6
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -19.6
         - -19.4696
@@ -574,6 +653,8 @@ instructions:
         elevation: -19.28
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -19.28
         - -19.1537
@@ -590,6 +671,8 @@ instructions:
         elevation: -18.97
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -18.97
         - -18.864
@@ -606,6 +689,8 @@ instructions:
         elevation: -18.71
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -18.71
         - -18.5062
@@ -622,6 +707,8 @@ instructions:
         elevation: -18.21
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -18.21
         - -17.9247
@@ -638,6 +725,8 @@ instructions:
         elevation: -17.51
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -17.51
         - -17.218
@@ -654,6 +743,8 @@ instructions:
         elevation: -16.75
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -16.75
         - -16.5466
@@ -670,6 +761,8 @@ instructions:
         elevation: -16.18
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -16.18
         - -15.8804
@@ -686,6 +779,8 @@ instructions:
         elevation: -15.55
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -15.55
         - -14.7699
@@ -702,6 +797,8 @@ instructions:
         elevation: -13.52
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -13.52
         - -13.0404
@@ -718,6 +815,8 @@ instructions:
         elevation: -12.44
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -12.44
         - -12.4864
@@ -734,6 +833,8 @@ instructions:
         elevation: -12.57
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -12.57
         - -12.57
@@ -750,6 +851,8 @@ instructions:
         elevation: -12.57
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -12.57
         - -12.57
@@ -766,6 +869,8 @@ instructions:
         elevation: -12.57
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -12.57
         - -12.4614
@@ -782,6 +887,8 @@ instructions:
         elevation: -12.32
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -12.32
         - -12.32
@@ -798,6 +905,8 @@ instructions:
         elevation: -12.32
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -12.32
         - -12.4044
@@ -814,6 +923,8 @@ instructions:
         elevation: -12.51
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -12.51
         - -12.7199
@@ -832,6 +943,8 @@ instructions:
         elevation: -13.14
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -13.14
         - -13.0823
@@ -848,6 +961,8 @@ instructions:
         elevation: -13.01
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -13.01
         - -12.8178
@@ -864,6 +979,8 @@ instructions:
         elevation: -12.51
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -12.51
         - -12.6073
@@ -878,6 +995,8 @@ instructions:
         elevation: -12.7
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -12.7
         - -12.5644
@@ -894,6 +1013,8 @@ instructions:
         elevation: -12.32
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -12.32
         - -12.27
@@ -910,6 +1031,8 @@ instructions:
         elevation: -12.19
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -12.19
         - -12.263
@@ -926,6 +1049,8 @@ instructions:
         elevation: -12.38
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -12.38
         - -12.38
@@ -942,6 +1067,8 @@ instructions:
         elevation: -12.38
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -12.38
         - -12.453
@@ -958,6 +1085,8 @@ instructions:
         elevation: -12.57
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -12.57
         - -12.6277
@@ -974,6 +1103,8 @@ instructions:
         elevation: -12.7
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -12.7
         - -11.4328
@@ -990,6 +1121,8 @@ instructions:
         elevation: -9.15
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -9.15
         - -9.1786
@@ -1006,6 +1139,8 @@ instructions:
         elevation: -9.22
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -9.22
         - -9.2445
@@ -1022,6 +1157,8 @@ instructions:
         elevation: -9.28
         diameters:
           - 0.2794
+          - 0.3302
+          - 0.3826
       elevations:
         - -9.28
         - -9.152
@@ -1036,6 +1173,8 @@ instructions:
       elevation: -8.96
       diameters:
         - 0.2794
+        - 0.3302
+        - 0.3826
   - pipeseg:
       name: DGtoLX12-068
       length: 29.637982387470306
@@ -1050,3 +1189,15 @@ instructions:
       elevation: 27.9
       diameters:
         - 0.2794
+        - 0.3302
+        - 0.3826
+  - well:
+      name: LX1
+      physical:
+        elevation: 27.9
+      realReservoirName: Lennox
+  - reservoir:
+      name: Lennox
+      physical:
+        elevation: 0
+      pressure: 4000000

@@ -1,4 +1,4 @@
-import Page from '@/components/page'
+import Page from '@/components/page';
 
 const P3 = () => (
 	<Page>
@@ -11,6 +11,6 @@ const P3 = () => (
 			</p>
 		</section>
 	</Page>
-)
+);
 
-export default P3
+export default P3;

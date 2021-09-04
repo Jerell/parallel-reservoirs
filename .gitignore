@@ -3,9 +3,10 @@
 
 # Generated via Node.js
 node_modules
-
+/coverage
 # Generated via next-pwa
 **/public/workbox**
 **/public/sw**
 
 .firebase
+**/*.txt

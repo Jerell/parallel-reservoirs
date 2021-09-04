@@ -1,8 +1,8 @@
-import Page from '@/components/page'
-import Heading from '@/components/heading'
-import Map from '@/components/dashboard/map'
-import DataTable from '@/components/dashboard/data/dataTable'
-import Graphs from '@/components/dashboard/data/graphs'
+import Page from '@/components/page';
+import Heading from '@/components/heading';
+import Map from '@/components/dashboard/map';
+import DataTable from '@/components/dashboard/data/dataTable';
+import Graphs from '@/components/dashboard/data/graphs';
 
 const Index = () => (
 	<Page fullWidth noPadding>
@@ -11,6 +11,6 @@ const Index = () => (
 		<DataTable />
 		<Graphs />
 	</Page>
-)
+);
 
-export default Index
+export default Index;

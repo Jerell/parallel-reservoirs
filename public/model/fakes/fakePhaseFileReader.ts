@@ -1,14 +1,14 @@
-import IPhaseEnvelopeFileReader from '../phaseEnvelopeFileReader'
-import { PhaseData } from '../fluidProperties'
+import IPhaseEnvelopeFileReader from '../phaseEnvelopeFileReader';
+import { PhaseData } from '../fluidProperties';
 
 export class FakePhaseEnvelopeFileReader implements IPhaseEnvelopeFileReader {
-	data: PhaseData
+	data: PhaseData;
 
 	constructor(phaseData: PhaseData) {
-		this.data = phaseData
+		this.data = phaseData;
 	}
 
 	async readPhaseEnvelope(): Promise<PhaseData> {
-		return this.data
+		return this.data;
 	}
 }

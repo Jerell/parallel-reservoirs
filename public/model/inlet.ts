@@ -1,92 +1,107 @@
-import Fluid from './fluid'
-import IElement, { IPhysicalElement, PressureSolution } from './element'
-import Transport from './transport'
-import { defaultFluidConstructor } from './fluid'
+import Fluid from './fluid';
+import IElement, { IPhysicalElement, PressureSolution } from './element';
+import Transport from './transport';
+import { defaultFluidConstructor } from './fluid';
 import {
 	Pressure,
 	PressureUnits,
 	Temperature,
 	TemperatureUnits,
-} from 'physical-quantities'
+	Flowrate,
+	FlowrateUnits,
+} from 'physical-quantities';
+
+const fs = require('fs');
+
+const stream = fs.createWriteStream(`${__dirname}/inletP.txt`, {
+	flags: 'a',
+});
 
 export default class Inlet extends Transport {
 	fluid: Fluid | null
 	destination: IElement | null
-	temperature: number = 10
+	temperature: Temperature = new Temperature(10, TemperatureUnits.Kelvin);
 
 	constructor(name: string, physical: IPhysicalElement) {
-		super(name, physical, 'Inlet')
+		super(name, physical, 'Inlet');
 
-		this.fluid = null
-		this.destination = null
+		this.fluid = null;
+		this.destination = null;
 	}
 
 	async applyInletProperties(
-		pressure: number,
-		temperature: number,
-		flowrate: number
+		pressure: Pressure,
+		temperature: Temperature,
+		flowrate: Flowrate,
+		skipProcess = false
 	) {
 		const newFluid = await defaultFluidConstructor(
-			new Pressure(pressure, PressureUnits.Pascal),
-			new Temperature(temperature, TemperatureUnits.Kelvin),
+			pressure,
+			temperature,
 			flowrate
-		)
+		);
 
-		this.fluid = newFluid
+		this.fluid = newFluid;
+		this.temperature = this.fluid.temperature;
 
-		return this.process(this.fluid)
+		if (skipProcess) return;
+		return this.process(this.fluid);
 	}
 
 	async searchInletPressure() {
-		const lowLimit = new Pressure(5, PressureUnits.Bara)
-		const highLimit = new Pressure(150, PressureUnits.Bara)
+		const lowLimit = new Pressure(1, PressureUnits.Bara);
+		const highLimit = new Pressure(140, PressureUnits.Bara);
 
-		let low = lowLimit.pascal
-		let high = highLimit.pascal
-		let mid = 0
+		let low = lowLimit.pascal;
+		let high = highLimit.pascal;
+		let mid = 0;
 
-		const stepSize = 0.001
-		let guesses = 0
-		const maxGuesses = 25
+		let guesses = 0;
+		const maxGuesses = 25;
 
-		let pressureSolution = PressureSolution.Low
+		let pressureSolution = PressureSolution.Low;
 
 		if (!this.fluid) {
-			throw new Error(`Inlet has no fluid`)
+			throw new Error(`Inlet has no fluid`);
 		}
 
 		while (pressureSolution !== PressureSolution.Ok) {
-			if (guesses++ > maxGuesses) {
-				console.log(`max guesses (${maxGuesses}) reached`)
-				break
+			if (guesses++ > maxGuesses - 1) {
+				console.log(`max guesses (${maxGuesses}) reached`);
+				break;
 			}
 
-			mid = (low + high) / 2
+			mid = (low + high) / 2;
 
-			pressureSolution = await this.applyInletProperties(
-				mid,
+			// console.log({ guesses, inletP: mid, flowrate: this.fluid.flowrate })
+			stream.write(
+				`${this.type} - ${this.name} GUESS ${guesses}:\n${mid} Pa\n${this.fluid.flowrate} kg/s\n\n`
+			);
+
+			pressureSolution = (await this.applyInletProperties(
+				new Pressure(mid, PressureUnits.Pascal),
 				this.temperature,
 				this.fluid.flowrate
-			)
+			)) as PressureSolution;
 
 			if (pressureSolution === PressureSolution.Low) {
-				high = mid - stepSize
+				low = mid;
 			} else if (pressureSolution === PressureSolution.High) {
-				low = mid + stepSize
+				high = mid;
 			}
 		}
 
-		return { pressure: mid, pressureSolution }
+		return { pressure: mid, pressureSolution };
 	}
 
 	setDestination(dest: IElement) {
-		this.destination = dest
-		dest.source = this
+		this.destination = dest;
+		dest.source = this;
 	}
 
 	async process(fluid: Fluid): Promise<PressureSolution> {
-		if (!this.destination) return PressureSolution.Ok
+		if (!this.destination) return PressureSolution.Ok;
 
-		return await this.destination.process(fluid)
+		return await this.destination.process(fluid);
 	}
 }

@@ -1,139 +1,97 @@
-import Fluid from './fluid'
-import { defaultFluidConstructor } from './fluid'
-import { IPhysicalElement, PressureSolution } from './element'
+import Fluid from './fluid';
+import { defaultFluidConstructor } from './fluid';
+import { IPhysicalElement, PressureSolution } from './element';
 import {
 	Pressure,
 	PressureUnits,
 	Temperature,
 	TemperatureUnits,
-} from 'physical-quantities'
-import Analogue from './analogue'
-import Reservoir, { RealReservoir } from './reservoir'
-import Well from './well'
+	Flowrate,
+	FlowrateUnits,
+} from 'physical-quantities';
+import Analogue from './analogue';
+import Reservoir, { RealReservoir } from './reservoir';
+import Well from './well';
 
-const perforationFunctions = {}
+const fs = require('fs');
+
+const stream = fs.createWriteStream(`${__dirname}/perfP.txt`, {
+	flags: 'a',
+});
+
+const perforationFunctions = {};
 
 perforationFunctions[RealReservoir.Hamilton] = {
-	intercept: -0.723155611559477,
+	split: 4,
+	intercept: -1.6137583306682473,
 	powers: [
 		[1, 0],
 		[0, 1],
 		[2, 0],
 		[1, 1],
 		[0, 2],
-		[3, 0],
-		[2, 1],
-		[1, 2],
-		[0, 3],
-		[4, 0],
-		[3, 1],
-		[2, 2],
-		[1, 3],
-		[0, 4],
 	],
 	coefficients: [
-		-7.45839244e-2, 8.00571236e-1, 1.0322175e-2, -1.25228384e-2, 1.22712427e-2,
-		-2.27136569e-4, 9.60433607e-5, 1.48900866e-4, -1.79135752e-4, 1.70799719e-7,
-		2.11473864e-6, -2.05817226e-6, -1.19052163e-7, 7.62239511e-7,
+		-5.31124455e-2, 1.00818995, 1.48023509e-4, 4.18609179e-4, 3.00308213e-6,
 	],
-}
+};
 
 perforationFunctions[RealReservoir.HamiltonNorth] = {
-	intercept: -1.4034521453141124,
+	split: 2,
+	intercept: -1.9597510728900147,
 	powers: [
 		[1, 0],
 		[0, 1],
 		[2, 0],
 		[1, 1],
 		[0, 2],
-		[3, 0],
-		[2, 1],
-		[1, 2],
-		[0, 3],
-		[4, 0],
-		[3, 1],
-		[2, 2],
-		[1, 3],
-		[0, 4],
 	],
 	coefficients: [
-		-2.97089238e-1, 1.03991433, 2.16958803e-2, -1.91488122e-3, -2.63657614e-4,
-		-4.00000553e-4, -2.3425952e-4, 1.4304453e-4, -1.41347907e-5, 1.67823295e-6,
-		2.12423698e-6, 7.26210847e-7, -9.550614e-7, 1.27674948e-7,
+		-1.4969207e-1, 1.06629533, -2.80472165e-5, 1.40749378e-3, -5.39246727e-4,
 	],
-}
+};
 
 perforationFunctions[RealReservoir.Lennox] = {
-	intercept: -0.5326763044220115,
+	split: 2,
+	intercept: -0.5620851518695815,
 	powers: [
 		[1, 0],
 		[0, 1],
 		[2, 0],
 		[1, 1],
 		[0, 2],
-		[3, 0],
-		[2, 1],
-		[1, 2],
-		[0, 3],
-		[4, 0],
-		[3, 1],
-		[2, 2],
-		[1, 3],
-		[0, 4],
 	],
 	coefficients: [
-		-5.20839196e-2, 1.02365102, 1.62250266e-3, 1.94289091e-4, -6.32437645e-4,
-		-1.73358992e-5, -4.41477875e-6, -1.72118067e-6, 7.74807823e-6,
-		2.59089315e-8, 1.01987079e-7, -6.13300111e-8, 3.41781956e-8, -3.36623543e-8,
+		-6.23044797e-3, 1.00131251, -2.09522684e-5, 7.52686842e-5, 1.19926497e-5,
 	],
-}
+};
 
 export default class Perforation extends Analogue {
-	source?: Well
-	destination: Reservoir | null
+	source?: Well;
+	destination: Reservoir | null;
 
 	constructor(
 		name: string,
 		physical: IPhysicalElement,
 		realReservoir: RealReservoir
 	) {
-		super(name, physical, 'Well', perforationFunctions[realReservoir])
-		this.destination = null
+		super(name, physical, 'Well', perforationFunctions[realReservoir]);
+		this.destination = null;
 	}
 
 	get x() {
 		if (!this.fluid) {
-			throw new Error(`${this.type} has no fluid`)
+			throw new Error(`${this.type} has no fluid`);
 		}
-		return this.fluid.flowrate
-	}
 
-	get y() {
-		if (!this.fluid) {
-			throw new Error(`${this.type} has no fluid`)
-		}
-		// Perforation function uses bara
-		return new Pressure(this.fluid.pressure, PressureUnits.Pascal).bara
+		const x = this.fluid.flowrate.kgps / this.modelFunction.split
+
+		stream.write(`${this.name}: ${this.fluid.pressure} Pa | ${x} kg/s\n`);
+		return x;
 	}
 
 	setDestination(dest: Reservoir) {
-		this.destination = dest
-		dest.source = this
-	}
-
-	async process(fluid: Fluid): Promise<PressureSolution> {
-		if (!this.destination) return PressureSolution.Ok
-
-		this.fluid = fluid
-
-		const p = this.endPressure() // bara
-
-		const endFluid = await defaultFluidConstructor(
-			new Pressure(p, PressureUnits.Bara),
-			new Temperature(fluid.temperature, TemperatureUnits.Kelvin),
-			fluid.flowrate
-		)
-
-		return await this.destination.process(endFluid)
+		this.destination = dest;
+		dest.source = this;
 	}
 }

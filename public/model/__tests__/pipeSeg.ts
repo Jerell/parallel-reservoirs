@@ -1,11 +1,13 @@
-import PipeSeg from '../pipeSeg'
-import Fluid, { defaultFluidConstructor } from '../fluid'
+import PipeSeg from '../pipeSeg';
+import Fluid, { defaultFluidConstructor } from '../fluid';
 import {
 	Pressure,
 	PressureUnits,
 	Temperature,
 	TemperatureUnits,
-} from 'physical-quantities'
+	Flowrate,
+	FlowrateUnits,
+} from 'physical-quantities';
 
 describe('effectiveArea', () => {
 	it('should calculate the effectiveArea', () => {
@@ -14,11 +16,11 @@ describe('effectiveArea', () => {
 			diameters: [16, 14, 12],
 			elevation: 1,
 			name: 'pipe',
-		})
+		});
 
-		expect(pipeseg.effectiveArea).toBeCloseTo(468.097305385)
-	})
-})
+		expect(pipeseg.effectiveArea).toBeCloseTo(468.097305385);
+	});
+});
 
 describe('removeLine', () => {
 	it('should change the returned value of effectiveArea', () => {
@@ -27,14 +29,14 @@ describe('removeLine', () => {
 			diameters: [16, 14, 12],
 			elevation: 1,
 			name: 'pipe',
-		})
+		});
 
-		pipeseg.removeLine(14)
-		const newArea = pipeseg.effectiveArea
+		pipeseg.removeLine(14);
+		const newArea = pipeseg.effectiveArea;
 
-		expect(newArea).toBeCloseTo(314.159265359)
-	})
-})
+		expect(newArea).toBeCloseTo(314.159265359);
+	});
+});
 
 describe('addLine', () => {
 	it('should change the returned value of effectiveArea', () => {
@@ -43,93 +45,73 @@ describe('addLine', () => {
 			diameters: [1, 1, 1],
 			elevation: 1,
 			name: 'pipe',
-		})
+		});
 
-		pipeseg.addLine(2)
+		pipeseg.addLine(2);
 
-		expect(pipeseg.effectiveArea).toBe(5.497787143782138)
-	})
-})
+		expect(pipeseg.effectiveArea).toBe(5.497787143782138);
+	});
+});
 
 describe('destinations', () => {
 	const pipeseg1 = new PipeSeg({
 		length: 200,
-		diameters: [0.9144],
-		elevation: 1,
+		diameters: [0.8886],
+		elevation: 10,
 		name: 'pipe1',
-	})
+	});
 	const pipeseg2 = new PipeSeg({
 		length: 1,
-		diameters: [0.9144],
-		elevation: 1,
+		diameters: [0.8886],
+		elevation: 0,
 		name: 'pipe2',
-	})
-	pipeseg1.setDestination(pipeseg2)
-
-	it('should add a destination pipe', () => {
-		expect(pipeseg1.destination).toBe(pipeseg2)
-	})
-
-	it('should set the source of the destination pipe', () => {
-		expect(pipeseg2.source).toBe(pipeseg1)
-	})
+	});
+	const pipeseg3 = new PipeSeg({
+		length: 1,
+		diameters: [0.8886],
+		elevation: 10,
+		name: 'pipe3',
+	});
+	const pipeseg4 = new PipeSeg({
+		length: 1,
+		diameters: [0.8886],
+		elevation: 20,
+		name: 'pipe4',
+	});
 
 	const pressureTestCases = [
 		{
-			pressure: 100000,
+			pipes: [pipeseg1, pipeseg2],
+			pressure: 3500000,
 			temperature: 300,
-			flowrate: 150,
-			p2: 60431.222283366034,
+			flowrate: 120,
+			expectedPressure: 3506671.2,
 		},
 		{
-			pressure: 300000,
-			temperature: 350,
-			flowrate: 100,
-			p2: 294483.1079323197,
+			pipes: [pipeseg1, pipeseg3],
+			pressure: 3500000,
+			temperature: 300,
+			flowrate: 120,
+			expectedPressure: 3499381.3,
 		},
-	]
+	];
 
 	test.each(pressureTestCases)(
 		'should update in pressure of destination',
-		async ({ pressure, temperature, flowrate, p2 }) => {
+		async ({ pipes, pressure, temperature, flowrate, expectedPressure }) => {
 			const fluid = await defaultFluidConstructor(
 				new Pressure(pressure, PressureUnits.Pascal),
 				new Temperature(temperature, TemperatureUnits.Kelvin),
-				flowrate
-			)
-			await pipeseg1.process(fluid).then(() => {
-				expect(pipeseg2.fluid.pressure).toBe(p2)
-			})
-		}
-	)
+				new Flowrate(flowrate, FlowrateUnits.Kgps)
+			);
+			pipes[0].setDestination(pipes[1]);
 
-	const flowrateTestCases = [
-		{
-			pressure: 100000,
-			temperature: 300,
-			flowrate: 150,
-		},
-		{
-			pressure: 300000,
-			temperature: 350,
-			flowrate: 100,
-		},
-	]
+			await pipes[0].process(fluid);
 
-	test.each(flowrateTestCases)(
-		'should update flowrate of destination',
-		async ({ pressure, temperature, flowrate }) => {
-			const fluid = await defaultFluidConstructor(
-				new Pressure(pressure, PressureUnits.Pascal),
-				new Temperature(temperature, TemperatureUnits.Kelvin),
-				flowrate
-			)
-			await pipeseg1.process(fluid).then(() => {
-				expect(pipeseg2.fluid.flowrate).toBe(flowrate)
-			})
+			expect(pipes[1].fluid.pressure.pascal).toBeCloseTo(expectedPressure, 1)
 		}
-	)
-})
+	);
+});
 
 describe('height', () => {
 	it('should return the y differences to destination (1)', async () => {
@@ -138,35 +120,15 @@ describe('height', () => {
 			diameters: [1],
 			elevation: 1,
 			name: 'pipe',
-		})
+		});
 		const pipeseg2 = new PipeSeg({
 			length: 1,
 			diameters: [1],
 			elevation: 10,
 			name: 'pipe',
-		})
-		pipeseg1.setDestination(pipeseg2)
+		});
+		pipeseg1.setDestination(pipeseg2);
 
-		expect(pipeseg1.height).toEqual(9)
-	})
-})
-
-describe('endPressure', () => {
-	it('should return zero when the flowrate is too high', async () => {
-		const fluid = await defaultFluidConstructor(
-			new Pressure(100000, PressureUnits.Pascal),
-			new Temperature(300, TemperatureUnits.Kelvin),
-			200
-		)
-
-		const pipeseg = new PipeSeg({
-			length: 200,
-			diameters: [0.9144],
-			elevation: 1,
-			name: 'pipe',
-		})
-		await pipeseg.process(fluid).then(() => {
-			expect(pipeseg.endPressure()).toBe(0)
-		})
-	})
-})
+		expect(pipeseg1.height).toEqual(9);
+	});
+});

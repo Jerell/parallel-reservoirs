@@ -1,8 +1,12 @@
 instructions:
+  # - setfluid:
+  #     pressure: 1
+  #     temperature: 1
+  #     flowrate: 1
   - inlet:
-      name: DG-HM
-      length: 26.6
-      elevation: 26.6
+      name: 'Douglas Manifold'
+      physical:
+        elevation: 26.6
   - pipeseg:
       name: DGtoHM-001
       length: 26.6
@@ -17,7 +21,8 @@ instructions:
         - 0.4762
   - pipeseg:
       name: DGtoHM-003
-      length: 11
+      length: 27.77138815399763
+      elevation: 0
       diameters:
         - 0.4762
   - pipeseries:
@@ -466,3 +471,13 @@ instructions:
       elevation: 26.6
       diameters:
         - 0.4762
+  - well:
+      name: HM1
+      physical:
+        elevation: 26.6
+      realReservoirName: Hamilton
+  - reservoir:
+      name: Hamilton
+      physical:
+        elevation: 0
+      pressure: 4000000

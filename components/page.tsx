@@ -1,12 +1,12 @@
-import Head from 'next/head'
-import Appbar from '@/components/appbar'
-import BottomNav from '@/components/bottom-nav'
+import Head from 'next/head';
+import Appbar from '@/components/appbar';
+import BottomNav from '@/components/bottom-nav';
 
 interface Props {
-	title?: string
-	children: React.ReactNode
-	fullWidth?: boolean
-	noPadding?: boolean
+	title?: string;
+	children: React.ReactNode;
+	fullWidth?: boolean;
+	noPadding?: boolean;
 }
 
 const Page = ({
@@ -38,6 +38,6 @@ const Page = ({
 
 		<BottomNav />
 	</>
-)
+);
 
-export default Page
+export default Page;

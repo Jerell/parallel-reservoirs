@@ -13,7 +13,7 @@ const FillerBox = ({
 		>
 			{children}
 		</div>
-	)
-}
+	);
+};
 
-export default FillerBox
+export default FillerBox;

@@ -1,7 +1,7 @@
-const columns = 3
+const columns = 3;
 
 const GridSpace = ({ children, cols = 1, fullWidth = false }) => {
-	cols = Math.max(1, Math.min(cols, columns))
+	cols = Math.max(1, Math.min(cols, columns));
 
 	return (
 		<section
@@ -11,7 +11,7 @@ const GridSpace = ({ children, cols = 1, fullWidth = false }) => {
 		>
 			{children}
 		</section>
-	)
-}
+	);
+};
 
-export default GridSpace
+export default GridSpace;

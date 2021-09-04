@@ -1,20 +1,20 @@
 const UnitSelect = ({ type }) => {
-	let options
+	let options;
 	switch (type) {
 		case 'currency':
-			options = ['£', '€', 'US$', 'AU$', 'MYR', 'PKR']
-			break
+			options = ['£', '€', 'US$', 'AU$', 'MYR', 'PKR'];
+			break;
 		case 'pressure':
-			options = ['bar', 'Pa']
-			break
+			options = ['bar', 'Pa'];
+			break;
 		case 'length':
-			options = ['m', 'km', 'mm']
-			break
+			options = ['m', 'km', 'mm'];
+			break;
 		case 'flowrate':
-			options = ['kg/s', 'MTPA']
-			break
+			options = ['kg/s', 'MTPA'];
+			break;
 		default:
-			options = ['unit1', 'unit2']
+			options = ['unit1', 'unit2'];
 	}
 	return (
 		<div className='inline-flex'>
@@ -27,17 +27,17 @@ const UnitSelect = ({ type }) => {
 				))}
 			</select>
 		</div>
-	)
-}
+	);
+};
 
 interface INIProps {
-	label: string
-	labelClasses?: string
-	required?: boolean
-	unit?: string
-	unitListType?: string
-	unitLeft?: boolean
-	min?: number
+	label: string;
+	labelClasses?: string;
+	required?: boolean;
+	unit?: string;
+	unitListType?: string;
+	unitLeft?: boolean;
+	min?: number;
 }
 
 const NumberInput = ({
@@ -72,7 +72,7 @@ const NumberInput = ({
 				/>
 			</div>
 		</>
-	)
-}
+	);
+};
 
-export default NumberInput
+export default NumberInput;

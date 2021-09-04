@@ -1,17 +1,17 @@
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons'
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faChevronUp, faChevronDown } from '@fortawesome/free-solid-svg-icons';
 
 interface IButtonProps {
-	fn?: (e) => void
-	expanded?: boolean
+	fn?: (e) => void;
+	expanded?: boolean;
 }
 
 const ExpansionButton = ({ fn, expanded = true }: IButtonProps) => {
 	function handleClick(e) {
-		e.persist()
-		e.preventDefault()
+		e.persist();
+		e.preventDefault();
 		if (fn) {
-			fn(e)
+			fn(e);
 		}
 	}
 	return (
@@ -24,7 +24,7 @@ const ExpansionButton = ({ fn, expanded = true }: IButtonProps) => {
 				className='w-3 flex'
 			/>
 		</button>
-	)
-}
+	);
+};
 
-export default ExpansionButton
+export default ExpansionButton;

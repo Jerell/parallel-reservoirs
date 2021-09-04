@@ -1,25 +1,28 @@
-import Fluid from './fluid'
-import Transport from './transport'
-import { defaultFluidConstructor } from './fluid'
-import IElement, { IPhysicalElement, PressureSolution } from './element'
+import Fluid from './fluid';
+import Transport from './transport';
+import { defaultFluidConstructor } from './fluid';
+import IElement, { IPhysicalElement, PressureSolution } from './element';
 import {
 	Pressure,
 	PressureUnits,
 	Temperature,
 	TemperatureUnits,
-} from 'physical-quantities'
+	Flowrate,
+	FlowrateUnits,
+} from 'physical-quantities';
 
 export type ModelFunction = {
-	intercept: number
-	powers: Array<number[]>
-	coefficients: number[]
-}
+	split: number;
+	intercept: number;
+	powers: Array<number[]>;
+	coefficients: number[];
+};
 
 export default class Analogue extends Transport {
-	fluid: Fluid | null
-	source?: IElement
-	destination: IElement | null
-	modelFunction: ModelFunction
+	fluid: Fluid | null;
+	source?: IElement;
+	destination: IElement | null;
+	modelFunction: ModelFunction;
 
 	constructor(
 		name: string,
@@ -27,65 +30,97 @@ export default class Analogue extends Transport {
 		type = 'Analogue',
 		modelFunction: ModelFunction
 	) {
-		super(name, physical, type)
+		super(name, physical, type);
 
-		this.fluid = null
-		this.destination = null
-		this.modelFunction = modelFunction
+		this.fluid = null;
+		this.destination = null;
+		this.modelFunction = modelFunction;
 	}
 
 	get x() {
 		if (!this.fluid) {
-			throw new Error(`${this.type} has no fluid`)
+			throw new Error(`${this.type} has no fluid`);
 		}
-		return this.fluid.flowrate
+
+		return this.fluid.flowrate.kgps
 	}
 
 	get y() {
 		if (!this.fluid) {
-			throw new Error(`${this.type} has no fluid`)
+			throw new Error(`${this.type} has no fluid`);
 		}
-		return this.fluid.pressure
+		// Analogue functions use bara
+		return this.fluid.pressure.bara
 	}
 
-	endPressure() {
+	endPressure(): Pressure {
 		if (!this.fluid) {
 			throw new Error(
 				`${this.type} has no fluid - unable to calculate end pressure`
-			)
+			);
 		}
 
+		const [x, y] = [this.x, this.y];
+
 		const subIntoPowers = this.modelFunction.powers.map(
-			(powers) => this.x ** powers[0] * this.y ** powers[1]
-		)
+			(powers) => x ** powers[0] * y ** powers[1]
+		);
 		const multipliedByCoefs = subIntoPowers.map(
 			(xy, i) => xy * this.modelFunction.coefficients[i]
-		)
-		return (
+		);
+		const endP =
 			this.modelFunction.intercept +
-			multipliedByCoefs.reduce((acc, a) => (acc += a), 0)
-		)
+			multipliedByCoefs.reduce((acc, a) => (acc += a), 0);
+
+		const limit = new Pressure(13500000, PressureUnits.Pascal);
+		const capped = Math.min(
+			Math.max(new Pressure(endP, PressureUnits.Bara).pascal, 0),
+			limit.pascal
+		);
+
+		return new Pressure(capped, PressureUnits.Pascal);
+	}
+
+	formula() {
+		const xy = (pows) => {
+			const x = pows[0] ? `(flowrate^${pows[0]})` : '';
+			const y = pows[1] ? `(whp^${pows[1]})` : '';
+			return `${x}${y}`;
+		};
+		const xys = this.modelFunction.powers.map(xy);
+		const xysWithCoefs = this.modelFunction.coefficients.map((c, i) => {
+			return [c, xys[i]];
+		});
+		let eq = `${this.modelFunction.intercept}`;
+		xysWithCoefs.forEach((xywc) => {
+			if (xywc[0] > 0) {
+				eq += '+';
+			}
+			eq += `${xywc[0]}${xywc[1]}`;
+		});
+		return eq;
 	}
 
 	setDestination(dest: IElement) {
-		this.destination = dest
-		dest.source = this
+		this.destination = dest;
+		dest.source = this;
 	}
 
 	async process(fluid: Fluid): Promise<PressureSolution> {
-		this.fluid = fluid
-		if (!this.destination) return PressureSolution.Ok
+		if (!this.destination) return PressureSolution.Ok;
 
-		console.log(this.fluid)
+		this.fluid = fluid;
 
 		const p = this.endPressure()
+		const lowPressureLimit = new Pressure(1000, PressureUnits.Pascal).pascal
+		if (p.pascal < lowPressureLimit) return PressureSolution.Low
 
 		const endFluid = await defaultFluidConstructor(
-			new Pressure(p, PressureUnits.Pascal),
-			new Temperature(fluid.temperature, TemperatureUnits.Kelvin),
+			p,
+			fluid.temperature,
 			fluid.flowrate
 		)
 
-		return await this.destination.process(endFluid)
+		return await this.destination.process(endFluid);
 	}
 }

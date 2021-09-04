@@ -11,7 +11,8 @@
 		"test": "jest",
 		"test:unit": "jest",
 		"test:watch": "jest --watch --verbose",
-		"type-check": "tsc"
+		"type-check": "tsc",
+		"pretty": "prettier --write \"./**/*.{js,jsx,json,ts,tsx}\""
 	},
 	"dependencies": {
 		"@fortawesome/fontawesome-svg-core": "^1.2.36",
@@ -25,7 +26,7 @@
 		"next": "^10.0.9",
 		"next-pwa": "^5.0.5",
 		"next-themes": "^0.0.10",
-		"physical-quantities": "^1.0.3",
+		"physical-quantities": "^1.1.1",
 		"react": "17.0.1",
 		"react-cytoscapejs": "^1.2.1",
 		"react-dom": "17.0.1",
@@ -55,7 +56,6 @@
 	},
 	"prettier": {
 		"bracketSpacing": true,
-		"semi": false,
 		"singleQuote": true,
 		"jsxSingleQuote": true
 	},

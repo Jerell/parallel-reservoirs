@@ -1,7 +1,7 @@
-import fs from 'fs'
-import YAML from 'yaml'
-import IElement, { IPhysicalElement } from './element'
-import { IPipeDefinition } from './pipeSeg'
+import fs from 'fs';
+import YAML from 'yaml';
+import IElement, { IPhysicalElement } from './element';
+import { IPipeDefinition } from './pipeSeg';
 import SnapshotBuilder, {
 	AddInlet,
 	AddSplitter,
@@ -9,140 +9,141 @@ import SnapshotBuilder, {
 	AddReservoir,
 	AddPipeSeg,
 	AddPipeSeries,
-} from './snapshotBuilder'
+} from './snapshotBuilder';
+import Fluid from './fluid';
 
 const OLGA = {
 	parse: (fileString: string) => {
-		const lines = fileString.split('\n')
-		const linesReversed = lines.slice().reverse()
+		const lines = fileString.split('\n');
+		const linesReversed = lines.slice().reverse();
 
 		const lineThatStartsWith = (
 			word: string,
 			backwards = false
 		): [number, string] => {
-			const searchArr = backwards ? linesReversed : lines
+			const searchArr = backwards ? linesReversed : lines;
 			const idx = searchArr.findIndex((line) =>
 				line.startsWith(word.toUpperCase())
-			)
+			);
 			if (idx < 0) {
-				throw new Error(`Line not found: ${word}`)
+				throw new Error(`Line not found: ${word}`);
 			}
 			if (backwards) {
-				return [lines.length - idx - 1, linesReversed[idx]]
+				return [lines.length - idx - 1, linesReversed[idx]];
 			}
-			return [idx, lines[idx]]
-		}
+			return [idx, lines[idx]];
+		};
 		const lastLineThatStartsWith = (word: string): [number, string] => {
-			return lineThatStartsWith(word, true)
-		}
+			return lineThatStartsWith(word, true);
+		};
 
 		const keyLines = {
 			initialConditions: lineThatStartsWith('initialconditions'),
 			geometry: lineThatStartsWith('geometry'),
 			firstPipe: lineThatStartsWith('pipe'),
 			lastPipe: lastLineThatStartsWith('pipe'),
-		}
+		};
 
 		const readLineProperties = (line: string | [number, string]) => {
 			if (typeof line !== 'string') {
-				line = line[1]
+				line = line[1];
 			}
-			line = line.replace(/NSEGMENT=\d+,\s/g, '')
-			line = line.replace(/LSEGMENT=.+\).+?\s/g, '')
+			line = line.replace(/NSEGMENT=\d+,\s/g, '');
+			line = line.replace(/LSEGMENT=.+\).+?\s/g, '');
 
 			const [type, parameterStrings] = [
 				line.substring(0, line.indexOf(' ')),
 				line.substring(line.indexOf(' ')).trim().split(', '),
-			]
+			];
 
 			const unitConversion = (valueString: string) => {
-				const matchName = valueString.match(/".+?"/)
+				const matchName = valueString.match(/".+?"/);
 				if (matchName) {
-					return [matchName[0].substring(1, matchName[0].length - 1), '-']
+					return [matchName[0].substring(1, matchName[0].length - 1), '-'];
 				}
 
-				const matchNum = valueString.match(/-?[0-9]+\.?[0-9]*/)
+				const matchNum = valueString.match(/-?[0-9]+\.?[0-9]*/);
 				if (matchNum) {
-					const numVal = matchNum[0]
-					let num = Number(numVal)
-					let unitString = valueString.substring(numVal.length).trim()
+					const numVal = matchNum[0];
+					let num = Number(numVal);
+					let unitString = valueString.substring(numVal.length).trim();
 					switch (unitString) {
 						case 'km':
-							num = num * 1000
-							unitString = 'm'
-							break
+							num = num * 1000;
+							unitString = 'm';
+							break;
 						case 'mm':
-							num = num / 1000
-							unitString = 'm'
-							break
+							num = num / 1000;
+							unitString = 'm';
+							break;
 					}
-					return [Number(num.toFixed(4)), unitString]
+					return [Number(num.toFixed(4)), unitString];
 				}
-				return [null, null]
-			}
+				return [null, null];
+			};
 
 			const parameters = parameterStrings.reduce(
 				(acc, param) => {
 					const [property, valueString] = param
 						.split('=')
-						.map((s) => s.trim()) as [string, string]
-					acc[property] = unitConversion(valueString)
-					return acc
+						.map((s) => s.trim()) as [string, string];
+					acc[property] = unitConversion(valueString);
+					return acc;
 				},
 				type === 'GEOMETRY' ? { YSTART: [0, 'm'] } : {}
-			)
-			return { type, parameters }
-		}
+			);
+			return { type, parameters };
+		};
 
-		const INLET = readLineProperties(keyLines.geometry)
+		const INLET = readLineProperties(keyLines.geometry);
 
-		let prevX = 0
+		let prevX = 0;
 		const getXLength = (lineParams) => {
-			if (!lineParams.XEND) return 0
-			const length = lineParams.XEND[0] - prevX
-			prevX = lineParams.XEND[0]
-			return length
-		}
+			if (!lineParams.XEND) return 0;
+			const length = lineParams.XEND[0] - prevX;
+			prevX = lineParams.XEND[0];
+			return length;
+		};
 		const getYGain = (lineParams) => {
-			const elevation = endElevation
+			const elevation = endElevation;
 			if (lineParams.YEND) {
-				endElevation = lineParams.YEND
+				endElevation = lineParams.YEND;
 			}
-			return elevation[0]
-		}
+			return elevation[0];
+		};
 
-		let endElevation = INLET.parameters.YSTART as [number, string]
+		let endElevation = INLET.parameters.YSTART as [number, string];
 
 		const transformProperties = (lineProps) => {
-			const params = lineProps.parameters
+			const params = lineProps.parameters;
 
 			const instructionMap = {
 				GEOMETRY: 'inlet',
 				PIPE: 'pipeseg',
-			}
+			};
 
 			type PipeSegInstruction = {
-				name: string
-				length: number
-				elevation: number
-				diameters: number[]
-			}
+				name: string;
+				length: number;
+				elevation: number;
+				diameters: number[];
+			};
 
 			type PipeSeriesInstruction = {
-				n: number
-				pipeDef: IPipeDefinition
-				elevations: number[]
-				lengths: number[]
-			}
+				n: number;
+				pipeDef: IPipeDefinition;
+				elevations: number[];
+				lengths: number[];
+			};
 
-			const instructionType: string = instructionMap[lineProps.type]
+			const instructionType: string = instructionMap[lineProps.type];
 
-			const x = getXLength(params)
-			const y = getYGain(params)
+			const x = getXLength(params);
+			const y = getYGain(params);
 			const length =
 				instructionType === instructionMap.GEOMETRY
 					? 0
-					: Math.sqrt(x ** 2 + y ** 2)
+					: Math.sqrt(x ** 2 + y ** 2);
 
 			const transformed = {
 				[instructionType]: {
@@ -151,53 +152,53 @@ const OLGA = {
 					elevation: y,
 					diameters: params.DIAMETER ? [params.DIAMETER[0]] : undefined,
 				} as PipeSegInstruction | PipeSeriesInstruction,
-			}
+			};
 
 			for (const key of Object.keys(transformed[instructionType])) {
-				if (!transformed[instructionType][key]) {
-					delete transformed[instructionType][key]
+				if (!transformed[instructionType][key] && key !== 'elevation') {
+					delete transformed[instructionType][key];
 				}
 			}
 
-			const maxSegLength = 200
+			const maxSegLength = 200;
 			const reduceToMaxLengthArr = (length: number) => {
-				if (length < maxSegLength) return [length]
+				if (length < maxSegLength) return [length];
 
-				const lengths: number[] = []
+				const lengths: number[] = [];
 
-				const sum = () => lengths.reduce((acc, a) => acc + a, 0)
-				const remainder = () => length - sum()
+				const sum = () => lengths.reduce((acc, a) => acc + a, 0);
+				const remainder = () => length - sum();
 
 				while (remainder() >= maxSegLength) {
-					lengths.push(maxSegLength)
+					lengths.push(maxSegLength);
 				}
 				if (remainder()) {
-					lengths.push(remainder())
-				} else return [maxSegLength]
-				return lengths
-			}
+					lengths.push(remainder());
+				} else return [maxSegLength];
+				return lengths;
+			};
 
 			if (
 				instructionType === 'pipeseg' &&
 				(transformed.pipeseg as PipeSegInstruction).length &&
 				(transformed.pipeseg as PipeSegInstruction).length > maxSegLength
 			) {
-				const fullLength = (transformed.pipeseg as PipeSegInstruction).length
-				const seriesLengths = reduceToMaxLengthArr(fullLength)
+				const fullLength = (transformed.pipeseg as PipeSegInstruction).length;
+				const seriesLengths = reduceToMaxLengthArr(fullLength);
 
 				// Elevation
-				let lengthSoFar = 0
+				let lengthSoFar = 0;
 				const startElevation = (transformed.pipeseg as PipeSegInstruction)
-					.elevation
-				const elevationIncrease = endElevation[0] - startElevation
+					.elevation;
+				const elevationIncrease = endElevation[0] - startElevation;
 				const elevations = seriesLengths.map((sLength) => {
-					const cos = x / length
-					lengthSoFar += cos * sLength
-					const yGain = (elevationIncrease * lengthSoFar) / fullLength
-					return Number((startElevation + yGain).toFixed(4))
-				})
-				elevations.unshift(startElevation)
-				elevations.pop()
+					const cos = x / length;
+					lengthSoFar += cos * sLength;
+					const yGain = (elevationIncrease * lengthSoFar) / fullLength;
+					return Number((startElevation + yGain).toFixed(4));
+				});
+				elevations.unshift(startElevation);
+				elevations.pop();
 
 				transformed.pipeseries = <PipeSeriesInstruction>{
 					n: seriesLengths.length,
@@ -211,164 +212,166 @@ const OLGA = {
 					},
 					elevations,
 					lengths: seriesLengths,
-				}
+				};
 
-				delete transformed.pipeseg
+				delete transformed.pipeseg;
 			}
 
-			return transformed
-		}
+			return transformed;
+		};
 
 		const pipes = lines
 			.slice(keyLines.firstPipe[0], keyLines.lastPipe[0] + 1)
-			.map(readLineProperties)
+			.map(readLineProperties);
 
 		const data = {
 			instructions: [
 				transformProperties(INLET),
 				...pipes.map(transformProperties),
 			],
-		}
+		};
 
-		return data
+		return data;
 	},
-}
+};
 
 export default class Parser {
-	data: any
-	keyPoints: IElement[] = []
+	data: any;
+	keyPoints: IElement[] = [];
+	fluid?: Fluid;
 	constructor() {}
 
 	readFile(fileName: string, save = false) {
-		const file = fs.readFileSync(fileName, 'utf-8')
+		const file = fs.readFileSync(fileName, 'utf-8');
 		if (!file) {
-			throw new Error(`No file: ${fileName}`)
+			throw new Error(`No file: ${fileName}`);
 		}
-		const fileExtension = fileName.substring(fileName.indexOf('.') + 1)
+		const fileExtension = fileName.split('.').pop();
 		switch (fileExtension) {
 			case 'yml':
 			case 'yaml':
-				this.data = YAML.parse(file)
-				break
+				this.data = YAML.parse(file);
+				break;
 			case 'genkey':
-				this.data = OLGA.parse(file)
-				break
+				this.data = OLGA.parse(file);
+				break;
 			default:
-				throw new Error(`File type not supported: ${fileExtension}`)
+				throw new Error(`File type not supported: ${fileExtension}`);
 		}
 
 		if (save) {
 			fs.writeFileSync(
 				`${fileName.substring(0, fileName.indexOf('.'))}.yml`,
 				YAML.stringify(this.data)
-			)
+			);
 		}
 
-		return this.data
+		return this.data;
 	}
 
-	build() {
+	async build() {
 		if (!this.data) {
 			throw new Error(
 				`No data - call this.readFile(fileName) before this.build()`
-			)
+			);
 		}
-		const builder = new SnapshotBuilder()
+		const builder = new SnapshotBuilder();
 
 		for (const instruction of this.data.instructions) {
 			for (let [type, parameters] of Object.entries(instruction)) {
-				type = type.toLowerCase()
+				type = type.toLowerCase();
 
 				if (['selectsplitter', 'branch', 'setfluid'].includes(type)) {
 					switch (type) {
 						case 'selectsplitter':
-							const { id } = parameters as { id: number | string }
-							builder.selectSplitter(id)
-							break
+							const { id } = parameters as { id: number | string };
+							builder.selectSplitter(id);
+							break;
 						case 'branch':
-							const adder = builder.branch()
-							const pipeDef = parameters as IPipeDefinition
-							;(adder as AddPipeSeg)(pipeDef)
-							break
+							const adder = builder.branch();
+							const pipeDef = parameters as IPipeDefinition;
+							(adder as AddPipeSeg)(pipeDef);
+							break;
 						case 'setfluid':
 							const { pressure, temperature, flowrate } = parameters as {
-								pressure: number
-								temperature: number
-								flowrate: number
-							}
-							builder.setFluid(pressure, temperature, flowrate)
-							break
+								pressure: number;
+								temperature: number;
+								flowrate: number;
+							};
+							await builder.setFluid(pressure, temperature, flowrate);
+							break;
 					}
-					continue
+					continue;
 				}
 
-				const adder = builder.chainAdd(type)
+				const adder = builder.chainAdd(type);
 
 				switch (type) {
 					case 'inlet':
 						{
 							const { name, physical } = parameters as {
-								name: string
-								physical: IPhysicalElement
-							}
-							;(adder as AddInlet)(name, physical)
+								name: string;
+								physical: IPhysicalElement;
+							};
+							(adder as AddInlet)(name, physical);
 						}
-						break
+						break;
 					case 'pipeseg':
 						{
-							const pipeDef = parameters as IPipeDefinition
-							;(adder as AddPipeSeg)(pipeDef)
+							const pipeDef = parameters as IPipeDefinition;
+							(adder as AddPipeSeg)(pipeDef);
 						}
-						break
+						break;
 					case 'splitter':
 						{
 							const { name, physical } = parameters as {
-								name: string
-								physical: IPhysicalElement
-							}
-							;(adder as AddSplitter)(name, physical)
+								name: string;
+								physical: IPhysicalElement;
+							};
+							(adder as AddSplitter)(name, physical);
 						}
-						break
+						break;
 					case 'well':
 						{
 							const { name, physical, realReservoirName } = parameters as {
-								name: string
-								physical: IPhysicalElement
-								realReservoirName: 'Hamilton' | 'Hamilton North' | 'Lennox'
-							}
-							;(adder as AddWell)(name, physical, realReservoirName)
+								name: string;
+								physical: IPhysicalElement;
+								realReservoirName: 'Hamilton' | 'Hamilton North' | 'Lennox';
+							};
+							(adder as AddWell)(name, physical, realReservoirName);
 						}
-						break
+						break;
 					case 'reservoir':
 						{
 							const { name, physical, pressure } = parameters as {
-								name: string
-								physical: IPhysicalElement
-								pressure: number
-							}
-							;(adder as AddReservoir)(name, physical, pressure)
+								name: string;
+								physical: IPhysicalElement;
+								pressure: number;
+							};
+							(adder as AddReservoir)(name, physical, pressure);
 						}
-						break
+						break;
 					case 'pipeseries':
 						{
 							const { n, pipeDef, elevations, lengths } = parameters as {
-								n: number
-								pipeDef: IPipeDefinition
-								elevations: number[]
-								lengths: number[]
-							}
+								n: number;
+								pipeDef: IPipeDefinition;
+								elevations: number[];
+								lengths: number[];
+							};
 
-							;(adder as AddPipeSeries)(n, pipeDef, elevations, lengths)
+							(adder as AddPipeSeries)(n, pipeDef, elevations, lengths);
 						}
-						break
+						break;
 					default:
-						throw new Error(`${type} not supported`)
+						throw new Error(`${type} not supported`);
 				}
 			}
 		}
 
-		this.keyPoints = builder.keyPoints
+		this.keyPoints = builder.keyPoints;
+		this.fluid = builder.fluid;
 
-		return builder.elements[0]
+		return builder.elements[0];
 	}
 }
