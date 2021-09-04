@@ -55,6 +55,56 @@ describe('Test case', () => {
 
 		expect(inlet).toBeInstanceOf(Inlet)
 	})
+
+	const gasPhaseTestCases = [
+		{
+			inletP: new Pressure(69, PressureUnits.Bara).pascal,
+			inletFlowrate: new Flowrate(150.3, FlowrateUnits.Kgps).kgps,
+			// Need actual reservoir pressures for test case
+			HM_P: new Pressure(10, PressureUnits.Bara).pascal,
+			HN_P: new Pressure(10, PressureUnits.Bara).pascal,
+			LX_P: new Pressure(10, PressureUnits.Bara).pascal,
+		},
+		{
+			inletP: new Pressure(67.7, PressureUnits.Bara).pascal,
+			inletFlowrate: new Flowrate(150.3, FlowrateUnits.Kgps).kgps,
+			// Need actual reservoir pressures for test case
+			HM_P: new Pressure(10, PressureUnits.Bara).pascal,
+			HN_P: new Pressure(10, PressureUnits.Bara).pascal,
+			LX_P: new Pressure(10, PressureUnits.Bara).pascal,
+		},
+	]
+
+	test.each(gasPhaseTestCases)(
+		'return expected inlet flowrate',
+		async ({ inletP, inletFlowrate, HM_P, HN_P, LX_P }) => {
+			const parser = new Parser()
+			parser.readFile(`${__dirname}/../../inputFiles/hynet/whole.yml`)
+			await parser.build()
+			const keyPoints = parser.keyPoints
+
+			const inlet = keyPoints[0] as Inlet
+
+			const HM = keyPoints[4] as Reservoir
+			const HN = keyPoints[7] as Reservoir
+			const LX = keyPoints[10] as Reservoir
+
+			HM.pressure = HM_P
+			HN.pressure = HN_P
+			LX.pressure = LX_P
+
+			await inlet.applyInletProperties(
+				new Pressure(10, PressureUnits.Bara).pascal, // placeholder
+				new Temperature(300, TemperatureUnits.Kelvin).kelvin,
+				inletFlowrate,
+				true
+			)
+
+			const result = inlet.searchInletPressure()
+
+			expect(result).toEqual(inletP)
+		}
+	)
 })
 
 // describe('lennox', () => {
