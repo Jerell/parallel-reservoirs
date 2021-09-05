@@ -15,37 +15,6 @@ import {
 	FlowrateUnits,
 } from 'physical-quantities';
 
-export type AddInlet = (
-	name: string,
-	physical: IPhysicalElement
-) => SnapshotBuilder;
-
-export type AddSplitter = (
-	name: string,
-	physical: IPhysicalElement
-) => SnapshotBuilder;
-
-export type AddWell = (
-	name: string,
-	physical: IPhysicalElement,
-	realReservoirName: string
-) => SnapshotBuilder;
-
-export type AddReservoir = (
-	name: string,
-	physical: IPhysicalElement,
-	pressure: number
-) => SnapshotBuilder;
-
-export type AddPipeSeg = (pipeDef: IPipeDefinition) => SnapshotBuilder;
-
-export type AddPipeSeries = (
-	n: number,
-	pipeDef: IPipeDefinition,
-	elevations?: number[],
-	lengths?: number[]
-) => SnapshotBuilder;
-
 export default class SnapshotBuilder {
 	elements: IElement[] = [];
 	keyPoints: IElement[] = [];
@@ -55,91 +24,43 @@ export default class SnapshotBuilder {
 	fluid?: Fluid;
 	constructor() {}
 
-	add(type: string, source?: Inlet | PipeSeg | Splitter | Well | Perforation) {
-		const set = (elem, isKey = false) => {
-			if (!this.elements.length) {
-				if (!(elem instanceof Inlet)) {
-					throw new Error(`First element must be inlet`);
-				}
+	private set = (elem, isKey = false) => {
+		if (!this.elements.length) {
+			if (!(elem instanceof Inlet)) {
+				throw new Error(`First element must be inlet`);
 			}
-			this.previousElem = elem;
-			this.elements.push(elem);
-			if (elem instanceof Splitter) {
-				this.splitters.push(elem);
-				this.selectedSplitter = elem;
-			}
-			if (isKey) {
-				this.keyPoints.push(elem);
-			}
-		};
-		switch (type.toLowerCase()) {
-			case 'inlet':
-				return (name: string, physical: IPhysicalElement) => {
-					const elem = new Inlet(name, physical);
+		}
+		this.previousElem = elem;
+		this.elements.push(elem);
+		if (elem instanceof Splitter) {
+			this.splitters.push(elem);
+			this.selectedSplitter = elem;
+		}
+		if (isKey) {
+			this.keyPoints.push(elem);
+		}
+	};
 
-					set(elem, true);
-					return this;
-				};
-			case 'splitter':
-				return (name: string, physical: IPhysicalElement) => {
-					if (!(this.previousElem instanceof PipeSeg)) {
-						throw new Error(`Splitter creation must come after pipeseg`);
-					}
-					const elem = new Splitter(name, physical, this.previousElem);
+	addInlet(name: string, physical: IPhysicalElement): SnapshotBuilder {
+		const elem = new Inlet(name, physical);
+		this.set(elem, true);
+		return this;
+	}
 
-					set(elem, true);
-					return this;
-				};
-			case 'well':
-				return (
-					name: string,
-					physical: IPhysicalElement,
-					realReservoirName: string
-				) => {
-					if (!Object.values(RealReservoir).includes(realReservoirName)) {
-						throw new Error(`Unsupported reservoir: ${realReservoirName}`);
-					}
-					if (!(this.previousElem instanceof PipeSeg)) {
-						throw new Error(`Well creation must come after pipe segment `);
-					}
-					const well = new Well(
-						name,
-						physical,
-						RealReservoir[realReservoirName]
-					);
-					this.previousElem.setDestination(well);
+	addSplitter(name: string, physical: IPhysicalElement): SnapshotBuilder {
+		if (!(this.previousElem instanceof PipeSeg)) {
+			throw new Error(`Splitter creation must come after pipeseg`);
+		}
+		const elem = new Splitter(name, physical, this.previousElem);
 
-					set(well, true);
+		this.set(elem, true);
+		return this;
+	}
 
-					const perforation = new Perforation(
-						name,
-						physical,
-						RealReservoir[realReservoirName]
-					);
+	addPipeSeg(pipeDef: IPipeDefinition, source?: Inlet | PipeSeg | Splitter | Well | Perforation): SnapshotBuilder{
+		const elem = new PipeSeg({ ...pipeDef });
 
-					well.setDestination(perforation);
-
-					set(perforation, true);
-					return this;
-				};
-			case 'reservoir':
-				return (name: string, physical: IPhysicalElement, pressure: number) => {
-					if (!(this.previousElem instanceof Perforation)) {
-						throw new Error(
-							`Reservoir creation must come after well (perforation)`
-						);
-					}
-					const reservoir = new Reservoir(name, physical, new Pressure(pressure, PressureUnits.Pascal))
-					this.previousElem.setDestination(reservoir)
-
-					set(reservoir, true);
-					return this;
-				};
-			case 'pipeseg':
-				return (pipeDef: IPipeDefinition) => {
-					const elem = new PipeSeg({ ...pipeDef });
-
-					set(elem);
+					this.set(elem);
 
 					if (source) {
 						if (source instanceof Splitter) {
@@ -151,35 +72,82 @@ export default class SnapshotBuilder {
 							source.setDestination(elem);
 						}
 					}
-
 					return this;
-				};
-			case 'pipeseries':
-				return (
-					n: number,
-					pipeDef: IPipeDefinition,
-					elevations: number[] = [],
-					lengths: number[] = []
-				) => {
-					for (let i = 0; i < n; i++) {
-						if (elevations.length) {
-							pipeDef.elevation = elevations[i % elevations.length];
-						}
-						if (lengths.length) {
-							pipeDef.length = lengths[i % lengths.length];
-						}
-						(this.chainAdd('pipeseg') as AddPipeSeg)(pipeDef);
-					}
-					return this;
-				};
-			default:
-				throw new Error(`${type} not supported`);
-		}
 	}
 
-	chainAdd(type: string, from?: Splitter | PipeSeg) {
+	addWell(
+		name: string,
+		physical: IPhysicalElement,
+		realReservoirName: string
+	): SnapshotBuilder
+	{
+		if (!Object.values(RealReservoir).includes(realReservoirName)) {
+			throw new Error(`Unsupported reservoir: ${realReservoirName}`);
+		}
+		if (!(this.previousElem instanceof PipeSeg)) {
+			throw new Error(`Well creation must come after pipe segment `);
+		}
+		const well = new Well(
+			name,
+			physical,
+			RealReservoir[realReservoirName]
+		);
+		this.previousElem.setDestination(well);
+
+		this.set(well, true);
+
+		const perforation = new Perforation(
+			name,
+			physical,
+			RealReservoir[realReservoirName]
+		);
+
+		well.setDestination(perforation);
+
+		this.set(perforation, true);
+		return this;
+	}
+
+	addReservoir(
+		name: string,
+		physical: IPhysicalElement,
+		pressure: number
+	): SnapshotBuilder{
+		if (!(this.previousElem instanceof Perforation)) {
+			throw new Error(
+				`Reservoir creation must come after well (perforation)`
+			);
+		}
+		const reservoir = new Reservoir(name, physical, new Pressure(pressure, PressureUnits.Pascal))
+		this.previousElem.setDestination(reservoir)
+
+		this.set(reservoir, true);
+		return this;
+	}
+
+	addPipeSeries(
+		n: number,
+		pipeDef: IPipeDefinition,
+		elevations?: number[],
+		lengths?: number[]
+	): SnapshotBuilder{
+		elevations = elevations || [];
+		lengths = lengths || [];
+		for (let i = 0; i < n; i++) {
+			if (elevations.length) {
+				pipeDef.elevation = elevations[i % elevations.length];
+			}
+			if (lengths.length) {
+				pipeDef.length = lengths[i % lengths.length];
+			}
+			this.chainAddPipeSeg(pipeDef);
+		}
+		return this;
+	}
+
+	chainAddPipeSeg(pipeDef: IPipeDefinition, from?: Splitter | PipeSeg) {
 		if (!this.previousElem || this.previousElem instanceof Reservoir) {
-			return this.add(type);
+			return this.addPipeSeg(pipeDef);
 		}
 		if (
 			this.previousElem instanceof Inlet ||
@@ -189,9 +157,9 @@ export default class SnapshotBuilder {
 			this.previousElem instanceof Perforation
 		) {
 			if (from) {
-				return this.add(type, from);
+				return this.addPipeSeg(pipeDef, from);
 			}
-			return this.add(type, this.previousElem);
+			return this.addPipeSeg(pipeDef, this.previousElem);
 		} else {
 			throw new Error(`Previous elem cannot have a destination`);
 		}
@@ -222,11 +190,11 @@ export default class SnapshotBuilder {
 		return this;
 	}
 
-	branch() {
+	branch(pipeDef: IPipeDefinition): SnapshotBuilder {
 		if (!this.selectedSplitter) {
 			throw new Error(`No splitter selected to branch from`);
 		}
 		this.previousElem = this.selectedSplitter;
-		return this.chainAdd('pipeseg', this.selectedSplitter);
+		return this.chainAddPipeSeg(pipeDef, this.selectedSplitter);
 	}
 }

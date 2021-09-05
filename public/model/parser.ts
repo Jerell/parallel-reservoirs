@@ -2,14 +2,7 @@ import fs from 'fs';
 import YAML from 'yaml';
 import IElement, { IPhysicalElement } from './element';
 import { IPipeDefinition } from './pipeSeg';
-import SnapshotBuilder, {
-	AddInlet,
-	AddSplitter,
-	AddWell,
-	AddReservoir,
-	AddPipeSeg,
-	AddPipeSeries,
-} from './snapshotBuilder';
+import SnapshotBuilder from './snapshotBuilder';
 import Fluid from './fluid';
 
 const OLGA = {
@@ -275,7 +268,7 @@ export default class Parser {
 				`No data - call this.readFile(fileName) before this.build()`
 			);
 		}
-		const builder = new SnapshotBuilder();
+		var builder = new SnapshotBuilder();
 
 		for (const instruction of this.data.instructions) {
 			for (let [type, parameters] of Object.entries(instruction)) {
@@ -288,9 +281,8 @@ export default class Parser {
 							builder.selectSplitter(id);
 							break;
 						case 'branch':
-							const adder = builder.branch();
 							const pipeDef = parameters as IPipeDefinition;
-							(adder as AddPipeSeg)(pipeDef);
+							builder = builder.branch(pipeDef);
 							break;
 						case 'setfluid':
 							const { pressure, temperature, flowrate } = parameters as {
@@ -304,8 +296,6 @@ export default class Parser {
 					continue;
 				}
 
-				const adder = builder.chainAdd(type);
-
 				switch (type) {
 					case 'inlet':
 						{
@@ -313,13 +303,13 @@ export default class Parser {
 								name: string;
 								physical: IPhysicalElement;
 							};
-							(adder as AddInlet)(name, physical);
+							builder = builder.addInlet(name, physical);
 						}
 						break;
 					case 'pipeseg':
 						{
 							const pipeDef = parameters as IPipeDefinition;
-							(adder as AddPipeSeg)(pipeDef);
+							builder = builder.chainAddPipeSeg(pipeDef);
 						}
 						break;
 					case 'splitter':
@@ -328,7 +318,7 @@ export default class Parser {
 								name: string;
 								physical: IPhysicalElement;
 							};
-							(adder as AddSplitter)(name, physical);
+							builder = builder.addSplitter(name, physical);
 						}
 						break;
 					case 'well':
@@ -338,7 +328,7 @@ export default class Parser {
 								physical: IPhysicalElement;
 								realReservoirName: 'Hamilton' | 'Hamilton North' | 'Lennox';
 							};
-							(adder as AddWell)(name, physical, realReservoirName);
+							builder = builder.addWell(name, physical, realReservoirName);
 						}
 						break;
 					case 'reservoir':
@@ -348,7 +338,7 @@ export default class Parser {
 								physical: IPhysicalElement;
 								pressure: number;
 							};
-							(adder as AddReservoir)(name, physical, pressure);
+							builder = builder.addReservoir(name, physical, pressure);
 						}
 						break;
 					case 'pipeseries':
@@ -359,8 +349,7 @@ export default class Parser {
 								elevations: number[];
 								lengths: number[];
 							};
-
-							(adder as AddPipeSeries)(n, pipeDef, elevations, lengths);
+							builder = builder.addPipeSeries(n, pipeDef, elevations, lengths);
 						}
 						break;
 					default:
