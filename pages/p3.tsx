@@ -5,7 +5,7 @@ const P3 = () => (
 		<section className='mt-20'>
 			<h2 className='text-xl font-semibold'>P3</h2>
 
-			<p className='mt-2 text-gray-600 dark:text-gray-400'>
+			<p className='mt-2 text-gray-600'>
 				This web app template had secondary pages. I imagine we'll have
 				something to put here eventually.
 			</p>
