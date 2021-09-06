@@ -1,11 +1,4 @@
-import SnapshotBuilder, {
-	AddInlet,
-	AddSplitter,
-	AddWell,
-	AddReservoir,
-	AddPipeSeg,
-	AddPipeSeries,
-} from '../../../snapshotBuilder';
+import SnapshotBuilder from '../../../snapshotBuilder';
 import Inlet from '../../../inlet';
 import PipeSeg from '../../../pipeSeg';
 import Well from '../../../well';
@@ -17,7 +10,7 @@ describe('add', () => {
 	it('should create an inlet', async () => {
 		const builder = new SnapshotBuilder();
 
-		(builder.add('Inlet') as AddInlet)('start', { elevation: 0 });
+		builder.addInlet('start', { elevation: 0 });
 
 		expect(builder.elements[0]).toBeInstanceOf(Inlet);
 	});
@@ -26,27 +19,20 @@ describe('add', () => {
 		const builder = new SnapshotBuilder();
 
 		(
-			(builder.add('Inlet') as AddInlet)('start', { elevation: 0 }).add(
-				'PipeSeg'
-			) as AddPipeSeg
-		)({
+			builder.addInlet('start', { elevation: 0 }).addPipeSeg({
 			name: 'p',
 			elevation: 0,
 			length: 200,
 			diameters: [1, 2, 3, 4],
-		});
+		}));
 
 		expect(builder.elements[1]).toBeInstanceOf(PipeSeg);
 	});
 
 	it('should create a series of pipesegs', async () => {
-		const builder = new SnapshotBuilder();
-
-		(
-			(builder.add('Inlet') as AddInlet)('start', { elevation: 0 }).chainAdd(
-				'pipeseries'
-			) as AddPipeSeries
-		)(3, {
+		const builder = new SnapshotBuilder()
+		.addInlet('start', { elevation: 0 })
+		.addPipeSeries(3, {
 			name: 'p',
 			elevation: 0,
 			length: 200,
@@ -60,13 +46,9 @@ describe('add', () => {
 	});
 
 	it('should create a series of pipesegs with different elevations', async () => {
-		const builder = new SnapshotBuilder();
-
-		(
-			(builder.add('Inlet') as AddInlet)('start', { elevation: 0 }).chainAdd(
-				'pipeseries'
-			) as AddPipeSeries
-		)(
+		const builder = new SnapshotBuilder()
+			.addInlet('start', { elevation: 0 })
+			.addPipeSeries(
 			10,
 			{
 				name: 'p',
@@ -82,13 +64,9 @@ describe('add', () => {
 	});
 
 	it('should create a series of pipesegs with different lengths', async () => {
-		const builder = new SnapshotBuilder();
-
-		(
-			(builder.add('Inlet') as AddInlet)('start', { elevation: 0 }).chainAdd(
-				'pipeseries'
-			) as AddPipeSeries
-		)(
+		const builder = new SnapshotBuilder()
+		.addInlet('start', { elevation: 0 })
+		.addPipeSeries(
 			10,
 			{
 				name: 'p',
@@ -105,22 +83,15 @@ describe('add', () => {
 	});
 
 	it('should create a well', async () => {
-		const builder = new SnapshotBuilder();
-
-		(
-			(builder.add('Inlet') as AddInlet)('start', { elevation: 0 }).add(
-				'PipeSeg'
-			) as AddPipeSeg
-		)({
+		const builder = new SnapshotBuilder()
+		.addInlet('start', { elevation: 0 })
+		.addPipeSeg({
 			name: 'p',
 			elevation: 0,
 			length: 200,
 			diameters: [1, 2, 3, 4],
-		});
-
-		const pipeseg = builder.previousElem as PipeSeg;
-
-		(builder.add('well') as AddWell)('HM-All', { elevation: 0 }, 'Hamilton');
+		})
+		.addWell('HM-All', { elevation: 0 }, 'Hamilton');
 
 		expect(builder.elements[2]).toBeInstanceOf(Well);
 		expect(builder.previousElem).toBeInstanceOf(Perforation);
@@ -128,40 +99,31 @@ describe('add', () => {
 	});
 
 	it('should create a splitter', async () => {
-		const builder = new SnapshotBuilder();
-
-		(
-			(builder.add('Inlet') as AddInlet)('start', { elevation: 0 }).add(
-				'PipeSeg'
-			) as AddPipeSeg
-		)({
-			name: 'p',
-			elevation: 0,
-			length: 200,
-			diameters: [1, 2, 3, 4],
-		});
-		(builder.add('splitter') as AddSplitter)('split1', { elevation: 0 });
+		const builder = new SnapshotBuilder()
+		.addInlet('start', { elevation: 0 })
+			.addPipeSeg
+				({
+					name: 'p',
+					elevation: 0,
+					length: 200,
+					diameters: [1, 2, 3, 4],
+					})
+			.addSplitter('split1', { elevation: 0 });
 
 		expect(builder.elements[2]).toBeInstanceOf(Splitter);
 	});
 
 	it('should create a reservoir', async () => {
-		const builder = new SnapshotBuilder();
-
-		(
-			(
-				(
-					(builder.add('Inlet') as AddInlet)('start', { elevation: 0 }).add(
-						'PipeSeg'
-					) as AddPipeSeg
-				)({
-					name: 'p',
-					elevation: 0,
-					length: 200,
-					diameters: [1, 2, 3, 4],
-				}).add('well') as AddWell
-			)('HM-All', { elevation: 0 }, 'Hamilton').add('reservoir') as AddReservoir
-		)('Hamilton', { elevation: 0 }, 4);
+		const builder = new SnapshotBuilder()
+					.addInlet('start', { elevation: 0 })
+					.addPipeSeg({
+							name: 'p',
+							elevation: 0,
+							length: 200,
+							diameters: [1, 2, 3, 4],
+						})
+					.addWell('HM-All', { elevation: 0 }, 'Hamilton')
+					.addReservoir('Hamilton', { elevation: 0 }, 4);
 
 		expect(builder.previousElem).toBeInstanceOf(Reservoir);
 		expect(builder.previousElem.source.name).toBe('HM-All');
@@ -170,13 +132,10 @@ describe('add', () => {
 
 describe('chain', () => {
 	it('should connect a pipe to an inlet', async () => {
-		const builder = new SnapshotBuilder();
-
-		(
-			(builder.add('Inlet') as AddInlet)('start', { elevation: 0 }).chainAdd(
-				'PipeSeg'
-			) as AddPipeSeg
-		)({
+		const builder = new SnapshotBuilder()
+		.addInlet('start', { elevation: 0 })
+		.chainAddPipeSeg
+		({
 			name: 'p',
 			elevation: 0,
 			length: 200,
@@ -191,28 +150,24 @@ describe('chain', () => {
 });
 
 describe('navigation - selectSplitter', () => {
-	const builder = new SnapshotBuilder();
-	(
-		(
-			(
-				(
-					(builder.add('Inlet') as AddInlet)('start', {
+	const builder = new SnapshotBuilder()
+		.addInlet('start', {
 						elevation: 0,
-					}).chainAdd('PipeSeg') as AddPipeSeg
-				)({
+					})
+		.chainAddPipeSeg({
 					name: 'inletpipe',
 					elevation: 0,
 					length: 200,
 					diameters: [1, 2, 3, 4],
-				}).chainAdd('splitter') as AddSplitter
-			)('split1', { elevation: 0 }).chainAdd('pipeseg') as AddPipeSeg
-		)({
+				})
+		.addSplitter('split1', { elevation: 0 })
+		.chainAddPipeSeg({
 			name: 's1-s2',
 			elevation: 0,
 			length: 200,
 			diameters: [1, 2, 3, 4],
-		}).chainAdd('splitter') as AddSplitter
-	)('split2', { elevation: 0 });
+		})
+		.addSplitter('split2', { elevation: 0 });
 
 	test('setup', () => {
 		expect(builder.previousElem).toBeInstanceOf(Splitter);
@@ -235,19 +190,19 @@ describe('navigation - selectSplitter', () => {
 	});
 
 	test('branch', () => {
-		(builder.selectSplitter(0).branch() as AddPipeSeg)({
+		builder.selectSplitter(0).branch({
 			name: 'froms1',
 			elevation: 0,
 			length: 200,
 			diameters: [1, 2, 3, 4],
 		});
 		expect(builder.previousElem.source.name).toBe('split1');
-		(builder.selectSplitter('split2').branch() as AddPipeSeg)({
+		builder.selectSplitter('split2').branch(({
 			name: 'froms2',
 			elevation: 0,
 			length: 200,
 			diameters: [1, 2, 3, 4],
-		});
+		}));
 		expect(builder.previousElem.source.name).toBe('split2');
 	});
 });
