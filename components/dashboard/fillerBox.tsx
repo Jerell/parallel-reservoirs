@@ -4,6 +4,12 @@ const FillerBox = ({
 	height = 96,
 	opacity = 10,
 	additionalClasses = '',
+}: {
+	children?: any;
+	index?: number;
+	height?: number | string;
+	opacity?: number;
+	additionalClasses?: string;
 }) => {
 	return (
 		<div

@@ -31,13 +31,33 @@ const Map = () => {
 		<DashSection heading='network map'>
 			<div className='grid grid-cols-8'>
 				<div className='col-span-full flex flex-row'>
-					<div className='flex flex-row justify-center absolute left-0 right-0'>
-						<MapSvg width={700} height={400} />
+					<div className='flex flex-row justify-center absolute left-0 right-0 pt-4'>
+						<MapSvg />
 					</div>
+
 					{Array(8)
 						.fill(1)
 						.map((n, i) => (
-							<FillerBox key={i} index={i}>
+							<FillerBox
+								key={i}
+								index={i}
+								height={64}
+								additionalClasses={'sm:h-72 md:h-96'}
+							>
+								{i}
+							</FillerBox>
+						))}
+				</div>
+				<div className='col-span-full flex-row hidden lg:flex'>
+					{Array(8)
+						.fill(1)
+						.map((n, i) => (
+							<FillerBox
+								key={i}
+								index={i}
+								height={24}
+								additionalClasses={'xl:h-72 2xl:h-96'}
+							>
 								{i}
 							</FillerBox>
 						))}
