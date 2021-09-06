@@ -1,14 +1,14 @@
 import DashSection from '../dashSection';
 
 const data = [
-	{ 'Pressure (bar)': 35.7, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 1 }, // Compressor
-	{ 'Pressure (bar)': 33.4, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 1 }, // Douglas Manifold
-	{ 'Pressure (bar)': 13, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 1 }, // Hamilton Wellhead
-	{ 'Pressure (bar)': 39, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 1 }, // Hamilton
-	{ 'Pressure (bar)': 1, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 1 }, // Hamilton North Wellhead
-	{ 'Pressure (bar)': 1, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 1 }, // Hamilton North
-	{ 'Pressure (bar)': 1, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 1 }, // Lennox Wellhead
-	{ 'Pressure (bar)': 1, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 1 }, // Lennox
+	{ 'Pressure (bar)': 35.7, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 1.0 }, // Compressor
+	{ 'Pressure (bar)': 33.4, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 1.0 }, // Douglas Manifold
+	{ 'Pressure (bar)': 17.2, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 0.6 }, // Hamilton Wellhead
+	{ 'Pressure (bar)': 39.0, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 0.6 }, // Hamilton
+	{ 'Pressure (bar)': 25.3, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 0.2 }, // Hamilton North Wellhead
+	{ 'Pressure (bar)': 28.9, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 0.2 }, // Hamilton North
+	{ 'Pressure (bar)': 32.0, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 0.2 }, // Lennox Wellhead
+	{ 'Pressure (bar)': 36.8, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 0.2 }, // Lennox
 ];
 
 const variables = ['Pressure (bar)', 'Temperature (°C)', 'Flowrate (MTPA)'];
