@@ -16,7 +16,8 @@
       <tspan x="119.251" y="22.888" text-anchor="end">Hamilton North</tspan>
       <tspan x="119.251" y="25.748" text-anchor="end">Wellhead</tspan>
    </text>
-   <path class="path" d="M36.38 11.277h83.344c1.33-.006 2.716-.049 4.03 1.283l7.876 7.977c1.376 1.282 2.646 2.646 2.646 3.97v31.75m-19.844-44.322v1.988" fill="none" stroke="#f0386b" stroke-width="1.323"></path>
+   <path class="path" d="m 36.38,11.277 h 83.344 c 1.33,-0.006 2.716,-0.049 4.03,1.283 l 7.876,7.977 c 1.376,1.282 2.646,2.646 2.646,3.97 v 31.75" fill="none" stroke="#f0386b" stroke-width="1.323"></path>
+   <path d="M 114.432,13.923 V 11.935" fill="none" stroke="#f0386b" stroke-width="1.323"></path>
    <g transform="translate(-2.632 -5.127)">
       <circle cx="136.981" cy="62.216" fill="#fff" stroke="#000" stroke-width="0.688" stroke-linecap="round" r="2.293"></circle>
       <text x="137.049" y="68.781" font-weight="700" font-size="3.528" stroke-width="0.265">
