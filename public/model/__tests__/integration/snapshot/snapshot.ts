@@ -132,7 +132,11 @@ describe('hamilton', () => {
 
 			const { pressure, pressureSolution } = await inlet.searchInletPressure();
 
-			stream.write(`${q} kg/s | ${pressure} Pa\n`);
+			stream.write(
+				`${q} kg/s | ${
+					new Pressure(pressure, PressureUnits.Pascal).bara
+				} Bara\n`
+			);
 		};
 
 		for (let i = 1; i < 31; i++) {
@@ -165,7 +169,11 @@ describe('hamilton north', () => {
 
 			const { pressure, pressureSolution } = await inlet.searchInletPressure();
 
-			stream.write(`${q} kg/s | ${pressure} Pa\n`);
+			stream.write(
+				`${q} kg/s | ${
+					new Pressure(pressure, PressureUnits.Pascal).bara
+				} Bara\n`
+			);
 		};
 
 		for (let i = 1; i < 31; i++) {
@@ -198,7 +206,11 @@ describe('lennox', () => {
 
 			const { pressure, pressureSolution } = await inlet.searchInletPressure();
 
-			stream.write(`${q} kg/s | ${pressure} Pa\n`);
+			stream.write(
+				`${q} kg/s | ${
+					new Pressure(pressure, PressureUnits.Pascal).bara
+				} Bara\n`
+			);
 		};
 
 		for (let i = 1; i < 31; i++) {

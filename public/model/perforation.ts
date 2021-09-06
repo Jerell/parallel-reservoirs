@@ -84,9 +84,11 @@ export default class Perforation extends Analogue {
 			throw new Error(`${this.type} has no fluid`);
 		}
 
-		const x = this.fluid.flowrate.kgps / this.modelFunction.split
+		const x = this.fluid.flowrate.kgps / this.modelFunction.split;
 
-		stream.write(`${this.name}: ${this.fluid.pressure} Pa | ${x} kg/s\n`);
+		stream.write(
+			`${this.name}: ${this.fluid.pressure.pascal} Pa | ${x} kg/s\n`
+		);
 		return x;
 	}
 

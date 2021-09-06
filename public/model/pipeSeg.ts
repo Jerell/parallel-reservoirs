@@ -93,10 +93,10 @@ export default class PipeSeg extends Transport {
 		const P1 = this.fluid.pressure;
 
 		// Friction factor
-		const u = w.kgps / (A * ρ)
-		const μ = this.fluid.viscosity
-		const Re = (ρ * u * D) / μ
-		const ε = 4.5e-5
+		const u = w.kgps / (A * ρ);
+		const μ = this.fluid.viscosity;
+		const Re = (ρ * u * D) / μ;
+		const ε = 4.5e-5;
 		const f =
 			0.25 / Math.log10((ε * 1000) / (3.7 * D * 1000) + 5.74 / Re ** 0.9) ** 2;
 
@@ -107,7 +107,7 @@ export default class PipeSeg extends Transport {
 			(A * Math.sqrt(D)) ** -1 *
 				Math.sqrt(P1.pascal) *
 				Math.sqrt(A ** 2 * D * P1.pascal - f * L * v * w.kgps ** 2) -
-			elevationLoss
+			elevationLoss;
 
 		endP = isNaN(endP) ? 0 : endP;
 
@@ -127,17 +127,17 @@ export default class PipeSeg extends Transport {
 		const lowPressureLimit = new Pressure(1000, PressureUnits.Pascal).pascal;
 
 		stream.write(
-			`${this.physical.name}, ${p} Pa, ${this.fluid.flowrate} kg/s\n`
+			`${this.physical.name}, ${p.bara} Bara, ${this.fluid.flowrate.kgps} kg/s\n`
 		);
 		stream2.write(`${this.physical.length}, ${p}\n`);
 
-		if (p.pascal < lowPressureLimit) return PressureSolution.Low
+		if (p.pascal < lowPressureLimit) return PressureSolution.Low;
 
 		const endFluid = await defaultFluidConstructor(
 			p,
 			fluid.temperature,
 			fluid.flowrate
-		)
+		);
 
 		return await this.destination.process(endFluid);
 	}

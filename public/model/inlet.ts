@@ -18,8 +18,8 @@ const stream = fs.createWriteStream(`${__dirname}/inletP.txt`, {
 });
 
 export default class Inlet extends Transport {
-	fluid: Fluid | null
-	destination: IElement | null
+	fluid: Fluid | null;
+	destination: IElement | null;
 	temperature: Temperature = new Temperature(10, TemperatureUnits.Kelvin);
 
 	constructor(name: string, physical: IPhysicalElement) {
@@ -73,9 +73,10 @@ export default class Inlet extends Transport {
 
 			mid = (low + high) / 2;
 
-			// console.log({ guesses, inletP: mid, flowrate: this.fluid.flowrate })
 			stream.write(
-				`${this.type} - ${this.name} GUESS ${guesses}:\n${mid} Pa\n${this.fluid.flowrate} kg/s\n\n`
+				`${this.type} - ${this.name} GUESS ${guesses}:\n${
+					new Pressure(mid, PressureUnits.Pascal).bara
+				} Bara\n${this.fluid.flowrate.kgps} kg/s\n\n`
 			);
 
 			pressureSolution = (await this.applyInletProperties(

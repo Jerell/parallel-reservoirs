@@ -1,5 +1,16 @@
 import DashSection from '../dashSection';
 
+const data = [
+	{ 'Pressure (bar)': 35.7, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 1 }, // Compressor
+	{ 'Pressure (bar)': 33.4, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 1 }, // Douglas Manifold
+	{ 'Pressure (bar)': 13, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 1 }, // Hamilton Wellhead
+	{ 'Pressure (bar)': 39, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 1 }, // Hamilton
+	{ 'Pressure (bar)': 1, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 1 }, // Hamilton North Wellhead
+	{ 'Pressure (bar)': 1, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 1 }, // Hamilton North
+	{ 'Pressure (bar)': 1, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 1 }, // Lennox Wellhead
+	{ 'Pressure (bar)': 1, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 1 }, // Lennox
+];
+
 const variables = ['Pressure (bar)', 'Temperature (°C)', 'Flowrate (MTPA)'];
 
 const zeros = [0, 0, 0, 0, 0, 0, 0, 0];
@@ -24,7 +35,7 @@ const Cell = ({ children, index = 0, hoverColumn, setHoverColumn }) => {
 
 const Row = ({ variable, hoverColumn, setHoverColumn }) => {
 	return (
-		<div className='relative flex flex-row'>
+		<div className='relative grid grid-cols-8'>
 			<h6 className='absolute top-2 left-2 text-sm'>{variable}</h6>
 			{zeros.map((z, i) => (
 				<Cell
@@ -33,7 +44,7 @@ const Row = ({ variable, hoverColumn, setHoverColumn }) => {
 					hoverColumn={hoverColumn}
 					setHoverColumn={setHoverColumn}
 				>
-					0.00
+					{data[i][variable]}
 				</Cell>
 			))}
 		</div>
