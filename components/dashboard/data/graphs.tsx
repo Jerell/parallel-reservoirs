@@ -4,7 +4,7 @@ import FillerBox from '../fillerBox';
 
 const variables = ['Pressure (bar)', 'Temperature (°C)', 'Flowrate (MTPA)'];
 
-const GraphRow = ({ heading = 'graphs' }) => {
+const GraphRow = ({ heading = 'graphs', hoverColumn, setHoverColumn }) => {
 	return (
 		<>
 			<Heading level={4}>{heading}</Heading>
@@ -17,6 +17,8 @@ const GraphRow = ({ heading = 'graphs' }) => {
 							index={i}
 							height={40}
 							additionalClasses='border-r-2 border-dashed'
+							isHovered={i === hoverColumn}
+							setHoverColumn={setHoverColumn}
 						>
 							{i}
 						</FillerBox>
@@ -26,11 +28,16 @@ const GraphRow = ({ heading = 'graphs' }) => {
 	);
 };
 
-const Graphs = () => {
+const Graphs = ({ hoverColumn, setHoverColumn }) => {
 	return (
 		<DashSection heading='graphs'>
 			{variables.map((v, i) => (
-				<GraphRow heading={v} key={i} />
+				<GraphRow
+					heading={v}
+					key={i}
+					hoverColumn={hoverColumn}
+					setHoverColumn={setHoverColumn}
+				/>
 			))}
 		</DashSection>
 	);

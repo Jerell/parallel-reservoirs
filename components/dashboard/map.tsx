@@ -3,10 +3,12 @@ import Heading from '@/components/heading';
 import FillerBox from '@/components/dashboard/fillerBox';
 import DashSection from './dashSection';
 
-const LocationLabel = ({ children, index = 0 }) => {
+const LocationLabel = ({ children, index = 0, isHovered }) => {
 	return (
 		<div
-			className={`${index % 2 ? 'bg-gray-400' : 'bg-gray-300'} bg-opacity-20`}
+			className={`${
+				index % 2 || isHovered ? 'bg-gray-400' : 'bg-gray-300'
+			} bg-opacity-${isHovered ? 30 : 20}`}
 		>
 			<Heading level={3} center>
 				{children}
@@ -15,7 +17,7 @@ const LocationLabel = ({ children, index = 0 }) => {
 	);
 };
 
-const Map = () => {
+const Map = ({ hoverColumn, setHoverColumn }) => {
 	const locations = [
 		'Compressor',
 		'Douglas Manifold',
@@ -42,7 +44,9 @@ const Map = () => {
 								key={i}
 								index={i}
 								height={64}
-								additionalClasses={'sm:h-72 md:h-96'}
+								additionalClasses={`sm:h-72 md:h-96`}
+								isHovered={i === hoverColumn}
+								setHoverColumn={setHoverColumn}
 							>
 								{i}
 							</FillerBox>
@@ -56,14 +60,16 @@ const Map = () => {
 								key={i}
 								index={i}
 								height={24}
-								additionalClasses={'xl:h-72 2xl:h-96'}
+								additionalClasses={`xl:h-72 2xl:h-96`}
+								isHovered={i === hoverColumn}
+								setHoverColumn={setHoverColumn}
 							>
 								{i}
 							</FillerBox>
 						))}
 				</div>
 				{locations.map((loc, i) => (
-					<LocationLabel key={i} index={i}>
+					<LocationLabel key={i} index={i} isHovered={i === hoverColumn}>
 						{loc}
 					</LocationLabel>
 				))}
