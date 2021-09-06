@@ -1,76 +1,56 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<!-- Created with Inkscape (http://www.inkscape.org/) -->
-<svg viewBox="0 0 193.2072 67.263534" version="1.1" id="svg5" inkscape:version="1.1 (c68e22c387, 2021-05-23)" sodipodi:docname="map.svg" xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape" xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd" xmlns="http://www.w3.org/2000/svg" xmlns:svg="http://www.w3.org/2000/svg">
-  <sodipodi:namedview id="namedview7" pagecolor="#ffffff" bordercolor="#666666" borderopacity="1.0" inkscape:pageshadow="2" inkscape:pageopacity="0.0" inkscape:pagecheckerboard="0" inkscape:document-units="mm" showgrid="true" inkscape:zoom="1.8051116" inkscape:cx="335.43632" inkscape:cy="101.65576" inkscape:window-width="2160" inkscape:window-height="1377" inkscape:window-x="-8" inkscape:window-y="-8" inkscape:window-maximized="1" inkscape:current-layer="layer1">
-    <inkscape:grid type="xygrid" id="grid2510" originx="-4.6302091" originy="-3.2751832" />
-  </sodipodi:namedview>
-  <defs id="defs2" />
-  <g inkscape:label="Layer 1" inkscape:groupmode="layer" id="layer1" transform="translate(-4.6302071,-3.2751832)">
-    <g id="g55818" transform="translate(-16.668754,-1.3612746)">
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:3.52778px;line-height:1;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583" x="89.546188" y="30.816216" id="text20986-9-4-8">
-        <tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';text-align:end;text-anchor:end;stroke-width:0.264583" x="89.546188" y="30.816216" id="tspan22923-5-1">Hamilton</tspan>
-        <tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';text-align:end;text-anchor:end;stroke-width:0.264583" x="89.546188" y="34.391094" id="tspan31796-9">Wellhead</tspan>
+<svg viewBox="0 0 193.207 67.264" xmlns="http://www.w3.org/2000/svg" font-family="Raleway">
+   <text x="89.546" y="30.816" font-weight="700" font-size="3.528" stroke-width="0.265" transform="translate(-21.299 -4.636)">
+      <tspan x="89.546" y="30.816" text-anchor="end">Hamilton</tspan>
+      <tspan x="89.546" y="34.391" text-anchor="end">Wellhead</tspan>
+   </text>
+   <g fill="none" stroke="#7d80da" stroke-width="1.323">
+      <path class="path reverse-anim" d="M84.8 56.296l.006-14.493c0-1.336.025-2.673-1.33-4.028L58.87 13.925C57.547 12.6 56.224 12.6 54.9 12.6H36.38M66.013 21.636l-.793.793h0"></path>
+   </g>
+   <g transform="translate(-11.274 -4.636)">
+      <circle cx="96.112" cy="62.215" fill="#fff" stroke="#000" stroke-width="0.688" stroke-linecap="round" r="2.293"></circle>
+      <text style="line-height:1.25" x="96.058" y="68.781" font-weight="700" font-size="3.528" stroke-width="0.265">
+         <tspan x="96.058" y="68.781" text-anchor="middle">Hamilton</tspan>
       </text>
-      <g id="g55537">
-        <path style="fill:none;stroke:#7d80da;stroke-width:1.32292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="m 106.62754,60.892524 0.007,-14.493044 c 6.4e-4,-1.336474 0.0247,-2.672672 -1.33037,-4.027789 L 80.697917,18.520834 c -1.322916,-1.322916 -2.645832,-1.322918 -3.96875,-1.322917 h -18.52083" id="path7511-9" sodipodi:nodetypes="cscccc" />
-        <path style="fill:none;stroke:#7d80da;stroke-width:1.32292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="m 88.370829,25.702941 -1.32291,1.322917 v 0" id="path31604" />
-      </g>
-      <g id="g55514" transform="translate(10.545654)">
-        <ellipse style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.687506;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" id="path4404-8-3" cx="96.112221" cy="62.215458" rx="2.2927473" ry="2.292747" />
-        <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583" x="96.058273" y="68.780769" id="text20986-9-4">
-          <tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';text-align:center;text-anchor:middle;stroke-width:0.264583" x="96.058273" y="68.780769" id="tspan31796">Hamilton</tspan>
-        </text>
-      </g>
-    </g>
-    <g id="g55831" transform="translate(3.9687465,-1.8520831)">
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:2.82222px;line-height:1;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264582" x="119.25071" y="22.887611" id="text20986-9">
-        <tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';text-align:end;text-anchor:end;stroke-width:0.264582" x="119.25071" y="22.887611" id="tspan35942">Hamilton North</tspan>
-        <tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:2.82222px;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';text-align:end;text-anchor:end;stroke-width:0.264582" x="119.25071" y="25.747511" id="tspan38922">Wellhead</tspan>
+   </g>
+   <text x="119.251" y="22.888" font-weight="700" font-size="2.822" stroke-width="0.265" transform="translate(-.661 -5.127)">
+      <tspan x="119.251" y="22.888" text-anchor="end">Hamilton North</tspan>
+      <tspan x="119.251" y="25.748" text-anchor="end">Wellhead</tspan>
+   </text>
+   <path class="path" d="M36.38 11.277h83.344c1.33-.006 2.716-.049 4.03 1.283l7.876 7.977c1.376 1.282 2.646 2.646 2.646 3.97v31.75m-19.844-44.322v1.988" fill="none" stroke="#f0386b" stroke-width="1.323"></path>
+   <g transform="translate(-2.632 -5.127)">
+      <circle cx="136.981" cy="62.216" fill="#fff" stroke="#000" stroke-width="0.688" stroke-linecap="round" r="2.293"></circle>
+      <text x="137.049" y="68.781" font-weight="700" font-size="3.528" stroke-width="0.265">
+         <tspan x="137.049" y="68.781" text-anchor="middle">Hamilton</tspan>
+         <tspan x="137.049" y="72.356" text-anchor="middle">North</tspan>
       </text>
-      <g id="g55533">
-        <path style="fill:none;stroke:#f0386b;stroke-width:1.32292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="m 37.04167,16.404166 h 83.34375 c 1.3299,-0.0057 2.71595,-0.04851 4.03035,1.282853 l 7.8759,7.977564 c 1.37546,1.282014 2.64584,2.645834 2.64584,3.96875 l 0,31.75" id="path13848" sodipodi:nodetypes="ccsccc" />
-        <path style="fill:none;stroke:#f0386b;stroke-width:1.32292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="M 115.09375,16.404166 V 19.05" id="path40202" sodipodi:nodetypes="cc" />
-      </g>
-      <g id="g55520" transform="translate(-1.9707149)">
-        <ellipse style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.687506;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" id="path4404-8-1" cx="136.98135" cy="62.216068" rx="2.293" ry="2.292747" />
-        <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:3.52778px;line-height:1;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583" x="137.04866" y="68.78064" id="text20986-9-0">
-          <tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';text-align:center;text-anchor:middle;stroke-width:0.264583" x="137.04866" y="68.78064" id="tspan38922-5">Hamilton</tspan>
-          <tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';text-align:center;text-anchor:middle;stroke-width:0.264583" x="137.04866" y="72.355522" id="tspan40636">North</tspan>
-        </text>
-      </g>
-    </g>
-    <g id="g55843" transform="translate(25.13542,-1.35)">
-      <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:3.52778px;line-height:1;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583" x="142.59752" y="10.698115" id="text20986-9-3">
-        <tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';text-align:end;text-anchor:end;stroke-width:0.264583" x="142.59752" y="10.698115" id="tspan35942-9">Lennox</tspan>
-        <tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';text-align:end;text-anchor:end;stroke-width:0.264583" x="142.59752" y="14.272995" id="tspan38922-8">Wellhead</tspan>
+   </g>
+   <text x="142.598" y="10.698" font-weight="700" font-size="3.528" stroke-width="0.265" transform="translate(20.505 -4.625)">
+      <tspan x="142.598" y="10.698" text-anchor="end">Lennox</tspan>
+      <tspan x="142.598" y="14.273" text-anchor="end">Wellhead</tspan>
+   </text>
+   <path class="path reverse-anim" d="M181.901 57.579V5.985c.005-1.32 0-2.646-1.323-3.969C179.19.628 177.932.694 176.61.694c0 0-85.036-.035-85.988-.032-1.324.004-2.647.004-4.002 1.36l-6.583 6.582c-1.322 1.323-2.645 1.323-3.968 1.323h-3.969l-35.719.027" fill="none" stroke="#6b2d5c" stroke-width="1.323"></path>
+   <g transform="translate(20.505 -4.625)">
+      <circle cx="161.449" cy="62.216" fill="#fff" stroke="#000" stroke-width="0.688" stroke-linecap="round" r="2.293"></circle>
+      <text x="161.464" y="68.781" font-weight="700" font-size="3.528" stroke-width="0.265">
+         <tspan x="161.464" y="68.781" text-anchor="middle">Lennox</tspan>
       </text>
-      <g id="g55529">
-        <path style="fill:none;stroke:#6b2d5c;stroke-width:1.32292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="m 161.39581,62.204166 10e-6,-51.593749 c 0.005,-1.320904 0,-2.645834 -1.32291,-3.96875 -1.38875,-1.388755 -2.64584,-1.322917 -3.96875,-1.322917 0,0 -85.036462,-0.034283 -85.988322,-0.031283 -1.32417,0.0042 -2.647087,0.0042 -4.002237,1.359317 l -6.582353,6.5823503 c -1.322917,1.322916 -2.645832,1.322918 -3.96875,1.322917 h -3.968751 l -35.71875,0.02712" id="path7511" sodipodi:nodetypes="ccsccccccc" />
-        <path style="fill:none;stroke:#6b2d5c;stroke-width:1.32292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="m 140.22916,5.2916667 v 1.852084" id="path40202-5" sodipodi:nodetypes="cc" />
+   </g>
+   <path d="M160.734 1.345v1.174" fill="none" stroke="#6b2d5c" stroke-width="1.323"></path>
+   <g>
+      <path class="path" d="M8.599 19.214l-.017-4.463c-.014-3.474 2.713-3.474 3.874-3.474H36.38" fill="none" stroke="#000" stroke-width="1.323"></path>
+      <g transform="translate(-11.134 -4.614)">
+         <circle cx="26.405" cy="15.826" fill="#fffffb" stroke="#000" stroke-width="0.688" stroke-linecap="round" r="2.293"></circle>
+         <text style="line-height:1.25" x="23.768" y="11.923" font-weight="700" font-size="3.528" stroke-width="0.265">
+            <tspan x="23.768" y="11.923" text-anchor="middle">Compressor</tspan>
+         </text>
       </g>
-      <g id="g55525">
-        <ellipse style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.687506;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" id="path4404-8-1-5" cx="161.44942" cy="62.216068" rx="2.293" ry="2.292747" />
-        <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:3.52778px;line-height:1;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583" x="161.46362" y="68.78064" id="text20986-9-0-4">
-          <tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';text-align:center;text-anchor:middle;stroke-width:0.264583" x="161.46362" y="68.78064" id="tspan40636-1">Lennox</tspan>
-        </text>
+      <g transform="translate(-34.821 -4.465)">
+         <circle cx="71.406" cy="15.913" fill="#fff" stroke="#000" stroke-width="0.688" stroke-linecap="round" r="2.293"></circle>
+         <text x="71.328" y="9.249" font-weight="700" font-size="3.528" stroke-width="0.265">
+            <tspan x="71.328" y="9.249" text-anchor="middle">Douglas</tspan>
+            <tspan x="71.328" y="12.823" text-anchor="middle">Manifold</tspan>
+         </text>
       </g>
-    </g>
-    <g id="g55856">
-      <path style="fill:none;stroke:#000000;stroke-width:1.32292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="m 13.229165,22.489583 -0.01714,-4.463507 c -0.01334,-3.473967 2.712717,-3.473993 3.87429,-3.473993 l 23.924105,0" id="path1050" sodipodi:nodetypes="cssc" />
-      <path style="fill:none;stroke:#000000;stroke-width:1.32292;stroke-linecap:butt;stroke-linejoin:miter;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" d="m 7.937498,20.835938 9.260416,3.086806 v 3.858506 l -9.260416,3.086806 z" id="path3001" sodipodi:nodetypes="ccccc" />
-      <g id="g55503" transform="translate(-6.5040321,-1.3390654)">
-        <ellipse style="fill:#fffffb;fill-opacity:1;stroke:#000000;stroke-width:0.687506;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" id="path4404" cx="26.404844" cy="15.825671" rx="2.2927468" ry="2.292747" />
-        <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:3.52778px;line-height:1.25;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583" x="23.768471" y="11.922866" id="text20986">
-          <tspan sodipodi:role="line" id="tspan20984" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';text-align:center;text-anchor:middle;stroke-width:0.264583" x="23.768471" y="11.922866">Compressor</tspan>
-        </text>
-      </g>
-      <g id="g55509" transform="translate(-30.19085,-1.1898948)">
-        <ellipse style="fill:#ffffff;fill-opacity:1;stroke:#000000;stroke-width:0.687506;stroke-linecap:round;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1" id="path4404-8" cx="71.405777" cy="15.913409" rx="2.2927468" ry="2.292747" />
-        <text xml:space="preserve" style="font-style:normal;font-weight:normal;font-size:3.52778px;line-height:1;font-family:sans-serif;fill:#000000;fill-opacity:1;stroke:none;stroke-width:0.264583" x="71.328148" y="9.2485342" id="text20986-9-8">
-          <tspan sodipodi:role="line" id="tspan20984-0-7" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';text-align:center;text-anchor:middle;stroke-width:0.264583" x="71.328148" y="9.2485342">Douglas</tspan>
-          <tspan sodipodi:role="line" style="font-style:normal;font-variant:normal;font-weight:bold;font-stretch:normal;font-size:3.52778px;font-family:Raleway;-inkscape-font-specification:'Raleway Bold';text-align:center;text-anchor:middle;stroke-width:0.264583" x="71.328148" y="12.823414" id="tspan22923-6">Manifold</tspan>
-        </text>
-      </g>
-    </g>
-  </g>
+      <path d="M3.307 17.56l9.26 3.088v3.858l-9.26 3.087z" fill="none" stroke="#000" stroke-width="1.323"></path>
+   </g>
 </svg>

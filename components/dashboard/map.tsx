@@ -31,7 +31,7 @@ const Map = () => {
 		<DashSection heading='network map'>
 			<div className='grid grid-cols-8'>
 				<div className='col-span-full flex flex-row'>
-					<div className='flex flex-row justify-center absolute left-0 right-0 pt-4'>
+					<div className='flex flex-row justify-center absolute left-0 right-0 pt-2'>
 						<MapSvg />
 					</div>
 
