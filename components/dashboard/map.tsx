@@ -3,12 +3,16 @@ import Heading from '@/components/heading';
 import FillerBox from '@/components/dashboard/fillerBox';
 import DashSection from './dashSection';
 
-const LocationLabel = ({ children, index = 0, isHovered }) => {
+const LocationLabel = ({ children, index = 0, isHovered, setHoverColumn }) => {
+	function handleMouseOver() {
+		setHoverColumn(index);
+	}
 	return (
 		<div
 			className={`${
 				index % 2 || isHovered ? 'bg-gray-400' : 'bg-gray-300'
 			} bg-opacity-${isHovered ? 30 : 20}`}
+			onMouseOver={handleMouseOver}
 		>
 			<Heading level={3} center>
 				{children}
@@ -69,7 +73,12 @@ const Map = ({ hoverColumn, setHoverColumn }) => {
 						))}
 				</div>
 				{locations.map((loc, i) => (
-					<LocationLabel key={i} index={i} isHovered={i === hoverColumn}>
+					<LocationLabel
+						key={i}
+						index={i}
+						isHovered={i === hoverColumn}
+						setHoverColumn={setHoverColumn}
+					>
 						{loc}
 					</LocationLabel>
 				))}
