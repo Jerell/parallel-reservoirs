@@ -4,7 +4,7 @@ instructions:
   #     temperature: 1
   #     flowrate: 1
   - inlet:
-      name: POA-DG
+      name: POA
       physical:
         elevation: 4.14
   - pipeseg:
