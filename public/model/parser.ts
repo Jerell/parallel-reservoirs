@@ -268,7 +268,7 @@ export default class Parser {
 				`No data - call this.readFile(fileName) before this.build()`
 			);
 		}
-		var builder = new SnapshotBuilder();
+		let builder = new SnapshotBuilder();
 
 		for (const instruction of this.data.instructions) {
 			for (let [type, parameters] of Object.entries(instruction)) {
