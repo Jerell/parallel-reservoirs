@@ -10,14 +10,14 @@ import {
 	FlowrateUnits,
 } from 'physical-quantities';
 
-const fs = require('fs');
+// const fs = require('fs');
 
-const stream = fs.createWriteStream(`${__dirname}/evaluated.txt`, {
-	flags: 'a',
-});
-const stream2 = fs.createWriteStream(`${__dirname}/lengthP.txt`, {
-	flags: 'a',
-});
+// const stream = fs.createWriteStream(`${__dirname}/evaluated.txt`, {
+// 	flags: 'a',
+// });
+// const stream2 = fs.createWriteStream(`${__dirname}/lengthP.txt`, {
+// 	flags: 'a',
+// });
 
 export interface IPipeDefinition extends IPhysicalElement {
 	length: number;
@@ -126,10 +126,10 @@ export default class PipeSeg extends Transport {
 		const p = this.endPressure();
 		const lowPressureLimit = new Pressure(1000, PressureUnits.Pascal).pascal;
 
-		stream.write(
-			`${this.physical.name}, ${p.bara} Bara, ${this.fluid.flowrate.kgps} kg/s\n`
-		);
-		stream2.write(`${this.physical.length}, ${p}\n`);
+		// stream.write(
+		// 	`${this.physical.name}, ${p.bara} Bara, ${this.fluid.flowrate.kgps} kg/s\n`
+		// );
+		// stream2.write(`${this.physical.length}, ${p.bara}\n`);
 
 		if (p.pascal < lowPressureLimit) return PressureSolution.Low;
 

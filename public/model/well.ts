@@ -14,11 +14,11 @@ import { RealReservoir } from './reservoir';
 import PipeSeg from './pipeSeg';
 import IElement from './element';
 
-const fs = require('fs');
+// const fs = require('fs');
 
-const stream = fs.createWriteStream(`${__dirname}/wellP.txt`, {
-	flags: 'a',
-});
+// const stream = fs.createWriteStream(`${__dirname}/wellP.txt`, {
+// 	flags: 'a',
+// });
 
 const wellFunctions = {};
 
@@ -81,9 +81,9 @@ export default class Well extends Analogue {
 
 		const x = this.fluid.flowrate.kgps / this.modelFunction.split;
 
-		stream.write(
-			`${this.name}: ${this.fluid.pressure.bara} Bara | ${x} kg/s\n`
-		);
+		// stream.write(
+		// 	`${this.name}: ${this.fluid.pressure.bara} Bara | ${x} kg/s\n`
+		// );
 		return x;
 	}
 

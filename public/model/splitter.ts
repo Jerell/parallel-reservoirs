@@ -83,7 +83,7 @@ export default class Splitter extends Transport {
 		let mid = 0;
 
 		let guesses = 0;
-		const maxGuesses = 25;
+		const maxGuesses = 30;
 
 		let pressureSolution = PressureSolution.Low;
 
@@ -97,6 +97,10 @@ export default class Splitter extends Transport {
 
 			if (mid >= fluid.flowrate.kgps * 0.9) {
 				return { flowrate: mid, pressureSolution };
+			}
+
+			if (mid <= new Flowrate(0.001, FlowrateUnits.Kgps).kgps) {
+				return { flowrate: mid, pressureSolution: PressureSolution.Low };
 			}
 
 			// console.log({ branch, guesses, flowrate: mid })
@@ -136,7 +140,7 @@ export default class Splitter extends Transport {
 			Qs[branch] = q;
 
 			stream2.write(
-				`DG pressure: ${fluid.pressure.bara} Bara | HM flowrate: ${Qs[0]} kg/s | HN flowrate: ${Qs[1]} kg/s | LX flowrate: ${Qs[2]} kg/s\n`
+				`${guessNum}) DG pressure: ${fluid.pressure.bara} Bara | HM flowrate: ${Qs[0]} kg/s | HN flowrate: ${Qs[1]} kg/s | LX flowrate: ${Qs[2]} kg/s\n`
 			);
 		};
 
@@ -146,11 +150,6 @@ export default class Splitter extends Transport {
 				newFluid,
 				writeOutput(i)
 			);
-			// console.log({
-			// 	name: this.destinations[i].name,
-			// 	flowrate,
-			// 	pressureSolution,
-			// })
 
 			if (pressureSolution !== PressureSolution.Ok) {
 				return pressureSolution;
@@ -159,16 +158,6 @@ export default class Splitter extends Transport {
 				newFluid.flowrate.kgps - flowrate,
 				FlowrateUnits.Kgps
 			);
-
-			// stream.write(
-			// 	`${this.type} - ${this.name} BRANCH ${i} GUESS ${guesses}:\n${this.fluid.pressure} Pa\n${flowrate} kg/s\n\n`
-			// )
-
-			if (newFluid.flowrate.kgps >= this.fluid.flowrate.kgps * 0.9) {
-				console.log('all flow allocated before final branch');
-
-				return PressureSolution.High;
-			}
 		}
 
 		const lastSearchResult = await this.applyFlowrate(

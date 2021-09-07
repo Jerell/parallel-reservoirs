@@ -13,11 +13,11 @@ import Analogue from './analogue';
 import Reservoir, { RealReservoir } from './reservoir';
 import Well from './well';
 
-const fs = require('fs');
+// const fs = require('fs');
 
-const stream = fs.createWriteStream(`${__dirname}/perfP.txt`, {
-	flags: 'a',
-});
+// const stream = fs.createWriteStream(`${__dirname}/perfP.txt`, {
+// 	flags: 'a',
+// });
 
 const perforationFunctions = {};
 
@@ -86,9 +86,9 @@ export default class Perforation extends Analogue {
 
 		const x = this.fluid.flowrate.kgps / this.modelFunction.split;
 
-		stream.write(
-			`${this.name}: ${this.fluid.pressure.pascal} Pa | ${x} kg/s\n`
-		);
+		// stream.write(
+		// 	`${this.name}: ${this.fluid.pressure.pascal} Pa | ${x} kg/s\n`
+		// );
 		return x;
 	}
 

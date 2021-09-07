@@ -11,11 +11,11 @@ import {
 	FlowrateUnits,
 } from 'physical-quantities';
 
-const fs = require('fs');
+// const fs = require('fs');
 
-const stream = fs.createWriteStream(`${__dirname}/inletP.txt`, {
-	flags: 'a',
-});
+// const stream = fs.createWriteStream(`${__dirname}/inletP.txt`, {
+// 	flags: 'a',
+// });
 
 export default class Inlet extends Transport {
 	fluid: Fluid | null;
@@ -57,7 +57,7 @@ export default class Inlet extends Transport {
 		let mid = 0;
 
 		let guesses = 0;
-		const maxGuesses = 25;
+		const maxGuesses = 30;
 
 		let pressureSolution = PressureSolution.Low;
 
@@ -73,11 +73,11 @@ export default class Inlet extends Transport {
 
 			mid = (low + high) / 2;
 
-			stream.write(
-				`${this.type} - ${this.name} GUESS ${guesses}:\n${
-					new Pressure(mid, PressureUnits.Pascal).bara
-				} Bara\n${this.fluid.flowrate.kgps} kg/s\n\n`
-			);
+			// stream.write(
+			// 	`${this.type} - ${this.name} GUESS ${guesses}:\n${
+			// 		new Pressure(mid, PressureUnits.Pascal).bara
+			// 	} Bara\n${this.fluid.flowrate.kgps} kg/s\n\n`
+			// );
 
 			pressureSolution = (await this.applyInletProperties(
 				new Pressure(mid, PressureUnits.Pascal),
@@ -92,7 +92,10 @@ export default class Inlet extends Transport {
 			}
 		}
 
-		return { pressure: mid, pressureSolution };
+		return {
+			pressure: new Pressure(mid, PressureUnits.Pascal),
+			pressureSolution,
+		};
 	}
 
 	setDestination(dest: IElement) {
