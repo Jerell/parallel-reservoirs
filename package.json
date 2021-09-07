@@ -18,7 +18,7 @@
 		"@fortawesome/fontawesome-svg-core": "^1.2.36",
 		"@fortawesome/free-solid-svg-icons": "^5.15.4",
 		"@fortawesome/react-fontawesome": "^0.1.15",
-		"ccs-sim": "^1.1.10",
+		"ccs-sim": "^1.1.12",
 		"cytoscape": "^3.19.0",
 		"cytoscape-cose-bilkent": "^4.1.0",
 		"cytoscape-node-html-label": "^1.2.2",
