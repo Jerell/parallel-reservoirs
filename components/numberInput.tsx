@@ -1,27 +1,44 @@
-const UnitSelect = ({ type }) => {
+import { useState, useEffect } from 'react';
+import {
+	Pressure,
+	PressureUnits,
+	Temperature,
+	TemperatureUnits,
+	Flowrate,
+	FlowrateUnits,
+} from 'physical-quantities';
+
+const UnitSelect = ({ type, selectUnit }) => {
 	let options;
 	switch (type) {
-		case 'currency':
-			options = ['£', '€', 'US$', 'AU$', 'MYR', 'PKR'];
-			break;
 		case 'pressure':
 			options = ['bar', 'Pa'];
 			break;
-		case 'length':
-			options = ['m', 'km', 'mm'];
+		case 'temperature':
+			options = ['°C', 'K'];
 			break;
 		case 'flowrate':
 			options = ['kg/s', 'MTPA'];
 			break;
+		case 'length':
+			options = ['m', 'km', 'mm'];
+			break;
 		default:
 			options = ['unit1', 'unit2'];
 	}
+	useEffect(() => {
+		selectUnit(options[0]);
+	}, []);
 	return (
 		<div className='inline-flex'>
 			<label htmlFor='unit' className='sr-only'>
 				Unit
 			</label>
-			<select name='unit' className='outline-none bg-green-50'>
+			<select
+				name='unit'
+				className='outline-none bg-green-50'
+				onChange={(e) => selectUnit(e.target.value)}
+			>
 				{options.map((o, i) => (
 					<option key={i}>{o}</option>
 				))}
@@ -38,6 +55,7 @@ interface INIProps {
 	unitListType?: string;
 	unitLeft?: boolean;
 	min?: number;
+	fn?: (n) => void;
 }
 
 const NumberInput = ({
@@ -48,7 +66,47 @@ const NumberInput = ({
 	unitListType,
 	unitLeft = false,
 	min = 0,
+	fn = (n) => {},
 }: INIProps) => {
+	const [unitSelection, selectUnit] = useState('');
+	const [inputValue, setInputValue] = useState(0);
+	const [convertedValue, setConvertedValue] = useState(0);
+
+	function convert(inputValue) {
+		switch (unitSelection) {
+			case 'bar':
+				return new Pressure(inputValue, PressureUnits.Bara).bara;
+			case 'Pa':
+				return new Pressure(inputValue, PressureUnits.Pascal).bara;
+			case '°C':
+				return new Temperature(inputValue, TemperatureUnits.Celsius).kelvin;
+			case 'K':
+				return new Temperature(inputValue, TemperatureUnits.Kelvin).kelvin;
+			case 'kg/s':
+				return new Flowrate(inputValue, FlowrateUnits.Kgps).kgps;
+			case 'MTPA':
+				return new Flowrate(inputValue, FlowrateUnits.MTPA).kgps;
+			default:
+				return inputValue;
+		}
+	}
+
+	function handleChange(event) {
+		setInputValue(Number(event.target.value));
+	}
+
+	useEffect(() => {
+		setConvertedValue(convert(inputValue));
+	}, [inputValue]);
+
+	useEffect(() => {
+		setConvertedValue(convert(inputValue));
+	}, [inputValue, unitSelection]);
+
+	useEffect(() => {
+		fn(convertedValue);
+	}, [convertedValue]);
+
 	return (
 		<>
 			<label
@@ -64,16 +122,17 @@ const NumberInput = ({
 				}`}
 			>
 				{unit && <span className='inline-flex mx-1'>{unit}</span>}
-				{unitListType && <UnitSelect type={unitListType}></UnitSelect>}
+				{unitListType && (
+					<UnitSelect type={unitListType} selectUnit={selectUnit}></UnitSelect>
+				)}
 				<input
-					type='text'
+					type='number'
 					min={min}
 					name={label}
 					className={`focus:outline-none pl-2 flex-grow ${
 						unitLeft ? '' : 'text-right'
 					}`}
-					inputMode='numeric'
-					pattern='[0-9]*'
+					onChange={handleChange}
 				/>
 			</div>
 		</>

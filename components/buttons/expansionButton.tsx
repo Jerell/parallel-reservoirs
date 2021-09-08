@@ -16,7 +16,7 @@ const ExpansionButton = ({ fn, expanded = true }: IButtonProps) => {
 	}
 	return (
 		<button
-			className='flex flex-row text-pace-grey bg-white hover:bg-gray-100 w-20 justify-center items-center focus:ring-green-500'
+			className='relative flex flex-row text-pace-grey bg-white hover:bg-gray-100 w-20 justify-center items-center focus:ring-green-500'
 			onClick={handleClick}
 		>
 			<FontAwesomeIcon

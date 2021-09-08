@@ -1,0 +1,13 @@
+.inlet {
+	@apply col-start-1;
+}
+
+.hm {
+	@apply col-start-4;
+}
+.hn {
+	@apply col-start-6;
+}
+.lx {
+	@apply col-start-8;
+}

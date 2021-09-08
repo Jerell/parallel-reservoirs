@@ -6,6 +6,7 @@ import Graphs from '@/components/dashboard/data/graphs';
 import { useState } from 'react';
 import { useSession, signIn, signOut } from 'next-auth/client';
 import SignedOutBanner from '@/components/signedOutBanner';
+import Snapshot from '@/components/dashboard/snapshot';
 
 const Index = () => {
 	const [session, loading] = useSession();
@@ -32,9 +33,9 @@ const Index = () => {
 
 	return (
 		<Page fullWidth noPadding>
-			<Heading level={1}>Project name</Heading>
-
 			<Map hoverColumn={hoverColumn} setHoverColumn={setHoverColumn} />
+
+			<Snapshot hoverColumn={hoverColumn} setHoverColumn={setHoverColumn} />
 			<DataTable hoverColumn={hoverColumn} setHoverColumn={setHoverColumn} />
 			<Graphs hoverColumn={hoverColumn} setHoverColumn={setHoverColumn} />
 		</Page>
