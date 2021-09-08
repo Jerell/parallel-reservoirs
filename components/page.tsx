@@ -29,11 +29,11 @@ const Page = ({
 			 * Padding top = `appbar` height
 			 * Padding bottom = `bottom-nav` height
 			 */
-			className={`mx-auto ${noPadding ? 'pt-16' : 'pt-20 pb-16'} ${
+			className={`mx-auto ${noPadding ? '' : 'pt-20 pb-16'} ${
 				fullWidth ? 'h-screen' : 'max-w-screen-md'
 			}`}
 		>
-			<div className={`${fullWidth ? 'h-full pt-4' : 'p-6'}`}>{children}</div>
+			<div className={`${fullWidth ? 'h-full' : 'p-6'}`}>{children}</div>
 		</main>
 
 		<BottomNav />

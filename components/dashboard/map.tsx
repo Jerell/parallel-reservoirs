@@ -41,7 +41,7 @@ const Map = ({ hoverColumn, setHoverColumn }) => {
 						<MapSvg width={'100%'} />
 					</div>
 				</div>
-				<div className='flex flex-row left-0 right-0 absolute h-full'>
+				<div className='flex flex-row left-0 right-0 absolute top-0 bottom-0'>
 					{Array(8)
 						.fill(1)
 						.map((n, i) => (
@@ -52,13 +52,12 @@ const Map = ({ hoverColumn, setHoverColumn }) => {
 								// additionalClasses={`xl:h-72 2xl:h-96`}
 								isHovered={i === hoverColumn}
 								setHoverColumn={setHoverColumn}
-							>
-								{i}
-							</FillerBox>
+								behind
+							></FillerBox>
 						))}
 				</div>
 			</div>
-			<div className='grid grid-cols-8'>
+			<div className='grid grid-cols-8 relative'>
 				{locations.map((loc, i) => (
 					<LocationLabel
 						key={i}

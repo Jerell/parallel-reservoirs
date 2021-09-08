@@ -5,6 +5,7 @@ const FillerBox = ({
 	opacity = 10,
 	additionalClasses = '',
 	isHovered = false,
+	behind = false,
 	setHoverColumn,
 }: {
 	children?: any;
@@ -13,6 +14,7 @@ const FillerBox = ({
 	opacity?: number;
 	additionalClasses?: string;
 	isHovered?: boolean;
+	behind?: boolean;
 	setHoverColumn: (n: number) => void;
 }) => {
 	function handleMouseOver() {
@@ -25,7 +27,9 @@ const FillerBox = ({
 				index % 2 || isHovered ? 'bg-gray-400' : 'bg-gray-300'
 			} bg-opacity-${
 				isHovered ? opacity + 10 : opacity
-			} flex-grow h-${height} text-transparent ${additionalClasses}`}
+			} flex-grow h-${height} text-transparent ${additionalClasses} ${
+				behind ? 'z-negative' : ''
+			}`}
 			onMouseOver={handleMouseOver}
 		>
 			{children}

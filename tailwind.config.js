@@ -16,6 +16,9 @@ module.exports = {
 				},
 			},
 		},
+		zIndex: {
+			negative: -1,
+		},
 	},
 	plugins: [require('tailwindcss-safe-area')],
 };

@@ -51,7 +51,10 @@ const NumberInput = ({
 }: INIProps) => {
 	return (
 		<>
-			<label htmlFor={label} className={`text-right mr-2 ${labelClasses}`}>
+			<label
+				htmlFor={label}
+				className={`text-right mr-2 ${labelClasses ? labelClasses : ''}`}
+			>
 				{label}
 				{required && <span className='text-red-500'>*</span>}
 			</label>
@@ -63,12 +66,14 @@ const NumberInput = ({
 				{unit && <span className='inline-flex mx-1'>{unit}</span>}
 				{unitListType && <UnitSelect type={unitListType}></UnitSelect>}
 				<input
-					type='number'
+					type='text'
 					min={min}
 					name={label}
-					className={`focus:outline-none w-36 pl-2 ${
+					className={`focus:outline-none pl-2 flex-grow ${
 						unitLeft ? '' : 'text-right'
 					}`}
+					inputMode='numeric'
+					pattern='[0-9]*'
 				/>
 			</div>
 		</>
