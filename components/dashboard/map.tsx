@@ -35,7 +35,7 @@ const Map = ({ hoverColumn, setHoverColumn }) => {
 
 	return (
 		<DashSection heading='network map'>
-			<div className='grid grid-cols-8'>
+			<div className='grid grid-cols-8 relative'>
 				<div className='col-span-full'>
 					<div className='flex flex-row justify-center py-4 col-span-full'>
 						<MapSvg width={'100%'} />
