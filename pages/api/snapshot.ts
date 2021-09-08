@@ -88,7 +88,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 		true
 	);
 
-	const result = await inlet.searchInletPressure();
+	await inlet.searchInletPressure();
 
 	res.status(200).json({
 		keyPoints: keyPoints.reduce((acc, point) => {
