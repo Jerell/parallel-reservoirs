@@ -10,3 +10,8 @@ node_modules
 
 .firebase
 **/*.txt
+
+# dotenv environment variables file
+.env
+.env.test
+.env.local
