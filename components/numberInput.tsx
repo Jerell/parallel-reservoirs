@@ -79,9 +79,9 @@ const NumberInput = ({
 			case 'Pa':
 				return new Pressure(inputValue, PressureUnits.Pascal).bara;
 			case '°C':
-				return new Temperature(inputValue, TemperatureUnits.Celsius).kelvin;
+				return new Temperature(inputValue, TemperatureUnits.Celsius).celsius;
 			case 'K':
-				return new Temperature(inputValue, TemperatureUnits.Kelvin).kelvin;
+				return new Temperature(inputValue, TemperatureUnits.Kelvin).celsius;
 			case 'kg/s':
 				return new Flowrate(inputValue, FlowrateUnits.Kgps).kgps;
 			case 'MTPA':
