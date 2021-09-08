@@ -1,6 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import path from 'path';
-import { Parser, Inlet, Reservoir, Fluid } from 'ccs-sim';
+import { Parser, Inlet, Reservoir } from 'ccs-sim';
 import { getSession } from 'next-auth/client';
 import {
 	Pressure,
@@ -89,13 +89,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 	);
 
 	const result = await inlet.searchInletPressure();
-	console.log(
-		result,
-		[HM, HN, LX].map((reservoir) => [
-			reservoir.pressure,
-			(reservoir.fluid as Fluid).pressure,
-		])
-	);
 
 	res.status(200).json({
 		keyPoints: keyPoints.reduce((acc, point) => {
