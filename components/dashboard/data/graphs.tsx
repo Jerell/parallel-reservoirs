@@ -19,9 +19,7 @@ const GraphRow = ({ heading = 'graphs', hoverColumn, setHoverColumn }) => {
 							additionalClasses='border-r-2 border-dashed'
 							isHovered={i === hoverColumn}
 							setHoverColumn={setHoverColumn}
-						>
-							{i}
-						</FillerBox>
+						></FillerBox>
 					))}
 			</div>
 		</>

@@ -1,6 +1,6 @@
 import DashSection from '../dashSection';
 
-const data = [
+const dummy = [
 	{ 'Pressure (bar)': 35.7, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 1.0 }, // Compressor
 	{ 'Pressure (bar)': 33.4, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 1.0 }, // Douglas Manifold
 	{ 'Pressure (bar)': 17.2, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 0.6 }, // Hamilton Wellhead
@@ -33,7 +33,7 @@ const Cell = ({ children, index = 0, hoverColumn, setHoverColumn }) => {
 	);
 };
 
-const Row = ({ variable, hoverColumn, setHoverColumn }) => {
+const Row = ({ variable, hoverColumn, setHoverColumn, data }) => {
 	return (
 		<div className='relative grid grid-cols-8'>
 			<h6 className='absolute top-2 left-2 text-sm'>{variable}</h6>
@@ -51,7 +51,7 @@ const Row = ({ variable, hoverColumn, setHoverColumn }) => {
 	);
 };
 
-const DataTable = ({ hoverColumn, setHoverColumn }) => {
+const DataTable = ({ hoverColumn, setHoverColumn, data = dummy }) => {
 	return (
 		<DashSection heading='Data'>
 			{variables.map((v, i) => (
@@ -60,6 +60,7 @@ const DataTable = ({ hoverColumn, setHoverColumn }) => {
 					key={i}
 					hoverColumn={hoverColumn}
 					setHoverColumn={setHoverColumn}
+					data={data}
 				/>
 			))}
 		</DashSection>
