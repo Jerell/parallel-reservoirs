@@ -36,19 +36,20 @@ const Map = ({ hoverColumn, setHoverColumn }) => {
 	return (
 		<DashSection heading='network map'>
 			<div className='grid grid-cols-8'>
-				<div className='col-span-full flex flex-row'>
-					<div className='flex flex-row justify-center absolute left-0 right-0 pt-2'>
-						<MapSvg />
+				<div className='col-span-full'>
+					<div className='flex flex-row justify-center py-4 col-span-full'>
+						<MapSvg width={'100%'} />
 					</div>
-
+				</div>
+				<div className='flex flex-row left-0 right-0 absolute h-full'>
 					{Array(8)
 						.fill(1)
 						.map((n, i) => (
 							<FillerBox
 								key={i}
 								index={i}
-								height={64}
-								additionalClasses={`sm:h-72 md:h-96`}
+								height={'full'}
+								// additionalClasses={`xl:h-72 2xl:h-96`}
 								isHovered={i === hoverColumn}
 								setHoverColumn={setHoverColumn}
 							>
@@ -56,22 +57,8 @@ const Map = ({ hoverColumn, setHoverColumn }) => {
 							</FillerBox>
 						))}
 				</div>
-				<div className='col-span-full flex-row hidden lg:flex'>
-					{Array(8)
-						.fill(1)
-						.map((n, i) => (
-							<FillerBox
-								key={i}
-								index={i}
-								height={24}
-								additionalClasses={`xl:h-72 2xl:h-96`}
-								isHovered={i === hoverColumn}
-								setHoverColumn={setHoverColumn}
-							>
-								{i}
-							</FillerBox>
-						))}
-				</div>
+			</div>
+			<div className='grid grid-cols-8'>
 				{locations.map((loc, i) => (
 					<LocationLabel
 						key={i}
