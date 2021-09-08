@@ -12,6 +12,14 @@ const Index = () => {
 
 	const [hoverColumn, setHoverColumn] = useState(0);
 
+	if (loading) {
+		return (
+			<Page fullWidth noPadding>
+				<Heading level={1}>Loading</Heading>
+			</Page>
+		);
+	}
+
 	if (!session) {
 		return (
 			<Page fullWidth noPadding>
