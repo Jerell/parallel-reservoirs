@@ -2,7 +2,6 @@ import type { NextApiRequest, NextApiResponse } from 'next';
 import path from 'path';
 import { Parser } from 'ccs-sim';
 import { getSession } from 'next-auth/client';
-import next from 'next';
 
 async function protect(req: NextApiRequest, res: NextApiResponse) {
 	const session = await getSession({ req });
