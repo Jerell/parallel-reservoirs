@@ -1,7 +1,6 @@
 import Page from '@/components/page';
 import Heading from '@/components/heading';
 import Map from '@/components/dashboard/map';
-import DataTable from '@/components/dashboard/data/dataTable';
 import Graphs from '@/components/dashboard/data/graphs';
 import { useState } from 'react';
 import { useSession, signIn, signOut } from 'next-auth/client';
@@ -36,7 +35,6 @@ const Index = () => {
 			<Map hoverColumn={hoverColumn} setHoverColumn={setHoverColumn} />
 
 			<Snapshot hoverColumn={hoverColumn} setHoverColumn={setHoverColumn} />
-			<DataTable hoverColumn={hoverColumn} setHoverColumn={setHoverColumn} />
 			<Graphs hoverColumn={hoverColumn} setHoverColumn={setHoverColumn} />
 		</Page>
 	);

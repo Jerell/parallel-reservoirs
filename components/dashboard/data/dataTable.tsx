@@ -1,17 +1,25 @@
 import DashSection from '../dashSection';
+import {
+	Pressure,
+	PressureUnits,
+	Temperature,
+	TemperatureUnits,
+	Flowrate,
+	FlowrateUnits,
+} from 'physical-quantities';
 
 const dummy = [
-	{ 'Pressure (bar)': 35.7, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 1.0 }, // Compressor
-	{ 'Pressure (bar)': 33.4, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 1.0 }, // Douglas Manifold
-	{ 'Pressure (bar)': 17.2, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 0.6 }, // Hamilton Wellhead
-	{ 'Pressure (bar)': 39.0, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 0.6 }, // Hamilton
-	{ 'Pressure (bar)': 25.3, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 0.2 }, // Hamilton North Wellhead
-	{ 'Pressure (bar)': 28.9, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 0.2 }, // Hamilton North
-	{ 'Pressure (bar)': 32.0, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 0.2 }, // Lennox Wellhead
-	{ 'Pressure (bar)': 36.8, 'Temperature (°C)': 27, 'Flowrate (MTPA)': 0.2 }, // Lennox
+	{ pressure: 35.7, temperature: 27, flowrate: 1.0 }, // Compressor
+	{ pressure: 33.4, temperature: 27, flowrate: 1.0 }, // Douglas Manifold
+	{ pressure: 17.2, temperature: 27, flowrate: 0.6 }, // Hamilton Wellhead
+	{ pressure: 39.0, temperature: 27, flowrate: 0.6 }, // Hamilton
+	{ pressure: 25.3, temperature: 27, flowrate: 0.2 }, // Hamilton North Wellhead
+	{ pressure: 28.9, temperature: 27, flowrate: 0.2 }, // Hamilton North
+	{ pressure: 32.0, temperature: 27, flowrate: 0.2 }, // Lennox Wellhead
+	{ pressure: 36.8, temperature: 27, flowrate: 0.2 }, // Lennox
 ];
 
-const variables = ['Pressure (bar)', 'Temperature (°C)', 'Flowrate (MTPA)'];
+const variables = ['pressure', 'temperature', 'flowrate'];
 
 const zeros = [0, 0, 0, 0, 0, 0, 0, 0];
 
@@ -33,10 +41,24 @@ const Cell = ({ children, index = 0, hoverColumn, setHoverColumn }) => {
 	);
 };
 
-const Row = ({ variable, hoverColumn, setHoverColumn, data }) => {
+const Row = ({ variable, unit, label, hoverColumn, setHoverColumn, data }) => {
+	const getValueInCorrectUnits = (i) => {
+		const rawValue = data[i][variable];
+
+		switch (variable) {
+			case 'pressure':
+				return new Pressure(rawValue, PressureUnits.Pascal).bara;
+			case 'temperature':
+				return new Temperature(rawValue, TemperatureUnits.Kelvin).celsius;
+			case 'flowrate':
+				return new Flowrate(rawValue, FlowrateUnits.Kgps).MTPA;
+		}
+		return 0;
+	};
+
 	return (
 		<div className='relative grid grid-cols-8'>
-			<h6 className='absolute top-2 left-2 text-sm'>{variable}</h6>
+			<h6 className='absolute top-2 left-2 text-sm'>{label}</h6>
 			{zeros.map((z, i) => (
 				<Cell
 					key={i}
@@ -44,23 +66,81 @@ const Row = ({ variable, hoverColumn, setHoverColumn, data }) => {
 					hoverColumn={hoverColumn}
 					setHoverColumn={setHoverColumn}
 				>
-					{data[i][variable]}
+					{getValueInCorrectUnits(i).toFixed(2)}
 				</Cell>
 			))}
 		</div>
 	);
 };
 
-const DataTable = ({ hoverColumn, setHoverColumn, data = dummy }) => {
+const DataTable = ({
+	heading = 'data',
+	hoverColumn,
+	setHoverColumn,
+	data = dummy,
+}) => {
+	const units = {
+		pressure: PressureUnits.Bara,
+		temperature: TemperatureUnits.Celsius,
+		flowrate: FlowrateUnits.MTPA,
+	};
+
+	const getLabel = {
+		pressure: () => {
+			let unit = '';
+			switch (units.pressure) {
+				case PressureUnits.Bara:
+					unit = 'bar';
+					break;
+				case PressureUnits.Pascal:
+					unit = 'Pa';
+					break;
+				default:
+					return `Pressure`;
+			}
+			return `Pressure (${unit})`;
+		},
+		temperature: () => {
+			let unit = '';
+			switch (units.temperature) {
+				case TemperatureUnits.Celsius:
+					unit = '°C';
+					break;
+				case TemperatureUnits.Kelvin:
+					unit = 'K';
+					break;
+				default:
+					return `Temperature`;
+			}
+			return `Temperature (${unit})`;
+		},
+		flowrate: () => {
+			let unit = '';
+			switch (units.flowrate) {
+				case FlowrateUnits.Kgps:
+					unit = 'kg/s';
+					break;
+				case FlowrateUnits.MTPA:
+					unit = 'MTPA';
+					break;
+				default:
+					return `Flowrate`;
+			}
+			return `Flowrate (${unit})`;
+		},
+	};
+
 	return (
-		<DashSection heading='Data'>
+		<DashSection heading={heading}>
 			{variables.map((v, i) => (
 				<Row
 					variable={v}
+					label={getLabel[v]()}
 					key={i}
 					hoverColumn={hoverColumn}
 					setHoverColumn={setHoverColumn}
 					data={data}
+					unit={units[v]}
 				/>
 			))}
 		</DashSection>
