@@ -44,6 +44,7 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 
 		const data = await response.json();
 		console.log(data);
+		if (!data.length) return [];
 
 		const reshapeResponse = () => {
 			if (!data.keyPoints) return [];
