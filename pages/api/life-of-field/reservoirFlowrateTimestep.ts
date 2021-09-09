@@ -90,7 +90,5 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 		return acc;
 	}, {});
 
-	// const pressures = await fetch('/api/life-of-field/reservoirMassToPressure');
-
 	res.status(200).json({ seconds, ...newMasses });
 };
