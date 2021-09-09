@@ -6,6 +6,7 @@ import styles from './snapshot.module.css';
 import { useState, useRef } from 'react';
 import fetch from 'node-fetch';
 import LoadingBar from 'react-top-loading-bar';
+import Heading from '../heading';
 
 const InputSection = ({ children, classes = '' }) => {
 	return <div className={`relative flex flex-col ${classes}`}>{children}</div>;
@@ -17,13 +18,20 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 	const [hmP, setHmP] = useState(0);
 	const [hnP, setHnP] = useState(0);
 	const [lxP, setLxP] = useState(0);
+	const [requestFailed, setRequestFailed] = useState(false);
 
 	const ref: any = useRef(null);
 
 	const [datasets, setDatasets] = useState<any[]>([]);
 
 	async function requestSnapshot() {
+		if ([inletQ, inletT, hmP, hnP, lxP].some((value) => !value)) {
+			setRequestFailed(true);
+			return;
+		}
+
 		ref.current.continuousStart();
+		setRequestFailed(false);
 
 		const response = await fetch('/api/snapshot', {
 			method: 'POST',
@@ -42,9 +50,12 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 
 		ref.current.complete();
 
+		if (response.status !== 200) {
+			setRequestFailed(true);
+			return [];
+		}
+
 		const data = await response.json();
-		console.log(data);
-		if (!data.length) return [];
 
 		const reshapeResponse = () => {
 			if (!data.keyPoints) return [];
@@ -112,6 +123,11 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 					<div className='col-span-full flex flex-col justify-center items-center p-4'>
 						<Button fn={requestSnapshot} />
 						<LoadingBar color='#39304A' ref={ref} height={10} />
+						{requestFailed && (
+							<Heading level={6} additionalClasses='mt-2 text-red-900'>
+								Request failed
+							</Heading>
+						)}
 					</div>
 				</div>
 			</DashSection>

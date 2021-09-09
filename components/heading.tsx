@@ -6,12 +6,14 @@ const Heading = ({
 	children,
 	level = 1,
 	center = false,
+	additionalClasses = '',
 }: {
 	children: any;
 	level: LevelRange;
 	center?: boolean;
+	additionalClasses?: string;
 }) => {
-	const commonClasses = `${styles.heading} ${
+	const commonClasses = `${additionalClasses} ${styles.heading} ${
 		center ? 'text-center px-2' : 'px-6'
 	} `;
 	switch (level) {
