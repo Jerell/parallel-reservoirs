@@ -1,7 +1,6 @@
 import type { NextApiRequest, NextApiResponse } from 'next';
 import path from 'path';
 import { Parser, Inlet, Reservoir } from 'ccs-sim';
-import { getSession } from 'next-auth/client';
 import {
 	Pressure,
 	PressureUnits,
@@ -10,17 +9,11 @@ import {
 	Flowrate,
 	FlowrateUnits,
 } from 'physical-quantities';
-
-async function protect(req: NextApiRequest, res: NextApiResponse) {
-	const session = await getSession({ req });
-	if (session) return;
-	res.status(401).json({ response: 'not authorized' });
-}
+import protect from '@/public/utils/api/protect';
 
 function validateSnapshotRequest(
 	body: {
 		inlet: {
-			pressure: number;
 			temperature: number;
 			flowrate: number;
 		};
@@ -34,7 +27,6 @@ function validateSnapshotRequest(
 ) {
 	if (
 		!body.inlet ||
-		// !body.inlet.pressure ||
 		!body.inlet.temperature ||
 		!body.inlet.flowrate ||
 		!body.reservoirPressures ||
