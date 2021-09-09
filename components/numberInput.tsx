@@ -18,7 +18,7 @@ const UnitSelect = ({ type, selectUnit }) => {
 			options = ['°C', 'K'];
 			break;
 		case 'flowrate':
-			options = ['kg/s', 'MTPA'];
+			options = ['MTPA', 'kg/s'];
 			break;
 		case 'length':
 			options = ['m', 'km', 'mm'];
@@ -117,7 +117,7 @@ const NumberInput = ({
 				{required && <span className='text-red-500'>*</span>}
 			</label>
 			<div
-				className={`inline-flex border border-green-300 focus-within:ring-green-100 focus-within:ring focus-within:border-green-500 ${
+				className={`w-full inline-flex border border-green-300 focus-within:ring-green-100 focus-within:ring focus-within:border-green-500 ${
 					unitLeft ? '' : 'flex-row-reverse'
 				}`}
 			>
@@ -129,8 +129,8 @@ const NumberInput = ({
 					type='number'
 					min={min}
 					name={label}
-					className={`focus:outline-none pl-2 flex-grow ${
-						unitLeft ? '' : 'text-right'
+					className={`w-1 focus:outline-none flex-grow ${
+						unitLeft ? 'pl-2' : 'text-right'
 					}`}
 					onChange={handleChange}
 				/>
