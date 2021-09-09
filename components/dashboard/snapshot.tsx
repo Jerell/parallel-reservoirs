@@ -9,7 +9,9 @@ import LoadingBar from 'react-top-loading-bar';
 import Heading from '../heading';
 
 const InputSection = ({ children, classes = '' }) => {
-	return <div className={`relative flex flex-col ${classes}`}>{children}</div>;
+	return (
+		<div className={`relative px-2 flex flex-col ${classes}`}>{children}</div>
+	);
 };
 
 const Snapshot = ({ hoverColumn, setHoverColumn }) => {
