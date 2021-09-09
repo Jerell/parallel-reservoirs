@@ -14,7 +14,6 @@ import protect from '@/public/utils/api/protect';
 function validateSnapshotRequest(
 	body: {
 		inlet: {
-			pressure: number;
 			temperature: number;
 			flowrate: number;
 		};
@@ -28,7 +27,6 @@ function validateSnapshotRequest(
 ) {
 	if (
 		!body.inlet ||
-		// !body.inlet.pressure ||
 		!body.inlet.temperature ||
 		!body.inlet.flowrate ||
 		!body.reservoirPressures ||
