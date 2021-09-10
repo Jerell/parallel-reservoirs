@@ -51,7 +51,7 @@ const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 					LX: lxP,
 				},
 				timestep,
-				steps: 5,
+				steps: 2,
 			}),
 		});
 
