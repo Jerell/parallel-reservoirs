@@ -23,7 +23,6 @@ const LineChart = ({
 
 		const height = fullHeight - margin.top - margin.bottom,
 			width = ref.current.clientWidth - margin.left - margin.right;
-		console.log(height, width);
 
 		ref.current.innerHTML = '';
 
@@ -32,19 +31,16 @@ const LineChart = ({
 			.append('svg')
 			.attr('preserveAspectRatio', 'none')
 			.attr('viewBox', `0 0 ${fullWidth} ${fullHeight}`);
-		// .attr('width', 'auto')
-		// .attr('height', fullHeight);
 
 		const axisPadding = 5;
-		// const min = d3.min(data) as number;
-		// const max = d3.max(data) as number;
 
 		const x = d3.scaleLinear().domain([1, data.length]).range([0, width]);
-
 		const y = d3
 			.scaleLinear()
 			.domain([min - axisPadding, max + axisPadding])
 			.range([height, 0]);
+
+		const xyData: [number, number][] = data.map((d, i) => [x(i + 1), y(d)]);
 
 		const xAxis = d3.axisBottom(x).ticks(data.length);
 		const yAxis = d3.axisLeft(y).ticks(5);
@@ -59,6 +55,18 @@ const LineChart = ({
 			.attr('class', 'x axis')
 			.attr('transform', `translate(0, ${height})`)
 			.call(xAxis);
+
+		const line = d3.line().curve(d3.curveMonotoneX);
+
+		const path = frame
+			.append('path')
+			.datum(xyData)
+			.attr('fill', 'none')
+			.attr('stroke', 'steelblue')
+			.attr('stroke-width', 1.5)
+			.attr('stroke-linejoin', 'round')
+			.attr('stroke-linecap', 'round')
+			.attr('d', line);
 	}
 
 	useEffect(() => {
