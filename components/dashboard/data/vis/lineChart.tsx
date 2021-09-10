@@ -61,7 +61,10 @@ const LineChart = ({
 			.call(xAxis);
 	}
 
-	useEffect(init, []);
+	useEffect(() => {
+		init();
+		window.addEventListener('resize', init);
+	}, []);
 
 	return (
 		<>
