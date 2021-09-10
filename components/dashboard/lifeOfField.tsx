@@ -2,12 +2,14 @@ import DataTable from './data/dataTable';
 import DashSection from './dashSection';
 import Button from '../buttons/button';
 import NumberInput from '../numberInput';
-import styles from './snapshot.module.css';
+import snapshotStyles from './snapshot.module.css';
+import styles from './lifeOfField.module.css';
 import { useState, useRef } from 'react';
 import fetch from 'node-fetch';
 import LoadingBar from 'react-top-loading-bar';
 import Heading from '../heading';
-import reshapeSnapshot from '@/public/utils/api/reshapeSnapshot';
+import Graphs from '@/components/dashboard/data/graphs';
+import { transformToPTQRows } from '@/public/utils/api/reshapeLifeOfField';
 
 const InputSection = ({ children, classes = '' }) => {
 	return (
@@ -15,7 +17,7 @@ const InputSection = ({ children, classes = '' }) => {
 	);
 };
 
-const Snapshot = ({ hoverColumn, setHoverColumn }) => {
+const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 	const [inletQ, setInletQ] = useState(0);
 	const [inletT, setInletT] = useState(0);
 	const [hmP, setHmP] = useState(0);
@@ -27,7 +29,7 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 
 	const [datasets, setDatasets] = useState<any[]>([]);
 
-	async function requestSnapshot() {
+	async function requestLifeOfField(timestep) {
 		if ([inletQ, inletT, hmP, hnP, lxP].some((value) => !value)) {
 			setRequestFailed(true);
 			return;
@@ -36,7 +38,7 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 		ref.current.continuousStart();
 		setRequestFailed(false);
 
-		const response = await fetch('/api/snapshot', {
+		const response = await fetch('/api/life-of-field', {
 			method: 'POST',
 			body: JSON.stringify({
 				inlet: {
@@ -48,6 +50,8 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 					HN: hnP,
 					LX: lxP,
 				},
+				timestep,
+				steps: 5,
 			}),
 		});
 
@@ -59,17 +63,21 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 		}
 
 		const data = await response.json();
+		console.log(data);
 
-		const dataForTable = reshapeSnapshot(data);
+		const dataForTable = transformToPTQRows(data.snapshots);
 		console.log(dataForTable);
 		setDatasets([...datasets, dataForTable]);
 	}
 
 	return (
 		<>
-			<DashSection heading='snapshot'>
+			<DashSection heading='Life of field'>
+				<Heading level={5} additionalClasses={'bg-pace-raisin text-white py-1'}>
+					Initial conditions
+				</Heading>
 				<div className='grid grid-cols-8 bg-pace-grey pt-2'>
-					<InputSection classes={styles.inlet}>
+					<InputSection classes={snapshotStyles.inlet}>
 						<NumberInput
 							label='Inlet Flowrate'
 							labelClasses='text-white'
@@ -83,7 +91,7 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 							fn={setInletT}
 						/>
 					</InputSection>
-					<InputSection classes={styles.hm}>
+					<InputSection classes={snapshotStyles.hm}>
 						<NumberInput
 							label='Reservoir Pressure'
 							labelClasses='text-white'
@@ -91,7 +99,7 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 							fn={setHmP}
 						/>
 					</InputSection>
-					<InputSection classes={styles.hn}>
+					<InputSection classes={snapshotStyles.hn}>
 						<NumberInput
 							label='Reservoir Pressure'
 							labelClasses='text-white'
@@ -99,7 +107,7 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 							fn={setHnP}
 						/>
 					</InputSection>
-					<InputSection classes={styles.lx}>
+					<InputSection classes={snapshotStyles.lx}>
 						<NumberInput
 							label='Reservoir Pressure'
 							labelClasses='text-white'
@@ -108,7 +116,21 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 						/>
 					</InputSection>
 					<div className='col-span-full flex flex-col justify-center items-center p-4'>
-						<Button fn={requestSnapshot} />
+						<Heading level={6} additionalClasses={'mb-2 text-white'}>
+							Select interval
+						</Heading>
+						<div className='flex flex-row justify-center'>
+							<Button
+								fn={() => requestLifeOfField(7)}
+								additionalClasses={styles.timeStep}
+								text='7 days'
+							/>
+							<Button
+								fn={() => requestLifeOfField(30)}
+								additionalClasses={styles.timeStep}
+								text='30 days'
+							/>
+						</div>
 						<LoadingBar color='#39304A' ref={ref} height={10} />
 						{requestFailed && (
 							<Heading level={6} additionalClasses='mt-2 text-red-900'>
@@ -120,8 +142,8 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 			</DashSection>
 
 			{datasets.map((data, i) => (
-				<DataTable
-					heading={'snapshot results'}
+				<Graphs
+					heading={'Life of field results'}
 					hoverColumn={hoverColumn}
 					setHoverColumn={setHoverColumn}
 					data={data}
@@ -132,4 +154,4 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 	);
 };
 
-export default Snapshot;
+export default LifeOfField;
