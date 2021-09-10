@@ -1,0 +1,7 @@
+.linechart {
+	@apply h-full;
+}
+
+.linechart svg {
+	@apply m-0;
+}
