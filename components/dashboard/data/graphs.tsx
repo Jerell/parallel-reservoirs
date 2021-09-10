@@ -11,6 +11,7 @@ import {
 	Flowrate,
 	FlowrateUnits,
 } from 'physical-quantities';
+import getDefaultUnitLabel from '@/public/utils/selectDefaultUnitLabel';
 
 const variables = ['Pressure (bar)', 'Temperature (°C)', 'Flowrate (MTPA)'];
 
@@ -48,7 +49,7 @@ const GraphRow = ({
 
 	return (
 		<>
-			<Heading level={4}>{variable}</Heading>
+			<Heading level={4}>{getDefaultUnitLabel(variable)}</Heading>
 			<div className='col-span-full flex flex-row border-b border-gray-300'>
 				{Array(8)
 					.fill(1)

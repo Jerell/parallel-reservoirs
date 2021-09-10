@@ -8,6 +8,8 @@ import {
 	FlowrateUnits,
 } from 'physical-quantities';
 
+import getDefaultUnitLabel from '@/public/utils/selectDefaultUnitLabel';
+
 const dummy = [
 	{ pressure: 35.7, temperature: 27, flowrate: 1.0 }, // Compressor
 	{ pressure: 33.4, temperature: 27, flowrate: 1.0 }, // Douglas Manifold
@@ -85,57 +87,12 @@ const DataTable = ({
 		flowrate: FlowrateUnits.MTPA,
 	};
 
-	const getLabel = {
-		pressure: () => {
-			let unit = '';
-			switch (units.pressure) {
-				case PressureUnits.Bara:
-					unit = 'bar';
-					break;
-				case PressureUnits.Pascal:
-					unit = 'Pa';
-					break;
-				default:
-					return `Pressure`;
-			}
-			return `Pressure (${unit})`;
-		},
-		temperature: () => {
-			let unit = '';
-			switch (units.temperature) {
-				case TemperatureUnits.Celsius:
-					unit = '°C';
-					break;
-				case TemperatureUnits.Kelvin:
-					unit = 'K';
-					break;
-				default:
-					return `Temperature`;
-			}
-			return `Temperature (${unit})`;
-		},
-		flowrate: () => {
-			let unit = '';
-			switch (units.flowrate) {
-				case FlowrateUnits.Kgps:
-					unit = 'kg/s';
-					break;
-				case FlowrateUnits.MTPA:
-					unit = 'MTPA';
-					break;
-				default:
-					return `Flowrate`;
-			}
-			return `Flowrate (${unit})`;
-		},
-	};
-
 	return (
 		<DashSection heading={heading}>
 			{variables.map((v, i) => (
 				<Row
 					variable={v}
-					label={getLabel[v]()}
+					label={getDefaultUnitLabel(v)}
 					key={i}
 					hoverColumn={hoverColumn}
 					setHoverColumn={setHoverColumn}
