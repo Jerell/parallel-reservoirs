@@ -25,49 +25,106 @@ const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 	const [lxP, setLxP] = useState(0);
 	const [requestFailed, setRequestFailed] = useState(false);
 
-	const ref: any = useRef(null);
+	const statusRef: any = useRef(null);
 
 	const [datasets, setDatasets] = useState<any[]>([]);
 
-	async function requestLifeOfField(timestep) {
+	const getStatusQueryGetUri = async (reqBody) => {
+		const durableResponse = await fetch(
+			'https://pace-digital-twin.azurewebsites.net/api/orchestrators/LOFOrchestrator',
+			{
+				method: 'POST',
+				body: JSON.stringify(
+					reqBody as {
+						inlet: {
+							temperature: number;
+							flowrate: number;
+						};
+						reservoirPressures: {
+							HM: number;
+							HN: number;
+							LX: number;
+						};
+						timestep: number;
+						steps: number;
+					}
+				),
+			}
+		);
+		const durable = await durableResponse.json();
+		const { statusQueryGetUri } = durable;
+		return statusQueryGetUri;
+	};
+
+	const getReqBody = (timestep: number) => {
 		if ([inletQ, inletT, hmP, hnP, lxP].some((value) => !value)) {
 			setRequestFailed(true);
 			return;
 		}
 
-		ref.current.continuousStart();
+		return {
+			inlet: {
+				temperature: inletT,
+				flowrate: inletQ,
+			},
+			reservoirPressures: {
+				HM: hmP,
+				HN: hnP,
+				LX: lxP,
+			},
+			timestep,
+			steps: 5,
+		};
+	};
+
+	const tryQuery = async (url: string) => {
+		const query = await fetch(url);
+		return await query.json();
+	};
+
+	const pollingRef = useRef<any>();
+
+	async function requestLifeOfField(timestep: number) {
+		statusRef.current.continuousStart();
 		setRequestFailed(false);
 
-		const response = await fetch('/api/life-of-field', {
-			method: 'POST',
-			body: JSON.stringify({
-				inlet: {
-					temperature: inletT,
-					flowrate: inletQ,
-				},
-				reservoirPressures: {
-					HM: hmP,
-					HN: hnP,
-					LX: lxP,
-				},
-				timestep,
-				steps: 5,
-			}),
-		});
+		const reqBody = getReqBody(timestep);
+		const statusQueryGetUri = await getStatusQueryGetUri(reqBody);
 
-		ref.current.complete();
+		const recordResponse = (data) => {
+			clearInterval(pollingRef.current);
 
-		if (response.status !== 200) {
-			setRequestFailed(true);
-			return [];
+			const dataForTable = transformToPTQRows(data);
+			setDatasets([...datasets, dataForTable]);
+
+			statusRef.current.complete();
+		};
+
+		const firstQuery = await tryQuery(statusQueryGetUri);
+
+		switch (firstQuery.runtimeStatus) {
+			case 'Completed':
+				recordResponse(firstQuery.output);
+				return;
+			case 'Failed':
+				setRequestFailed(true);
+				return;
 		}
 
-		const data = await response.json();
-		console.log(data);
+		pollingRef.current = setInterval(async () => {
+			const pollingQuery = await tryQuery(statusQueryGetUri);
 
-		const dataForTable = transformToPTQRows(data.snapshots);
-		console.log(dataForTable);
-		setDatasets([...datasets, dataForTable]);
+			switch (pollingQuery.runtimeStatus) {
+				case 'Completed':
+					recordResponse(pollingQuery.output);
+					return;
+				case 'Failed':
+					clearInterval(pollingRef.current);
+					setRequestFailed(true);
+					statusRef.current.complete();
+					return;
+			}
+		}, 2000);
 	}
 
 	return (
@@ -131,7 +188,7 @@ const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 								text='30 days'
 							/>
 						</div>
-						<LoadingBar color='#39304A' ref={ref} height={10} />
+						<LoadingBar color='#39304A' ref={statusRef} height={10} />
 						{requestFailed && (
 							<Heading level={6} additionalClasses='mt-2 text-red-900'>
 								Request failed
