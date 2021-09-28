@@ -6,12 +6,23 @@ const LineChart = ({
 	data,
 	min = 0,
 	max = 100,
+	startDate = new Date(),
+	xIntervalDays = 7,
 }: {
 	data: number[];
 	min: number;
 	max: number;
+	startDate?: Date;
+	xIntervalDays?: number;
 }) => {
 	const ref = useRef<HTMLDivElement>(null);
+
+	const numToDate = (n: number) => {
+		if (!startDate) return new Date();
+		const newDate = new Date(startDate);
+		const addDays = (days: number) => newDate.setDate(newDate.getDate() + days);
+		return addDays(n * xIntervalDays);
+	};
 
 	function init() {
 		if (!ref.current) return;
@@ -34,15 +45,23 @@ const LineChart = ({
 
 		const axisPadding = 5;
 
-		const x = d3.scaleLinear().domain([1, data.length]).range([0, width]);
+		const x = d3
+			.scaleTime()
+			.domain([startDate, numToDate(data.length)])
+			.nice()
+			.range([0, width]);
 		const y = d3
 			.scaleLinear()
 			.domain([min - axisPadding, max + axisPadding])
+			.nice()
 			.range([height, 0]);
 
-		const xyData: [number, number][] = data.map((d, i) => [x(i + 1), y(d)]);
+		const xyData: [number, number][] = data.map((d, i) => [
+			x(numToDate(i)),
+			y(d),
+		]);
 
-		const xAxis = d3.axisBottom(x).ticks(data.length);
+		const xAxis = d3.axisBottom(x).ticks(5, '%b %Y');
 		const yAxis = d3.axisLeft(y).ticks(5);
 
 		const frame = svg

@@ -23,6 +23,9 @@ const UnitSelect = ({ type, selectUnit }) => {
 		case 'length':
 			options = ['m', 'km', 'mm'];
 			break;
+		case 'lof':
+			options = ['months', 'weeks'];
+			break;
 		default:
 			options = ['unit1', 'unit2'];
 	}
@@ -56,6 +59,8 @@ interface INIProps {
 	unitLeft?: boolean;
 	min?: number;
 	fn?: (n) => void;
+	unitFn?: (u) => void;
+	placeholder?: number;
 }
 
 const NumberInput = ({
@@ -67,10 +72,12 @@ const NumberInput = ({
 	unitLeft = false,
 	min = 0,
 	fn = (n) => {},
+	unitFn = (u) => {},
+	placeholder = 0,
 }: INIProps) => {
 	const [unitSelection, selectUnit] = useState('');
-	const [inputValue, setInputValue] = useState(0);
-	const [convertedValue, setConvertedValue] = useState(0);
+	const [inputValue, setInputValue] = useState(placeholder);
+	const [convertedValue, setConvertedValue] = useState(placeholder);
 
 	function convert(inputValue) {
 		switch (unitSelection) {
@@ -93,6 +100,11 @@ const NumberInput = ({
 
 	function handleChange(event) {
 		setInputValue(Number(event.target.value));
+	}
+
+	function handleUnitChange(u) {
+		selectUnit(u);
+		unitFn(u);
 	}
 
 	useEffect(() => {
@@ -123,7 +135,10 @@ const NumberInput = ({
 			>
 				{unit && <span className='inline-flex mx-1'>{unit}</span>}
 				{unitListType && (
-					<UnitSelect type={unitListType} selectUnit={selectUnit}></UnitSelect>
+					<UnitSelect
+						type={unitListType}
+						selectUnit={handleUnitChange}
+					></UnitSelect>
 				)}
 				<input
 					type='number'
@@ -133,6 +148,7 @@ const NumberInput = ({
 						unitLeft ? 'pl-2' : 'text-right'
 					}`}
 					onChange={handleChange}
+					placeholder={`${placeholder}`}
 				/>
 			</div>
 		</>

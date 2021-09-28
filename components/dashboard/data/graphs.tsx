@@ -20,6 +20,8 @@ const GraphRow = ({
 	hoverColumn,
 	setHoverColumn,
 	data,
+	startDate,
+	xIntervalDays,
 }) => {
 	const getValueInCorrectUnits = (rawValue) => {
 		switch (variable) {
@@ -63,7 +65,14 @@ const GraphRow = ({
 							setHoverColumn={setHoverColumn}
 						>
 							{/* {arrayToP(data[variable][i], (n: number) => n.toFixed(2))} */}
-							<LineChart key={i} data={getData(i)} min={min} max={max} />
+							<LineChart
+								key={i}
+								data={getData(i)}
+								min={min}
+								max={max}
+								startDate={startDate}
+								xIntervalDays={xIntervalDays}
+							/>
 						</FillerBox>
 					))}
 			</div>
@@ -76,6 +85,8 @@ const Graphs = ({
 	hoverColumn,
 	setHoverColumn,
 	data = dummyLOFData,
+	startDate = new Date('2024-08-01'),
+	xIntervalDays = 30,
 }) => {
 	return (
 		<DashSection heading={heading}>
@@ -86,6 +97,8 @@ const Graphs = ({
 					hoverColumn={hoverColumn}
 					setHoverColumn={setHoverColumn}
 					data={data}
+					startDate={startDate}
+					xIntervalDays={xIntervalDays}
 				/>
 			))}
 		</DashSection>

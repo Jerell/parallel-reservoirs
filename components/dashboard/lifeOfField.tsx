@@ -1,4 +1,3 @@
-import DataTable from './data/dataTable';
 import DashSection from './dashSection';
 import Button from '../buttons/button';
 import NumberInput from '../numberInput';
@@ -22,12 +21,25 @@ const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 	const [inletT, setInletT] = useState(0);
 	const [hmP, setHmP] = useState(0);
 	const [hnP, setHnP] = useState(0);
-	const [lxP, setLxP] = useState(0);
+	const [lxP, setLxP] = useState(1);
 	const [requestFailed, setRequestFailed] = useState(false);
-
+	const [steps, setSteps] = useState(12);
+	const [timestep, setTimestep] = useState(7);
+	const [datasets, setDatasets] = useState<any[]>([]);
 	const statusRef: any = useRef(null);
 
-	const [datasets, setDatasets] = useState<any[]>([]);
+	function selectInterval(timePeriod: string) {
+		switch (timePeriod) {
+			case 'months':
+				setTimestep(30);
+				break;
+			case 'weeks':
+				setTimestep(7);
+				break;
+			default:
+				setTimestep(30);
+		}
+	}
 
 	const getStatusQueryGetUri = async (reqBody) => {
 		const durableResponse = await fetch(
@@ -56,7 +68,7 @@ const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 		return statusQueryGetUri;
 	};
 
-	const getReqBody = (timestep: number) => {
+	const getReqBody = () => {
 		if ([inletQ, inletT, hmP, hnP, lxP].some((value) => !value)) {
 			setRequestFailed(true);
 			return;
@@ -73,7 +85,7 @@ const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 				LX: lxP,
 			},
 			timestep,
-			steps: 5,
+			steps,
 		};
 	};
 
@@ -84,17 +96,17 @@ const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 
 	const pollingRef = useRef<any>();
 
-	async function requestLifeOfField(timestep: number) {
+	async function requestLifeOfField() {
 		statusRef.current.continuousStart();
 		setRequestFailed(false);
 
-		const reqBody = getReqBody(timestep);
+		const reqBody = getReqBody();
 		const statusQueryGetUri = await getStatusQueryGetUri(reqBody);
 
 		const recordResponse = (data) => {
 			clearInterval(pollingRef.current);
 
-			const dataForTable = transformToPTQRows(data);
+			const dataForTable = transformToPTQRows(data, timestep);
 			setDatasets([...datasets, dataForTable]);
 
 			statusRef.current.complete();
@@ -173,20 +185,20 @@ const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 						/>
 					</InputSection>
 					<div className='col-span-full flex flex-col justify-center items-center p-4'>
-						<Heading level={6} additionalClasses={'mb-2 text-white'}>
-							Select interval
-						</Heading>
-						<div className='flex flex-row justify-center'>
-							<Button
-								fn={() => requestLifeOfField(7)}
-								additionalClasses={styles.timeStep}
-								text='7 days'
+						<div className='flex flex-row justify-center w-64'>
+							<NumberInput
+								label=''
+								labelClasses='text-white'
+								unitListType='lof'
+								fn={setSteps}
+								placeholder={steps}
+								unitFn={selectInterval}
 							/>
 							<Button
-								fn={() => requestLifeOfField(30)}
+								fn={() => requestLifeOfField()}
 								additionalClasses={styles.timeStep}
-								text='30 days'
 							/>
+							<div className='text-right'></div>
 						</div>
 						<LoadingBar color='#39304A' ref={statusRef} height={10} />
 						{requestFailed && (
@@ -203,7 +215,8 @@ const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 					heading={'Life of field results'}
 					hoverColumn={hoverColumn}
 					setHoverColumn={setHoverColumn}
-					data={data}
+					data={data[0]}
+					xIntervalDays={data[1]}
 					key={i}
 				/>
 			))}

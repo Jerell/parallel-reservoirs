@@ -21,7 +21,7 @@ const reshapeLifeOfField = (lof) => {
 	return reshaped;
 };
 
-export const transformToPTQRows = (lof) => {
+export const transformToPTQRows = (lof, timestep) => {
 	const reshaped = reshapeLifeOfField(lof);
 
 	const rows = Object.keys(reshaped).reduce(
@@ -34,7 +34,7 @@ export const transformToPTQRows = (lof) => {
 		{ pressure: [], temperature: [], flowrate: [] }
 	);
 
-	return rows;
+	return [rows, timestep];
 };
 
 export default reshapeLifeOfField;
