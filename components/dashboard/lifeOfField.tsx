@@ -47,9 +47,15 @@ const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 	const [hmP, setHmP] = useState(0);
 	const [hnP, setHnP] = useState(0);
 	const [lxP, setLxP] = useState(1);
+
+	const [hmWells, setHmWells] = useState(4);
+	const [hnWells, setHnWells] = useState(2);
+	const [lxWells, setLxWells] = useState(2);
+
+	const statusRef: any = useRef(null);
 	const [requestFailed, setRequestFailed] = useState(false);
 	const [datasets, setDatasets] = useState<any[]>([]);
-	const statusRef: any = useRef(null);
+
 	const [startDate, setStartDate] = useState(new Date('2024-06-01'));
 	const [endDate, setEndDate] = useState(new Date('2025-06-01'));
 
@@ -108,6 +114,13 @@ const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 			},
 			timestep,
 			steps,
+			wellOptions: {
+				split: {
+					HM: hmWells,
+					HN: hnWells,
+					LX: lxWells,
+				},
+			},
 		};
 	};
 
@@ -168,7 +181,7 @@ const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 					Initial conditions
 				</Heading>
 				<div className='grid grid-cols-8 bg-pace-grey pt-2'>
-					<InputSection classes={snapshotStyles.inlet}>
+					<InputSection classes={`col-start-1`}>
 						<NumberInput
 							label='Inlet Flowrate'
 							labelClasses='text-white'
@@ -182,7 +195,16 @@ const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 							fn={setInletT}
 						/>
 					</InputSection>
-					<InputSection classes={snapshotStyles.hm}>
+					<InputSection classes={`col-start-3`}>
+						<NumberInput
+							label='Wells'
+							labelClasses='text-white'
+							placeholder={hmWells}
+							step={1}
+							fn={setHmWells}
+						/>
+					</InputSection>
+					<InputSection classes={`col-start-4`}>
 						<NumberInput
 							label='Reservoir Pressure'
 							labelClasses='text-white'
@@ -190,7 +212,16 @@ const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 							fn={setHmP}
 						/>
 					</InputSection>
-					<InputSection classes={snapshotStyles.hn}>
+					<InputSection classes={`col-start-5`}>
+						<NumberInput
+							label='Wells'
+							labelClasses='text-white'
+							placeholder={hnWells}
+							step={1}
+							fn={setHnWells}
+						/>
+					</InputSection>
+					<InputSection classes={`col-start-6`}>
 						<NumberInput
 							label='Reservoir Pressure'
 							labelClasses='text-white'
@@ -198,7 +229,16 @@ const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 							fn={setHnP}
 						/>
 					</InputSection>
-					<InputSection classes={snapshotStyles.lx}>
+					<InputSection classes={`col-start-7`}>
+						<NumberInput
+							label='Wells'
+							labelClasses='text-white'
+							placeholder={lxWells}
+							step={1}
+							fn={setLxWells}
+						/>
+					</InputSection>
+					<InputSection classes={`col-start-8`}>
 						<NumberInput
 							label='Reservoir Pressure'
 							labelClasses='text-white'
