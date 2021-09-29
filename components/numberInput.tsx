@@ -61,6 +61,7 @@ interface INIProps {
 	fn?: (n) => void;
 	unitFn?: (u) => void;
 	placeholder?: number;
+	step?: number;
 }
 
 const NumberInput = ({
@@ -74,6 +75,7 @@ const NumberInput = ({
 	fn = (n) => {},
 	unitFn = (u) => {},
 	placeholder = 0,
+	step = 0.1,
 }: INIProps) => {
 	const [unitSelection, selectUnit] = useState('');
 	const [inputValue, setInputValue] = useState(placeholder);
@@ -149,6 +151,7 @@ const NumberInput = ({
 					}`}
 					onChange={handleChange}
 					placeholder={`${placeholder}`}
+					step={step}
 				/>
 			</div>
 		</>
