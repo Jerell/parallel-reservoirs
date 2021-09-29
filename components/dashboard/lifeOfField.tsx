@@ -3,16 +3,41 @@ import Button from '../buttons/button';
 import NumberInput from '../numberInput';
 import snapshotStyles from './snapshot.module.css';
 import styles from './lifeOfField.module.css';
-import { useState, useRef } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import fetch from 'node-fetch';
 import LoadingBar from 'react-top-loading-bar';
 import Heading from '../heading';
 import Graphs from '@/components/dashboard/data/graphs';
 import { transformToPTQRows } from '@/public/utils/api/reshapeLifeOfField';
+import DateSelect from '../dateSelect';
+import { daysApart, weeksApart, monthsApart } from '@/public/utils/timeApart';
 
 const InputSection = ({ children, classes = '' }) => {
 	return (
 		<div className={`relative px-2 flex flex-col ${classes}`}>{children}</div>
+	);
+};
+
+const IntervalButton = ({
+	num,
+	label,
+	fn = () => {},
+}: {
+	num: number;
+	label: string;
+	fn?: () => void;
+}) => {
+	const isDisabled = num > 1000;
+	return (
+		<Button
+			fn={() => {
+				if (isDisabled) return;
+				fn();
+			}}
+			additionalClasses={`${styles.timeStep}`}
+			text={`${num} ${label}`}
+			disabled={isDisabled}
+		/>
 	);
 };
 
@@ -23,23 +48,20 @@ const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 	const [hnP, setHnP] = useState(0);
 	const [lxP, setLxP] = useState(1);
 	const [requestFailed, setRequestFailed] = useState(false);
-	const [steps, setSteps] = useState(12);
-	const [timestep, setTimestep] = useState(7);
 	const [datasets, setDatasets] = useState<any[]>([]);
 	const statusRef: any = useRef(null);
+	const [startDate, setStartDate] = useState(new Date('2024-06-01'));
+	const [endDate, setEndDate] = useState(new Date('2025-06-01'));
 
-	function selectInterval(timePeriod: string) {
-		switch (timePeriod) {
-			case 'months':
-				setTimestep(30);
-				break;
-			case 'weeks':
-				setTimestep(7);
-				break;
-			default:
-				setTimestep(30);
-		}
-	}
+	const [days, setDays] = useState(0);
+	const [weeks, setWeeks] = useState(0);
+	const [months, setMonths] = useState(0);
+
+	useEffect(() => {
+		setDays(daysApart(startDate, endDate));
+		setWeeks(weeksApart(startDate, endDate));
+		setMonths(monthsApart(startDate, endDate));
+	}, [startDate, endDate]);
 
 	const getStatusQueryGetUri = async (reqBody) => {
 		const durableResponse = await fetch(
@@ -68,7 +90,7 @@ const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 		return statusQueryGetUri;
 	};
 
-	const getReqBody = () => {
+	const getReqBody = (timestep: number, steps: number) => {
 		if ([inletQ, inletT, hmP, hnP, lxP].some((value) => !value)) {
 			setRequestFailed(true);
 			return;
@@ -96,11 +118,11 @@ const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 
 	const pollingRef = useRef<any>();
 
-	async function requestLifeOfField() {
+	async function requestLifeOfField(timestep: number, steps: number) {
 		statusRef.current.continuousStart();
 		setRequestFailed(false);
 
-		const reqBody = getReqBody();
+		const reqBody = getReqBody(timestep, steps);
 		const statusQueryGetUri = await getStatusQueryGetUri(reqBody);
 
 		const recordResponse = (data) => {
@@ -185,27 +207,48 @@ const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 						/>
 					</InputSection>
 					<div className='col-span-full flex flex-col justify-center items-center p-4'>
-						<div className='flex flex-row justify-center w-64'>
-							<NumberInput
-								label=''
-								labelClasses='text-white'
-								unitListType='lof'
-								fn={setSteps}
-								placeholder={steps}
-								unitFn={selectInterval}
-							/>
-							<Button
-								fn={() => requestLifeOfField()}
-								additionalClasses={styles.timeStep}
-							/>
-							<div className='text-right'></div>
-						</div>
-						<LoadingBar color='#39304A' ref={statusRef} height={10} />
 						{requestFailed && (
-							<Heading level={6} additionalClasses='mt-2 text-red-900'>
+							<Heading level={6} additionalClasses='mt-2 text-red-400'>
 								Request failed
 							</Heading>
 						)}
+						<div className='m-2 flex flex-row justify-end'>
+							<DateSelect
+								label='Start'
+								labelClasses='text-white w-10'
+								placeholder={startDate}
+								fn={setStartDate}
+							/>
+						</div>
+						<div className='m-2 flex flex-row justify-end'>
+							<DateSelect
+								label='End'
+								labelClasses='text-white w-10'
+								placeholder={endDate}
+								fn={setEndDate}
+							/>
+						</div>
+						<Heading level={6} additionalClasses='mt-2 text-white'>
+							Select interval
+						</Heading>
+						<div className='flex flex-row justify-center mt-2'>
+							<IntervalButton
+								num={days}
+								label={'days'}
+								fn={() => requestLifeOfField(1, days)}
+							/>
+							<IntervalButton
+								num={weeks}
+								label={'weeks'}
+								fn={() => requestLifeOfField(7, weeks)}
+							/>
+							<IntervalButton
+								num={months}
+								label={'months'}
+								fn={() => requestLifeOfField(30, months)}
+							/>
+						</div>
+						<LoadingBar color='#39304A' ref={statusRef} height={10} />
 					</div>
 				</div>
 			</DashSection>
@@ -218,6 +261,7 @@ const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 					data={data[0]}
 					xIntervalDays={data[1]}
 					key={i}
+					startDate={startDate}
 				/>
 			))}
 		</>

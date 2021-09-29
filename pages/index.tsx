@@ -1,7 +1,6 @@
 import Page from '@/components/page';
 import Heading from '@/components/heading';
 import Map from '@/components/dashboard/map';
-import Graphs from '@/components/dashboard/data/graphs';
 import { useState } from 'react';
 import { useSession, signIn, signOut } from 'next-auth/client';
 import SignedOutBanner from '@/components/signedOutBanner';
@@ -37,7 +36,6 @@ const Index = () => {
 
 			<Snapshot hoverColumn={hoverColumn} setHoverColumn={setHoverColumn} />
 			<LifeOfField hoverColumn={hoverColumn} setHoverColumn={setHoverColumn} />
-			{/* <Graphs hoverColumn={hoverColumn} setHoverColumn={setHoverColumn} /> */}
 		</Page>
 	);
 };

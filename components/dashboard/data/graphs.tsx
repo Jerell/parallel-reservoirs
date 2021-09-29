@@ -85,7 +85,7 @@ const Graphs = ({
 	hoverColumn,
 	setHoverColumn,
 	data = dummyLOFData,
-	startDate = new Date('2024-08-01'),
+	startDate = new Date('2024-06-01'),
 	xIntervalDays = 30,
 }) => {
 	return (
