@@ -146,7 +146,7 @@ const NumberInput = ({
 					type='number'
 					min={min}
 					name={label}
-					className={`w-1 focus:outline-none flex-grow min-w-min h- ${
+					className={`w-1 focus:outline-none flex-grow h- ${
 						unitLeft ? 'pl-2' : 'text-right'
 					}`}
 					onChange={handleChange}
