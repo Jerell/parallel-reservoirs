@@ -117,6 +117,13 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 						)}
 					</div>
 				</div>
+				<Heading level={6}>Valve - Valve name</Heading>
+				<div className='grid grid-cols-4 pl-6 w-1/2'>
+					<p>Inlet temperature: __ °C</p>
+					<p>Outlet temperature: __ °C</p>
+					<p>Inlet pressure: __ Bar</p>
+					<p>Outlet pressure: __ Bar</p>
+				</div>
 			</DashSection>
 
 			{datasets.map((data, i) => (

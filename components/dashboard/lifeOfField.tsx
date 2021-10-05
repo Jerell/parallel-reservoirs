@@ -304,6 +304,18 @@ const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 					startDate={startDate}
 				/>
 			))}
+
+			<Heading level={6}>Valve - Valve name</Heading>
+			<div className='grid grid-cols-4 pl-6 w-1/2'>
+				<p>Maximum Inlet temperature: __ °C</p>
+				<p>Maximum Outlet temperature: __ °C</p>
+				<p>Maximum Inlet pressure: __ Bar</p>
+				<p>Maximum Outlet pressure: __ Bar</p>
+				<p>Minimum Inlet temperature: __ °C</p>
+				<p>Minimum Outlet temperature: __ °C</p>
+				<p>Minimum Inlet pressure: __ Bar</p>
+				<p>Minimum Outlet pressure: __ Bar</p>
+			</div>
 		</>
 	);
 };
