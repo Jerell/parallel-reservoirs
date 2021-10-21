@@ -3,7 +3,7 @@ import { useRouter } from 'next/router';
 import Heading from '@/components/heading';
 
 const links = [
-	// { label: 'Demo', href: '/demo' },
+	{ label: 'Components', href: '/components' },
 	// { label: 'P3', href: '/p3' },
 ];
 
@@ -26,10 +26,10 @@ const Appbar = () => {
 								{links.map(({ label, href }) => (
 									<Link key={label} href={href}>
 										<a
-											className={`text-sm ${
+											className={`text-sm hover:text-pace-violet ${
 												router.pathname === href
-													? 'text-pace-grey'
-													: 'text-white hover:text-pace-violet dark:text-gray-400 dark:hover:text-gray-50'
+													? 'text-pace-raisin'
+													: 'text-white '
 											}`}
 										>
 											{label}

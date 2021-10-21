@@ -30,7 +30,7 @@ const Page = ({
 			 * Padding bottom = `bottom-nav` height
 			 */
 			className={`mx-auto ${noPadding ? '' : 'pt-20 pb-16'} ${
-				fullWidth ? 'h-screen' : 'max-w-screen-md'
+				fullWidth ? 'h-screen' : 'max-w-screen-xl'
 			}`}
 		>
 			<div className={`${fullWidth ? 'h-full' : 'p-6'}`}>{children}</div>

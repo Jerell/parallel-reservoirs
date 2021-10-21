@@ -40,3 +40,18 @@ body {
 		stroke-dashoffset: 100;
 	}
 }
+
+
+.property-display, .property-display::before, .property-display::after {
+	transition: all 0.1s;
+}
+
+.property-display, .property-display * {
+	@apply bg-gradient-to-r from-pace-green to-pace-pine bg-clip-text opacity-90;
+	-webkit-text-fill-color: transparent;
+	-moz-text-fill-color: transparent;
+}
+
+.rtl{
+	direction: rtl;
+}

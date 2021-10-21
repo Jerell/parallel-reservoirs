@@ -13,6 +13,7 @@ module.exports = {
 					raisin: '#202030',
 					violet: '#39304A',
 					grey: '#5a5a5a',
+					pine: '#0B7A75',
 				},
 			},
 		},
