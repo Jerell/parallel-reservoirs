@@ -65,9 +65,46 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 		setDatasets([...datasets, dataForTable]);
 	}
 
+	const preset = {
+		dayOne: () => {
+			setInletQ(150.3);
+			setInletT(50);
+			setHmP(40.7);
+			setHnP(35.5);
+			setLxP(37.4);
+		},
+		turnDown: () => {
+			setInletQ(75.15);
+			setInletT(50);
+			setHmP(40.7);
+			setHnP(35.5);
+			setLxP(37.4);
+		},
+	};
+
 	return (
 		<>
 			<DashSection heading='snapshot'>
+				<Heading
+					level={5}
+					additionalClasses={'bg-pace-raisin text-white py-1 w-full'}
+				>
+					Presets
+				</Heading>
+				<div className='flex px-2 space-x-2 py-2 bg-pace-grey'>
+					<Button text='Day 1' fn={preset.dayOne} />
+					<Button
+						text='Turn down'
+						additionalClasses='w-36'
+						fn={preset.turnDown}
+					/>
+				</div>
+				<Heading
+					level={5}
+					additionalClasses={'bg-pace-raisin text-white py-1 w-full'}
+				>
+					Initial conditions
+				</Heading>
 				<div className='grid grid-cols-8 bg-pace-grey pt-2'>
 					<InputSection classes={styles.inlet}>
 						<NumberInput
@@ -75,12 +112,14 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 							labelClasses='text-white'
 							unitListType='flowrate'
 							fn={setInletQ}
+							value={inletQ}
 						/>
 						<NumberInput
 							label='Inlet Temperature'
 							labelClasses='text-white'
 							unitListType='temperature'
 							fn={setInletT}
+							value={inletT}
 						/>
 					</InputSection>
 					<InputSection classes={styles.hm}>
@@ -89,6 +128,7 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 							labelClasses='text-white'
 							unitListType='pressure'
 							fn={setHmP}
+							value={hmP}
 						/>
 					</InputSection>
 					<InputSection classes={styles.hn}>
@@ -97,6 +137,7 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 							labelClasses='text-white'
 							unitListType='pressure'
 							fn={setHnP}
+							value={hnP}
 						/>
 					</InputSection>
 					<InputSection classes={styles.lx}>
@@ -105,6 +146,7 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 							labelClasses='text-white'
 							unitListType='pressure'
 							fn={setLxP}
+							value={lxP}
 						/>
 					</InputSection>
 					<div className='col-span-full flex flex-col justify-center items-center p-4'>
@@ -117,13 +159,13 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 						)}
 					</div>
 				</div>
-				<Heading level={6}>Valve - Valve name</Heading>
+				{/* <Heading level={6}>Valve - Valve name</Heading>
 				<div className='grid grid-cols-4 pl-6 w-1/2'>
 					<p>Inlet temperature: __ °C</p>
 					<p>Outlet temperature: __ °C</p>
 					<p>Inlet pressure: __ Bar</p>
 					<p>Outlet pressure: __ Bar</p>
-				</div>
+				</div> */}
 			</DashSection>
 
 			{datasets.map((data, i) => (
