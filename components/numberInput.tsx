@@ -18,7 +18,7 @@ const UnitSelect = ({ type, selectUnit }) => {
 			options = ['°C', 'K'];
 			break;
 		case 'flowrate':
-			options = ['MTPA', 'kg/s'];
+			options = ['kg/s', 'MTPA'];
 			break;
 		case 'length':
 			options = ['m', 'km', 'mm'];
@@ -122,6 +122,10 @@ const NumberInput = ({
 	useEffect(() => {
 		fn(convertedValue);
 	}, [convertedValue]);
+
+	useEffect(() => {
+		setConvertedValue(placeholder);
+	}, [placeholder]);
 
 	return (
 		<>

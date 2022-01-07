@@ -23,6 +23,12 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 	const [lxP, setLxP] = useState(0);
 	const [requestFailed, setRequestFailed] = useState(false);
 
+	const [inletQplaceholder, setInletQplaceholder] = useState(0);
+	const [inletTplaceholder, setInletTplaceholder] = useState(0);
+	const [hmPplaceholder, setHmPplaceholder] = useState(0);
+	const [hnPplaceholder, setHnPplaceholder] = useState(0);
+	const [lxPplaceholder, setLxPplaceholder] = useState(0);
+
 	const ref: any = useRef(null);
 
 	const [datasets, setDatasets] = useState<any[]>([]);
@@ -67,18 +73,18 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 
 	const preset = {
 		dayOne: () => {
-			setInletQ(150.3);
-			setInletT(50);
-			setHmP(40.7);
-			setHnP(35.5);
-			setLxP(37.4);
+			setInletQplaceholder(150.3);
+			setInletTplaceholder(50);
+			setHmPplaceholder(40.7);
+			setHnPplaceholder(35.5);
+			setLxPplaceholder(37.4);
 		},
 		turnDown: () => {
-			setInletQ(75.15);
-			setInletT(50);
-			setHmP(40.7);
-			setHnP(35.5);
-			setLxP(37.4);
+			setInletQplaceholder(75.15);
+			setInletTplaceholder(50);
+			setHmPplaceholder(40.7);
+			setHnPplaceholder(35.5);
+			setLxPplaceholder(37.4);
 		},
 	};
 
@@ -113,6 +119,7 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 							unitListType='flowrate'
 							fn={setInletQ}
 							value={inletQ}
+							placeholder={inletQplaceholder}
 						/>
 						<NumberInput
 							label='Inlet Temperature'
@@ -120,6 +127,7 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 							unitListType='temperature'
 							fn={setInletT}
 							value={inletT}
+							placeholder={inletTplaceholder}
 						/>
 					</InputSection>
 					<InputSection classes={styles.hm}>
@@ -129,6 +137,7 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 							unitListType='pressure'
 							fn={setHmP}
 							value={hmP}
+							placeholder={hmPplaceholder}
 						/>
 					</InputSection>
 					<InputSection classes={styles.hn}>
@@ -138,6 +147,7 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 							unitListType='pressure'
 							fn={setHnP}
 							value={hnP}
+							placeholder={hnPplaceholder}
 						/>
 					</InputSection>
 					<InputSection classes={styles.lx}>
@@ -147,6 +157,7 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 							unitListType='pressure'
 							fn={setLxP}
 							value={lxP}
+							placeholder={lxPplaceholder}
 						/>
 					</InputSection>
 					<div className='col-span-full flex flex-col justify-center items-center p-4'>
