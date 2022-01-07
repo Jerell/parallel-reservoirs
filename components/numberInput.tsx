@@ -153,7 +153,6 @@ const NumberInput = ({
 					}`}
 					onChange={handleChange}
 					placeholder={`${placeholder}`}
-					value={value ? value : undefined}
 					step={step}
 				/>
 			</div>
