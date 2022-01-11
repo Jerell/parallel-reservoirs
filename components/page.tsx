@@ -22,7 +22,7 @@ const Page = ({
 			</Head>
 		) : null}
 
-		<Appbar />
+		{/* <Appbar /> */}
 
 		<main
 			/**

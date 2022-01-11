@@ -35,7 +35,7 @@ const IntervalButton = ({
 				fn();
 			}}
 			additionalClasses={`${styles.timeStep}`}
-			text={`${num} ${label}`}
+			text={`${label} (${num})`}
 			disabled={isDisabled}
 		/>
 	);
@@ -208,11 +208,11 @@ const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 				</Heading>
 				<div className='flex px-2 space-x-2 py-2 bg-pace-grey'>
 					<Button text='Day 1' fn={preset.dayOne} />
-					<Button
+					{/* <Button
 						text='Turn down'
 						additionalClasses='w-36'
 						fn={preset.turnDown}
-					/>
+					/> */}
 				</div>
 				<Heading level={5} additionalClasses={'bg-pace-raisin text-white py-1'}>
 					Initial conditions
@@ -294,17 +294,17 @@ const LifeOfField = ({ hoverColumn, setHoverColumn }) => {
 						<div className='flex flex-row justify-center mt-2'>
 							<IntervalButton
 								num={days}
-								label={'days'}
+								label={'daily'}
 								fn={() => requestLifeOfField(1, days)}
 							/>
 							<IntervalButton
 								num={weeks}
-								label={'weeks'}
+								label={'weekly'}
 								fn={() => requestLifeOfField(7, weeks)}
 							/>
 							<IntervalButton
 								num={months}
-								label={'months'}
+								label={'monthly'}
 								fn={() => requestLifeOfField(30, months)}
 							/>
 						</div>

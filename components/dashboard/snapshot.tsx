@@ -99,11 +99,11 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 				</Heading>
 				<div className='flex px-2 space-x-2 py-2 bg-pace-grey'>
 					<Button text='Day 1' fn={preset.dayOne} />
-					<Button
+					{/* <Button
 						text='Turn down'
 						additionalClasses='w-36'
 						fn={preset.turnDown}
-					/>
+					/> */}
 				</div>
 				<Heading
 					level={5}

@@ -1,6 +1,6 @@
 <svg viewBox="0 0 193.207 67.264" xmlns="http://www.w3.org/2000/svg" font-family="Raleway">
    <text x="89.546" y="30.816" font-weight="700" font-size="3.528" stroke-width="0.265" transform="translate(-21.299 -4.636)">
-      <tspan x="89.546" y="30.816" text-anchor="end">Hamilton</tspan>
+      <tspan x="89.546" y="30.816" text-anchor="end">Reservoir 1</tspan>
       <tspan x="89.546" y="34.391" text-anchor="end">Wellhead</tspan>
    </text>
    <g fill="none" stroke="#7d80da" stroke-width="1.323">
@@ -9,11 +9,11 @@
    <g transform="translate(-11.274 -4.636)">
       <circle cx="96.112" cy="62.215" fill="#fff" stroke="#000" stroke-width="0.688" stroke-linecap="round" r="2.293"></circle>
       <text style="line-height:1.25" x="96.058" y="68.781" font-weight="700" font-size="3.528" stroke-width="0.265">
-         <tspan x="96.058" y="68.781" text-anchor="middle">Hamilton</tspan>
+         <tspan x="96.058" y="68.781" text-anchor="middle">Reservoir 1</tspan>
       </text>
    </g>
    <text x="119.251" y="22.888" font-weight="700" font-size="2.822" stroke-width="0.265" transform="translate(-.661 -5.127)">
-      <tspan x="119.251" y="22.888" text-anchor="end">Hamilton North</tspan>
+      <tspan x="119.251" y="22.888" text-anchor="end">Reservoir 2</tspan>
       <tspan x="119.251" y="25.748" text-anchor="end">Wellhead</tspan>
    </text>
    <path class="path" d="m 36.38,11.277 h 83.344 c 1.33,-0.006 2.716,-0.049 4.03,1.283 l 7.876,7.977 c 1.376,1.282 2.646,2.646 2.646,3.97 v 31.75" fill="none" stroke="#f0386b" stroke-width="1.323"></path>
@@ -21,19 +21,18 @@
    <g transform="translate(-2.632 -5.127)">
       <circle cx="136.981" cy="62.216" fill="#fff" stroke="#000" stroke-width="0.688" stroke-linecap="round" r="2.293"></circle>
       <text x="137.049" y="68.781" font-weight="700" font-size="3.528" stroke-width="0.265">
-         <tspan x="137.049" y="68.781" text-anchor="middle">Hamilton</tspan>
-         <tspan x="137.049" y="72.356" text-anchor="middle">North</tspan>
+         <tspan x="137.049" y="68.781" text-anchor="middle">Reservoir 2</tspan>
       </text>
    </g>
    <text x="142.598" y="10.698" font-weight="700" font-size="3.528" stroke-width="0.265" transform="translate(20.505 -4.625)">
-      <tspan x="142.598" y="10.698" text-anchor="end">Lennox</tspan>
+      <tspan x="142.598" y="10.698" text-anchor="end">Reservoir 3</tspan>
       <tspan x="142.598" y="14.273" text-anchor="end">Wellhead</tspan>
    </text>
    <path class="path reverse-anim" d="M181.901 57.579V5.985c.005-1.32 0-2.646-1.323-3.969C179.19.628 177.932.694 176.61.694c0 0-85.036-.035-85.988-.032-1.324.004-2.647.004-4.002 1.36l-6.583 6.582c-1.322 1.323-2.645 1.323-3.968 1.323h-3.969l-35.719.027" fill="none" stroke="#6b2d5c" stroke-width="1.323"></path>
    <g transform="translate(20.505 -4.625)">
       <circle cx="161.449" cy="62.216" fill="#fff" stroke="#000" stroke-width="0.688" stroke-linecap="round" r="2.293"></circle>
       <text x="161.464" y="68.781" font-weight="700" font-size="3.528" stroke-width="0.265">
-         <tspan x="161.464" y="68.781" text-anchor="middle">Lennox</tspan>
+         <tspan x="161.464" y="68.781" text-anchor="middle">Reservoir 3</tspan>
       </text>
    </g>
    <path d="M160.734 1.345v1.174" fill="none" stroke="#6b2d5c" stroke-width="1.323"></path>
@@ -48,8 +47,7 @@
       <g transform="translate(-34.821 -4.465)">
          <circle cx="71.406" cy="15.913" fill="#fff" stroke="#000" stroke-width="0.688" stroke-linecap="round" r="2.293"></circle>
          <text x="71.328" y="9.249" font-weight="700" font-size="3.528" stroke-width="0.265">
-            <tspan x="71.328" y="9.249" text-anchor="middle">Douglas</tspan>
-            <tspan x="71.328" y="12.823" text-anchor="middle">Manifold</tspan>
+            <tspan x="71.328" y="11.923" text-anchor="middle">Manifold</tspan>
          </text>
       </g>
       <path d="M3.307 17.56l9.26 3.088v3.858l-9.26 3.087z" fill="none" stroke="#000" stroke-width="1.323"></path>

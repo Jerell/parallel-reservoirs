@@ -24,13 +24,13 @@ const LocationLabel = ({ children, index = 0, isHovered, setHoverColumn }) => {
 const Map = ({ hoverColumn, setHoverColumn }) => {
 	const locations = [
 		'Compressor',
-		'Douglas Manifold',
-		'Hamilton Wellhead',
-		'HAMILTON',
-		'Hamilton North Wellhead',
-		'HAMILTON NORTH',
-		'Lennox Wellhead',
-		'LENNOX',
+		'Manifold',
+		'Reservoir 1 Wellhead',
+		'Reservoir 1',
+		'Reservoir 2 Wellhead',
+		'Reservoir 2',
+		'Reservoir 3 Wellhead',
+		'Reservoir 3',
 	];
 
 	return (
