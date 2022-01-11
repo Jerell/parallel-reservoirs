@@ -16,9 +16,9 @@ module.exports = {
 					pine: '#0B7A75',
 				},
 			},
-		},
-		zIndex: {
-			negative: -1,
+			zIndex: {
+				negative: -1,
+			},
 		},
 	},
 	plugins: [require('tailwindcss-safe-area')],

@@ -2,24 +2,7 @@ import MapSvg from '@/public/images/map.svg';
 import Heading from '@/components/heading';
 import FillerBox from '@/components/dashboard/fillerBox';
 import DashSection from './dashSection';
-
-const LocationLabel = ({ children, index = 0, isHovered, setHoverColumn }) => {
-	function handleMouseOver() {
-		setHoverColumn(index);
-	}
-	return (
-		<div
-			className={`${
-				index % 2 || isHovered ? 'bg-gray-400' : 'bg-gray-300'
-			} bg-opacity-${isHovered ? 30 : 20}`}
-			onMouseOver={handleMouseOver}
-		>
-			<Heading level={3} center>
-				{children}
-			</Heading>
-		</div>
-	);
-};
+import LocationLabel from './LocationLabel';
 
 const Map = ({ hoverColumn, setHoverColumn }) => {
 	const locations = [
@@ -57,7 +40,7 @@ const Map = ({ hoverColumn, setHoverColumn }) => {
 						))}
 				</div>
 			</div>
-			<div className='grid grid-cols-8 relative'>
+			{/* <div className='grid grid-cols-8 sticky'>
 				{locations.map((loc, i) => (
 					<LocationLabel
 						key={i}
@@ -68,7 +51,7 @@ const Map = ({ hoverColumn, setHoverColumn }) => {
 						{loc}
 					</LocationLabel>
 				))}
-			</div>
+			</div> */}
 		</DashSection>
 	);
 };
