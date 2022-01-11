@@ -9,7 +9,11 @@ export default function DateSelect({
 }) {
 	const [date, setDate] = useState(placeholder);
 	const yyyymmdd = (d: Date) => {
-		return d.toISOString().split('T')[0];
+		try {
+			return d.toISOString().split('T')[0];
+		} catch (error) {
+			console.log(`invalid date: ${d}`);
+		}
 	};
 
 	useEffect(() => {
@@ -28,6 +32,7 @@ export default function DateSelect({
 			</label>
 			<input
 				type='date'
+				autoComplete='off'
 				className='min-w-min inline-flex border border-green-300 focus-within:ring-green-100 focus-within:ring focus-within:border-green-500 focus:outline-none'
 				onChange={(e) => setDate(e.target.value)}
 				defaultValue={yyyymmdd(placeholder)}
