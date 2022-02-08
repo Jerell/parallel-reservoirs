@@ -8,6 +8,14 @@ import fetch from 'node-fetch';
 import LoadingBar from 'react-top-loading-bar';
 import Heading from '../heading';
 import reshapeSnapshot from '@/public/utils/api/reshapeSnapshot';
+import {
+	Pressure,
+	PressureUnits,
+	Temperature,
+	TemperatureUnits,
+	Flowrate,
+	FlowrateUnits,
+} from 'physical-quantities';
 
 const InputSection = ({ children, classes = '' }) => {
 	return (
@@ -57,8 +65,6 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 			}),
 		});
 
-		ref.current.complete();
-
 		if (response.status !== 200) {
 			setRequestFailed(true);
 			return [];
@@ -66,9 +72,54 @@ const Snapshot = ({ hoverColumn, setHoverColumn }) => {
 
 		const data = await response.json();
 
+		console.log(data);
+
+		async function getTemp(p1: number, p2: number, t1: number) {
+			const t = new Temperature(t1, TemperatureUnits.Kelvin).celsius;
+			const res = await fetch(
+				'https://dtcomponent.azurewebsites.net/api/Valve',
+				{
+					method: 'POST',
+					body: JSON.stringify({
+						p1: p1,
+						t1: t,
+						p2: p2,
+						fluid: '100% CO2',
+					}),
+				}
+			);
+			const json = await res.json();
+			return json.outletTemp;
+		}
+
+		// temperature change
+		async function updateTemperature(key0, key1) {
+			data.keyPoints[key1].temperature = new Temperature(
+				await getTemp(
+					data.keyPoints[key0].pressure._pascal,
+					data.keyPoints[key1].pressure._pascal,
+					data.keyPoints[key0].temperature._kelvin
+				),
+				TemperatureUnits.Celsius
+			);
+		}
+
+		await updateTemperature('POA', 'Douglas Manifold');
+		const newTemp2 = updateTemperature('Douglas Manifold', 'HM1');
+		const newTemp3 = updateTemperature('Douglas Manifold', 'HN1');
+		const newTemp4 = updateTemperature('Douglas Manifold', 'LX1');
+		await Promise.all([newTemp2, newTemp3, newTemp4]);
+
+		const newTemp5 = updateTemperature('HM1', 'Hamilton');
+		const newTemp6 = updateTemperature('HN1', 'Hamilton North');
+		const newTemp7 = updateTemperature('LX1', 'Lennox');
+		await Promise.all([newTemp5, newTemp6, newTemp7]);
+
 		const dataForTable = reshapeSnapshot(data);
 		console.log(dataForTable);
 		setDatasets([...datasets, dataForTable]);
+
+		ref.current.complete();
 	}
 
 	const preset = {

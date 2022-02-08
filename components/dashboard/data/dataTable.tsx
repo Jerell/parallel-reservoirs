@@ -9,6 +9,7 @@ import {
 } from 'physical-quantities';
 
 import getDefaultUnitLabel from '@/public/utils/selectDefaultUnitLabel';
+import { PTGraph } from '@/components/vis/PTGraph';
 
 const dummy = [
 	{ pressure: 35.7, temperature: 27, flowrate: 1.0 }, // Compressor
@@ -87,6 +88,30 @@ const DataTable = ({
 		flowrate: FlowrateUnits.MTPA,
 	};
 
+	const getLine = (i0, i1): [number, number][] => {
+		const getXY = (point): [number, number] => {
+			return [
+				new Temperature(point.temperature, TemperatureUnits.Kelvin).celsius,
+				new Pressure(point.pressure, PressureUnits.Pascal).bara,
+			];
+		};
+
+		const points = [getXY(data[i0]), getXY(data[i1])];
+		return points;
+	};
+
+	const lines = [
+		getLine(0, 1),
+		getLine(1, 2),
+		getLine(1, 4),
+		getLine(1, 6),
+		getLine(2, 3),
+		getLine(4, 5),
+		getLine(6, 7),
+	];
+
+	console.log(lines);
+
 	return (
 		<DashSection heading={heading}>
 			{variables.map((v, i) => (
@@ -100,6 +125,18 @@ const DataTable = ({
 					unit={units[v]}
 				/>
 			))}
+			<PTGraph
+				lines={lines}
+				lineOptions={[
+					{ animated: true, color: 'black' },
+					{ animated: true, color: '#7d80da' },
+					{ animated: true, color: '#f0386b' },
+					{ animated: true, color: '#6b2d5c' },
+					{ animated: true, color: '#7d80da' },
+					{ animated: true, color: '#f0386b' },
+					{ animated: true, color: '#6b2d5c' },
+				]}
+			/>
 		</DashSection>
 	);
 };

@@ -1,0 +1,45 @@
+.axisLabel {
+	fill: black;
+	font-size: 16px;
+}
+
+.line {
+	fill: none;
+	stroke: #202030;
+	stroke-width: 2.5;
+	stroke-linejoin: round;
+	stroke-linecap: round;
+}
+
+.fixedLine {
+	stroke: red;
+	stroke-width: 1px;
+}
+
+.user {
+	stroke-width: 1px;
+	stroke: #bffff1;
+}
+
+.diagonal {
+	stroke: #202030;
+}
+
+.animated {
+	stroke-dasharray: 20 5;
+	animation: dash 5s linear infinite;
+}
+
+@keyframes dash {
+	from {
+		stroke-dashoffset: 100;
+	}
+}
+
+.critical {
+	stroke: #7c77b9;
+}
+
+.supercritical {
+	fill: #bffff1;
+}
