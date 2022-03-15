@@ -11,6 +11,8 @@ const reshapeSnapshot = (snapshot) => {
 		};
 	});
 
+	console.log(reshaped);
+
 	return reshaped;
 };
 
